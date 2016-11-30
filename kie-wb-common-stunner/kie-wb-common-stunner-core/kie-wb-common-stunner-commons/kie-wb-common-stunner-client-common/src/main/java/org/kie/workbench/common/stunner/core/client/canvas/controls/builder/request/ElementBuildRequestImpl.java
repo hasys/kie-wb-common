@@ -17,7 +17,6 @@
 package org.kie.workbench.common.stunner.core.client.canvas.controls.builder.request;
 
 import org.kie.workbench.common.stunner.core.client.canvas.AbstractCanvasHandler;
-import org.kie.workbench.common.stunner.core.client.shape.factory.ShapeFactory;
 
 public final class ElementBuildRequestImpl extends AbstractBuildRequest
         implements ElementBuildRequest<AbstractCanvasHandler> {
@@ -35,5 +34,4 @@ public final class ElementBuildRequestImpl extends AbstractBuildRequest
         super( x, y );
         this.definition = definition;
     }
-
 }

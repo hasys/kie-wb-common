@@ -25,7 +25,6 @@ import org.kie.workbench.common.services.shared.project.KieProjectService;
 import org.kie.workbench.common.stunner.core.api.DefinitionManager;
 import org.kie.workbench.common.stunner.core.api.FactoryManager;
 import org.kie.workbench.common.stunner.core.definition.service.DefinitionSetService;
-import org.kie.workbench.common.stunner.core.factory.diagram.DiagramFactory;
 import org.kie.workbench.common.stunner.core.registry.BackendRegistryFactory;
 import org.kie.workbench.common.stunner.project.diagram.ProjectDiagram;
 import org.kie.workbench.common.stunner.project.service.ProjectDiagramService;
@@ -147,5 +146,4 @@ public class ProjectDiagramServiceImpl extends KieService<ProjectDiagram>
     public void delete( Path path, String comment ) {
         controller.delete( path, comment );
     }
-
 }

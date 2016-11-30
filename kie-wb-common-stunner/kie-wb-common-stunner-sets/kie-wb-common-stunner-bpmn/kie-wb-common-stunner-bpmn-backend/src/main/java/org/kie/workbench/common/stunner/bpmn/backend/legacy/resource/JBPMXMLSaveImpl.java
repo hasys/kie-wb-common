@@ -16,21 +16,18 @@
 
 package org.kie.workbench.common.stunner.bpmn.backend.legacy.resource;
 
-import org.eclipse.bpmn2.Definitions;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.bpmn2.*;
 import org.eclipse.bpmn2.Process;
-import org.eclipse.bpmn2.RootElement;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.XMLResource.ElementHandler;
 import org.eclipse.emf.ecore.xmi.XMLResource.XMLMap;
 import org.eclipse.emf.ecore.xmi.impl.XMLSaveImpl;
-
-import java.util.List;
-import java.util.Map;
 
 public class JBPMXMLSaveImpl extends XMLSaveImpl {
 
@@ -96,7 +93,7 @@ public class JBPMXMLSaveImpl extends XMLSaveImpl {
     }
 
     private static EStructuralFeature[] getModifiedProcessFeatureSet( EStructuralFeature[] processFeatureList ) {
-        /**
+        /*
          Feature list for Process provided by eclipse.bpmn2:
          - extensionDefinitions (0)
          - id (1)

@@ -15,21 +15,29 @@
 
 package org.kie.workbench.common.stunner.core.backend.definition.adapter.annotation;
 
+import java.lang.reflect.Field;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.enterprise.context.Dependent;
+
 import org.kie.workbench.common.stunner.core.backend.definition.adapter.AbstractRuntimeAdapter;
 import org.kie.workbench.common.stunner.core.definition.adapter.PropertyAdapter;
 import org.kie.workbench.common.stunner.core.definition.adapter.binding.BindableAdapterUtils;
 import org.kie.workbench.common.stunner.core.definition.annotation.Description;
 import org.kie.workbench.common.stunner.core.definition.annotation.Property;
-import org.kie.workbench.common.stunner.core.definition.annotation.property.*;
+import org.kie.workbench.common.stunner.core.definition.annotation.property.AllowedValues;
+import org.kie.workbench.common.stunner.core.definition.annotation.property.Caption;
+import org.kie.workbench.common.stunner.core.definition.annotation.property.DefaultValue;
+import org.kie.workbench.common.stunner.core.definition.annotation.property.NameProperty;
+import org.kie.workbench.common.stunner.core.definition.annotation.property.Optional;
+import org.kie.workbench.common.stunner.core.definition.annotation.property.ReadOnly;
+import org.kie.workbench.common.stunner.core.definition.annotation.property.Type;
+import org.kie.workbench.common.stunner.core.definition.annotation.property.Value;
 import org.kie.workbench.common.stunner.core.definition.property.PropertyType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.enterprise.context.Dependent;
-import java.lang.reflect.Field;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @Dependent
 public class RuntimePropertyAdapter<T> extends AbstractRuntimeAdapter<T> implements PropertyAdapter<T, Object> {
@@ -187,8 +195,7 @@ public class RuntimePropertyAdapter<T> extends AbstractRuntimeAdapter<T> impleme
     private <V> V _getValue( Field field, Object annotation, T property ) throws IllegalAccessException {
         if ( null != annotation ) {
             field.setAccessible( true );
-            V result = ( V ) field.get( property );
-            return result;
+            return ( V ) field.get( property );
         }
         return null;
     }
@@ -235,5 +242,4 @@ public class RuntimePropertyAdapter<T> extends AbstractRuntimeAdapter<T> impleme
     public boolean accepts( Class<?> pojo ) {
         return pojo.getAnnotation( Property.class ) != null || pojo.getAnnotation( NameProperty.class ) != null;
     }
-
 }

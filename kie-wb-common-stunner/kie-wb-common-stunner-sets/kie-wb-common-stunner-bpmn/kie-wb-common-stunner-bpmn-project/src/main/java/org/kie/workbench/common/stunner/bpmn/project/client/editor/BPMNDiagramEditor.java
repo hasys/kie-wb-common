@@ -15,6 +15,10 @@
 
 package org.kie.workbench.common.stunner.bpmn.project.client.editor;
 
+import javax.enterprise.context.Dependent;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import org.kie.workbench.common.stunner.bpmn.factory.BPMNGraphFactory;
@@ -36,11 +40,6 @@ import org.uberfire.ext.editor.commons.client.file.popups.SavePopUpPresenter;
 import org.uberfire.lifecycle.*;
 import org.uberfire.mvp.PlaceRequest;
 import org.uberfire.workbench.model.menu.Menus;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
 
 @Dependent
 @WorkbenchEditor( identifier = BPMNDiagramEditor.EDITOR_ID, supportedTypes = { BPMNDiagramResourceType.class } )
@@ -127,5 +126,4 @@ public class BPMNDiagramEditor extends AbstractProjectDiagramEditor<BPMNDiagramR
     public boolean onMayClose() {
         return super.mayClose( getCurrentDiagramHash() );
     }
-
 }

@@ -16,6 +16,12 @@
 
 package org.kie.workbench.common.stunner.core.util;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.kie.workbench.common.stunner.core.command.CommandResult;
 import org.kie.workbench.common.stunner.core.definition.adapter.binding.BindableAdapterUtils;
 import org.kie.workbench.common.stunner.core.graph.Edge;
@@ -30,12 +36,6 @@ import org.kie.workbench.common.stunner.core.graph.processing.traverse.content.F
 import org.kie.workbench.common.stunner.core.graph.processing.traverse.content.FullContentTraverseProcessorImpl;
 import org.kie.workbench.common.stunner.core.graph.processing.traverse.tree.TreeWalkTraverseProcessorImpl;
 import org.kie.workbench.common.stunner.core.rule.RuleViolation;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Just for development use.
@@ -94,7 +94,7 @@ public class StunnerLogger {
                     final View viewContent = ( View ) edge.getContent();
                     final String dId = getDefinitionId( viewContent.getDefinition() );
                     log( indent + "(View) Edge Id: " + dId );
-                    final Node outNode = ( Node ) edge.getTargetNode();
+                    final Node outNode = edge.getTargetNode();
                     if ( outNode == null ) {
                         log( indent + "  No outgoing node found" );
                     } else {
@@ -122,7 +122,7 @@ public class StunnerLogger {
                 @Override
                 public void startEdgeTraversal( final Edge<Object, Node> edge ) {
                     log( indent + "Edge UUID: " + edge.getUUID() );
-                    final Node outNode = ( Node ) edge.getTargetNode();
+                    final Node outNode = edge.getTargetNode();
                     if ( outNode == null ) {
                         log( indent + "  No outgoing node found" );
                     } else {
@@ -250,5 +250,4 @@ public class StunnerLogger {
     private static void error( final String message ) {
         LOGGER.log( Level.SEVERE, message );
     }
-
 }

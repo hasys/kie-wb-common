@@ -16,10 +16,9 @@
 
 package org.kie.workbench.common.stunner.bpmn.backend.marshall.json.parser.common;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.JsonToken;
-
 import java.io.IOException;
+
+import org.codehaus.jackson.JsonToken;
 
 public class IntegerFieldParser extends AbstractParser {
 
@@ -32,22 +31,22 @@ public class IntegerFieldParser extends AbstractParser {
     }
 
     @Override
-    protected JsonToken next() throws IOException, JsonParseException {
+    protected JsonToken next() throws IOException {
         return tokenCount == 0 ? JsonToken.FIELD_NAME : JsonToken.VALUE_NUMBER_INT;
     }
 
     @Override
-    public String getCurrentName() throws IOException, JsonParseException {
+    public String getCurrentName() throws IOException {
         return name;
     }
 
     @Override
-    public String getText() throws IOException, JsonParseException {
+    public String getText() throws IOException {
         throw new RuntimeException( "Should not be called!" );
     }
 
     @Override
-    public int getIntValue() throws IOException, JsonParseException {
+    public int getIntValue() throws IOException {
         return value;
     }
 

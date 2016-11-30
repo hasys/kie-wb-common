@@ -60,9 +60,8 @@ public final class CanvasCommandNotification
             if ( null == command ) {
                 throw new IllegalArgumentException( "Missing notification's command." );
             }
-            final StringBuilder builder = new StringBuilder( command.toString() );
             final String resultMsg = getResultMessage( result );
-            final CanvasCommandNotificationSource source = new CanvasCommandNotificationSource( builder.toString(), resultMsg );
+            final CanvasCommandNotificationSource source = new CanvasCommandNotificationSource(command.toString(), resultMsg);
             final Diagram diagram = canvasHander.getDiagram();
             final String diagramUUID = diagram.getName();
             final String title = diagram.getMetadata().getTitle();
@@ -85,5 +84,4 @@ public final class CanvasCommandNotification
         }
 
     }
-
 }

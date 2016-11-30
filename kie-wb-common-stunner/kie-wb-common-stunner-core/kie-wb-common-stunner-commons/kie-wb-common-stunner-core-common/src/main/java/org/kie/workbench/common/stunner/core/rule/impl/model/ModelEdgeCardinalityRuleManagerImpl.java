@@ -16,6 +16,12 @@
 
 package org.kie.workbench.common.stunner.core.rule.impl.model;
 
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.enterprise.context.Dependent;
+
 import org.kie.workbench.common.stunner.core.rule.DefaultRuleViolations;
 import org.kie.workbench.common.stunner.core.rule.EdgeCardinalityRule;
 import org.kie.workbench.common.stunner.core.rule.RuleViolations;
@@ -23,11 +29,6 @@ import org.kie.workbench.common.stunner.core.rule.impl.AbstractEdgeCardinalityRu
 import org.kie.workbench.common.stunner.core.rule.impl.violations.CardinalityMaxRuleViolation;
 import org.kie.workbench.common.stunner.core.rule.impl.violations.CardinalityMinRuleViolation;
 import org.kie.workbench.common.stunner.core.rule.model.ModelEdgeCardinalityRuleManager;
-
-import javax.enterprise.context.Dependent;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Dependent
 public class ModelEdgeCardinalityRuleManagerImpl extends AbstractEdgeCardinalityRuleManager
@@ -68,13 +69,12 @@ public class ModelEdgeCardinalityRuleManagerImpl extends AbstractEdgeCardinality
                                 ( count > 0 ? count - 1  : 0  )
                         );
                 if ( _count  < minOccurrences ) {
-                    results.addViolation( new CardinalityMinRuleViolation( labels.toString(), rule.getName(), ( int ) minOccurrences, count ) );
+                    results.addViolation(new CardinalityMinRuleViolation(labels.toString(), rule.getName(), minOccurrences, count));
                 } else if ( maxOccurrences > -1 && _count  > maxOccurrences ) {
-                    results.addViolation( new CardinalityMaxRuleViolation( labels.toString(), rule.getName(), ( int ) maxOccurrences, count ) );
+                    results.addViolation(new CardinalityMaxRuleViolation(labels.toString(), rule.getName(), maxOccurrences, count));
                 }
             }
         }
         return results;
     }
-
 }

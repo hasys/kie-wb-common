@@ -16,10 +16,9 @@
 
 package org.kie.workbench.common.stunner.core.client;
 
-import com.google.gwt.safehtml.shared.SafeUri;
-import org.kie.workbench.common.stunner.core.client.shape.factory.ShapeFactory;
-
 import java.util.Collection;
+
+import com.google.gwt.safehtml.shared.SafeUri;
 
 public interface ShapeManager {
 
@@ -42,5 +41,4 @@ public interface ShapeManager {
      * Returns the uri for the default icon for the given Definition Set.
      */
     SafeUri getThumbnail( String definitionSetId );
-
 }

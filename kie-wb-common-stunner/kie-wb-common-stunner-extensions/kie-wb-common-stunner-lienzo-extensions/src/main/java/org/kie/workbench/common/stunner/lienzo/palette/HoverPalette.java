@@ -75,8 +75,7 @@ public class HoverPalette extends AbstractPalette<HoverPalette> {
 
     @Override
     public HoverPalette clear() {
-        HoverPalette result = super.clear();
-        return result;
+        return super.clear();
     }
 
     @Override
@@ -179,5 +178,4 @@ public class HoverPalette extends AbstractPalette<HoverPalette> {
         }
 
     }
-
 }

@@ -15,9 +15,10 @@
  */
 package org.kie.workbench.common.stunner.bpmn.backend.legacy.profile;
 
+import java.util.Collection;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
 
 /**
  * The profile service gives access to profiles.
@@ -31,18 +32,18 @@ public interface IDiagramProfileService {
      * @param name    the name of the profile
      * @return the profile with the name in the context of that request
      */
-    public IDiagramProfile findProfile( HttpServletRequest request, String name );
+    IDiagramProfile findProfile( HttpServletRequest request, String name );
 
     /**
      * @param request the context
      * @return the profiles for the given context.
      */
-    public Collection<IDiagramProfile> getProfiles( HttpServletRequest request );
+    Collection<IDiagramProfile> getProfiles( HttpServletRequest request );
 
     /**
      * Initialize the service with a particular context
      *
      * @param servletContext
      */
-    public void init( ServletContext servletContext );
+    void init( ServletContext servletContext );
 }

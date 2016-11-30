@@ -27,7 +27,6 @@ import org.kie.workbench.common.stunner.bpmn.forms.meta.definition.AssigneeEdito
 import org.kie.workbench.common.stunner.bpmn.forms.model.AssigneeType;
 import org.kie.workbench.common.stunner.bpmn.forms.service.fieldProviders.AssigneeEditorFieldProvider;
 import org.kie.workbench.common.stunner.bpmn.forms.model.AssigneeEditorFieldDefinition;
-import org.kie.workbench.common.stunner.bpmn.forms.service.fieldProviders.AssigneeEditorFieldProvider;
 
 @Dependent
 public class AssigneeEditorAnnotationProcessor extends AbstractFieldAnnotationProcessor<AssigneeEditorFieldDefinition, AssigneeEditorFieldProvider> {

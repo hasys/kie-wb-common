@@ -16,6 +16,10 @@
 
 package org.kie.workbench.common.stunner.core.client.canvas.controls.toolbox.command.builder;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+
 import org.kie.workbench.common.stunner.core.client.ShapeManager;
 import org.kie.workbench.common.stunner.core.client.canvas.AbstractCanvasHandler;
 import org.kie.workbench.common.stunner.core.client.canvas.controls.builder.BuildRequest;
@@ -35,10 +39,6 @@ import org.kie.workbench.common.stunner.core.graph.Node;
 import org.kie.workbench.common.stunner.core.graph.content.view.View;
 import org.kie.workbench.common.stunner.core.graph.processing.index.bounds.GraphBoundsIndexer;
 import org.uberfire.mvp.Command;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 
 @Dependent
 public class NewConnectorCommand<I> extends AbstractElementBuilderCommand<I> {
@@ -178,10 +178,4 @@ public class NewConnectorCommand<I> extends AbstractElementBuilderCommand<I> {
         final Edge<View<?>, Node> edge = ( Edge<View<?>, Node> ) newElement;
         return new EdgeBuildRequestImpl( x, y, edge, sourceNode, targetNode );
     }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-    }
-
 }

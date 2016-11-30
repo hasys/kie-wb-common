@@ -16,6 +16,12 @@
 
 package org.kie.workbench.common.stunner.client.lienzo.components.palette.impl;
 
+import java.util.LinkedList;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+
 import com.ait.lienzo.client.core.shape.Layer;
 import org.kie.workbench.common.stunner.client.lienzo.components.palette.*;
 import org.kie.workbench.common.stunner.client.lienzo.components.palette.view.LienzoHoverPaletteView;
@@ -25,17 +31,8 @@ import org.kie.workbench.common.stunner.core.client.components.glyph.GlyphToolti
 import org.kie.workbench.common.stunner.core.client.components.palette.ClientPaletteUtils;
 import org.kie.workbench.common.stunner.core.client.components.palette.model.GlyphPaletteItem;
 import org.kie.workbench.common.stunner.core.client.components.palette.model.HasPaletteItems;
-import org.kie.workbench.common.stunner.core.client.components.palette.model.definition.DefinitionPaletteCategory;
-import org.kie.workbench.common.stunner.core.client.components.palette.model.definition.DefinitionPaletteItem;
-import org.kie.workbench.common.stunner.core.client.components.palette.model.definition.DefinitionSetPalette;
+import org.kie.workbench.common.stunner.core.client.components.palette.model.definition.*;
 import org.kie.workbench.common.stunner.core.client.components.palette.view.PaletteGrid;
-import org.kie.workbench.common.stunner.core.client.shape.factory.ShapeFactory;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import java.util.LinkedList;
-import java.util.List;
 
 @Dependent
 public class LienzoDefinitionSetPaletteImpl
@@ -252,5 +249,4 @@ public class LienzoDefinitionSetPaletteImpl
     private int getIconSize() {
         return getGrid().getIconSize();
     }
-
 }

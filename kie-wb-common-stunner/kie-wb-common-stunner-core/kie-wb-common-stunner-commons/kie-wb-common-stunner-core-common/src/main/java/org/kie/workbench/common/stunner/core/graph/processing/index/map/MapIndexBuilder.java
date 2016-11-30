@@ -16,16 +16,11 @@
 
 package org.kie.workbench.common.stunner.core.graph.processing.index.map;
 
-import org.kie.workbench.common.stunner.core.graph.Edge;
-import org.kie.workbench.common.stunner.core.graph.Graph;
-import org.kie.workbench.common.stunner.core.graph.Node;
-import org.kie.workbench.common.stunner.core.graph.processing.index.GraphIndexBuilder;
-import org.kie.workbench.common.stunner.core.graph.processing.index.IndexBuilder;
-
+import java.util.*;
 import javax.enterprise.context.Dependent;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import org.kie.workbench.common.stunner.core.graph.*;
+import org.kie.workbench.common.stunner.core.graph.processing.index.GraphIndexBuilder;
 
 @Dependent
 public class MapIndexBuilder implements GraphIndexBuilder<MapIndex> {
@@ -86,7 +81,5 @@ public class MapIndexBuilder implements GraphIndexBuilder<MapIndex> {
         if ( !edges.containsKey( edge.getUUID() ) ) {
             edges.put( edge.getUUID(), edge );
         }
-
     }
-
 }

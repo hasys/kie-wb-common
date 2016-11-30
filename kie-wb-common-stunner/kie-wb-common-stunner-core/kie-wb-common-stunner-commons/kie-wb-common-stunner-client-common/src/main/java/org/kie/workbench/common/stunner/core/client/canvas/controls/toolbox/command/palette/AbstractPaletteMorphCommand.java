@@ -16,6 +16,13 @@
 
 package org.kie.workbench.common.stunner.core.client.canvas.controls.toolbox.command.palette;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.enterprise.event.Event;
+
 import org.kie.workbench.common.stunner.core.api.DefinitionManager;
 import org.kie.workbench.common.stunner.core.client.ShapeManager;
 import org.kie.workbench.common.stunner.core.client.canvas.AbstractCanvasHandler;
@@ -29,19 +36,12 @@ import org.kie.workbench.common.stunner.core.client.components.palette.model.Gly
 import org.kie.workbench.common.stunner.core.client.components.palette.model.HasPaletteItems;
 import org.kie.workbench.common.stunner.core.client.components.palette.model.definition.DefinitionsPaletteBuilder;
 import org.kie.workbench.common.stunner.core.client.service.ClientFactoryService;
-import org.kie.workbench.common.stunner.core.client.shape.factory.ShapeFactory;
 import org.kie.workbench.common.stunner.core.definition.adapter.MorphAdapter;
 import org.kie.workbench.common.stunner.core.definition.morph.MorphDefinition;
 import org.kie.workbench.common.stunner.core.definition.util.DefinitionUtils;
 import org.kie.workbench.common.stunner.core.graph.Node;
 import org.kie.workbench.common.stunner.core.graph.processing.index.bounds.GraphBoundsIndexer;
 import org.kie.workbench.common.stunner.core.lookup.util.CommonLookups;
-
-import javax.enterprise.event.Event;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 public abstract class AbstractPaletteMorphCommand<I> extends AbstractPaletteCommand<I> {
 
@@ -105,7 +105,7 @@ public abstract class AbstractPaletteMorphCommand<I> extends AbstractPaletteComm
                                    final double x,
                                    final double y ) {
         final MorphDefinition morphDefinition = morphDefinitions.get( definitionId );
-        final Node node = ( Node ) sourceNode;
+        final Node node = sourceNode;
         final String ssid = canvasHandler.getDiagram().getMetadata().getShapeSetId();
         canvasCommandManager.execute( canvasHandler,
                 commandFactory.MORPH_NODE( node, morphDefinition, definitionId, ssid ) );
@@ -117,5 +117,4 @@ public abstract class AbstractPaletteMorphCommand<I> extends AbstractPaletteComm
     protected DefinitionManager getDefinitionManager() {
         return definitionUtils.getDefinitionManager();
     }
-
 }

@@ -15,8 +15,9 @@
  */
 package org.kie.workbench.common.stunner.bpmn.backend.legacy.plugin;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * A service to access the registered plugins and find plugins.
@@ -29,12 +30,12 @@ public interface IDiagramPluginService {
      * @param request the context in which the plugins are requested.
      * @return a unmodifiable collection of the registered plugins.
      */
-    public Collection<IDiagramPlugin> getRegisteredPlugins( HttpServletRequest request );
+    Collection<IDiagramPlugin> getRegisteredPlugins( HttpServletRequest request );
 
     /**
      * @param request the context in which the plugin is requested
      * @param name    the name of the plugin to find
      * @return the plugin object or null
      */
-    public IDiagramPlugin findPlugin( HttpServletRequest request, String name );
+    IDiagramPlugin findPlugin( HttpServletRequest request, String name );
 }

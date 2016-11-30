@@ -16,9 +16,9 @@
 
 package org.kie.workbench.common.stunner.bpmn.backend.legacy.repository;
 
-import org.uberfire.java.nio.file.NoSuchFileException;
-
 import java.util.Collection;
+
+import org.uberfire.java.nio.file.NoSuchFileException;
 
 /**
  * Repository is responsible for managing its components that are as follows:
@@ -31,7 +31,7 @@ public interface Repository {
     /**
      * Returns name used to identify this repository.
      */
-    public String getName();
+    String getName();
 
     /**
      * Retrieves all directories stored under <code>startAt</code> location.
@@ -197,5 +197,4 @@ public interface Repository {
      * @return - returns true if move operation was successful otherwise false
      */
     boolean moveAsset( String uniqueId, String location, String name );
-
 }

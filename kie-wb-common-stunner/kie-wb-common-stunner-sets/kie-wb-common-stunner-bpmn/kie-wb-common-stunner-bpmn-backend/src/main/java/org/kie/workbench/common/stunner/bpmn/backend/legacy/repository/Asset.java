@@ -21,7 +21,7 @@ package org.kie.workbench.common.stunner.bpmn.backend.legacy.repository;
  */
 public interface Asset<T> extends Item {
 
-    public enum AssetType {
+    enum AssetType {
         Text,
         Byte;
     }

@@ -23,7 +23,7 @@ import com.google.gwt.resources.client.DataResource;
 
 public interface BPMNImageResources extends ClientBundleWithLookup {
 
-    public static final BPMNImageResources INSTANCE = GWT.create( BPMNImageResources.class );
+    BPMNImageResources INSTANCE = GWT.create( BPMNImageResources.class );
 
     // ****** BPMN ShapeSet Thumbnail. *******
     @Source( "images/bpmn_thumb.png" )
@@ -86,5 +86,4 @@ public interface BPMNImageResources extends ClientBundleWithLookup {
     @ClientBundle.Source( "images/sub-process.svg" )
     @DataResource.MimeType("image/svg+xml")
     DataResource subProcess();
-
 }

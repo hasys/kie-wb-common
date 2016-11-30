@@ -90,6 +90,6 @@ public abstract class AbstractEdgeBuilder<W, T extends Edge<View<W>, Node>>
 
     @Override
     public String toString() {
-        return new StringBuilder( super.toString() ).append( " [defClass=" ).append( definitionClass.getName() ).append( "] " ).toString();
+        return super.toString() + " [defClass=" + definitionClass.getName() + "] ";
     }
 }

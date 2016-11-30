@@ -67,7 +67,7 @@ public class PrimitiveTooltip extends PrimitivePopup {
                                   final double y,
                                   final Direction direction ) {
         clearTimers();
-        final IPrimitive<?> glyph = null != _glyph ? ( IPrimitive<?> ) _glyph.copy() : null;
+        final IPrimitive<?> glyph = null != _glyph ? _glyph.copy() : null;
         final Text descText = new Text( text )
                 .setFontSize( TEXT_SIZE )
                 .setFontStyle( "" )
@@ -170,5 +170,4 @@ public class PrimitiveTooltip extends PrimitivePopup {
             }
         }
     }
-
 }

@@ -19,7 +19,6 @@ package org.kie.workbench.common.stunner.core.api;
 import org.kie.workbench.common.stunner.core.diagram.Diagram;
 import org.kie.workbench.common.stunner.core.diagram.Metadata;
 import org.kie.workbench.common.stunner.core.graph.Element;
-import org.kie.workbench.common.stunner.core.graph.content.definition.Definition;
 import org.kie.workbench.common.stunner.core.registry.factory.FactoryRegistry;
 
 /**
@@ -92,5 +91,4 @@ public interface FactoryManager {
      * @return The factory registry.
      */
     FactoryRegistry registry();
-
 }

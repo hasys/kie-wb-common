@@ -16,20 +16,15 @@
 
 package org.kie.workbench.common.stunner.core.client.command;
 
-import org.kie.workbench.common.stunner.core.client.canvas.AbstractCanvasHandler;
-import org.kie.workbench.common.stunner.core.client.canvas.event.command.CanvasCommandAllowedEvent;
-import org.kie.workbench.common.stunner.core.client.canvas.event.command.CanvasCommandExecutedEvent;
-import org.kie.workbench.common.stunner.core.client.canvas.event.command.CanvasUndoCommandExecutedEvent;
-import org.kie.workbench.common.stunner.core.command.Command;
-import org.kie.workbench.common.stunner.core.command.CommandManagerFactory;
-import org.kie.workbench.common.stunner.core.command.CommandResult;
-import org.kie.workbench.common.stunner.core.command.stack.StackCommandManager;
-import org.kie.workbench.common.stunner.core.registry.command.CommandRegistry;
-
 import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import java.util.List;
+
+import org.kie.workbench.common.stunner.core.client.canvas.AbstractCanvasHandler;
+import org.kie.workbench.common.stunner.core.client.canvas.event.command.*;
+import org.kie.workbench.common.stunner.core.command.*;
+import org.kie.workbench.common.stunner.core.command.stack.StackCommandManager;
+import org.kie.workbench.common.stunner.core.registry.command.CommandRegistry;
 
 @Dependent
 public class CanvasStackCommandManager implements CanvasCommandManager<AbstractCanvasHandler>, StackCommandManager<AbstractCanvasHandler, CanvasViolation> {

@@ -21,9 +21,8 @@ import com.google.gwt.resources.client.ImageResource;
 
 public interface BPMNProjectImageResources extends ClientBundleWithLookup {
 
-    public static final BPMNProjectImageResources INSTANCE = GWT.create( BPMNProjectImageResources.class );
+    BPMNProjectImageResources INSTANCE = GWT.create( BPMNProjectImageResources.class );
 
     @Source( "images/bpmn2icon.png" )
     ImageResource bpmn2Icon();
-
 }

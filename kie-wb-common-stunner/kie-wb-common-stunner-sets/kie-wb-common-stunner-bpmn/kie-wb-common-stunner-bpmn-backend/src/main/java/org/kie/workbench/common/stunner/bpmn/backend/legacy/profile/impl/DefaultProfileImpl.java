@@ -15,6 +15,24 @@
  */
 package org.kie.workbench.common.stunner.bpmn.backend.legacy.profile.impl;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.servlet.ServletContext;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import bpsim.impl.BpsimFactoryImpl;
 import org.codehaus.jackson.JsonParseException;
 import org.eclipse.bpmn2.Bpmn2Package;
@@ -37,14 +55,6 @@ import org.kie.workbench.common.stunner.bpmn.backend.legacy.resource.JBPMBpmn2Re
 import org.kie.workbench.common.stunner.bpmn.backend.legacy.util.ConfigurationProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.servlet.ServletContext;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.io.*;
-import java.util.*;
 
 /**
  * The implementation of the default profile for Process Designer.
@@ -106,8 +116,8 @@ public class DefaultProfileImpl implements IDiagramProfile {
         FileInputStream fileStream = null;
         try {
             try {
-                fileStream = new FileInputStream( new StringBuilder( context.getRealPath( "/" ) ).append( "/" ).
-                        append( ConfigurationProvider.getInstance().getDesignerContext() ).append( "profiles" ).append( "/" ).append( "default.xml" ).toString() );
+                fileStream = new FileInputStream(context.getRealPath("/") + "/" +
+                        ConfigurationProvider.getInstance().getDesignerContext() + "profiles/default.xml");
             } catch ( FileNotFoundException e ) {
                 throw new RuntimeException( e );
             }
@@ -142,7 +152,6 @@ public class DefaultProfileImpl implements IDiagramProfile {
                 } catch ( IOException e ) {
                 }
             }
-            ;
         }
     }
 
@@ -256,7 +265,7 @@ public class DefaultProfileImpl implements IDiagramProfile {
             public Resource getResource( String jsonModel, String preProcessingData ) {
                 try {
                     Bpmn2JsonUnmarshaller unmarshaller = new Bpmn2JsonUnmarshaller();
-                    return ( JBPMBpmn2ResourceImpl ) unmarshaller.unmarshall( jsonModel, preProcessingData );
+                    return unmarshaller.unmarshall( jsonModel, preProcessingData );
                 } catch ( JsonParseException e ) {
                     _logger.error( e.getMessage(), e );
                 } catch ( IOException e ) {
@@ -312,5 +321,4 @@ public class DefaultProfileImpl implements IDiagramProfile {
     public String getStencilSetExtensionURL() {
         return "http://oryx-editor.org/stencilsets/extensions/bpmncosts-2.0#";
     }
-
 }

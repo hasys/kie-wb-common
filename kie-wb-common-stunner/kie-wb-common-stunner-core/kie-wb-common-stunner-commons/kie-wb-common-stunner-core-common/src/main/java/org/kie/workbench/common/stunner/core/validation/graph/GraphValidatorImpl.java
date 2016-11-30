@@ -16,6 +16,14 @@
 
 package org.kie.workbench.common.stunner.core.validation.graph;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Stack;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import org.kie.workbench.common.stunner.core.graph.Edge;
 import org.kie.workbench.common.stunner.core.graph.Element;
 import org.kie.workbench.common.stunner.core.graph.Graph;
@@ -30,13 +38,6 @@ import org.kie.workbench.common.stunner.core.rule.RuleManager;
 import org.kie.workbench.common.stunner.core.rule.RuleViolation;
 import org.kie.workbench.common.stunner.core.rule.graph.GraphRulesManager;
 import org.kie.workbench.common.stunner.core.validation.AbstractValidator;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Stack;
 
 @ApplicationScoped
 public class GraphValidatorImpl
@@ -155,11 +156,6 @@ public class GraphValidatorImpl
                         super.endNodeTraversal( node );
                     }
 
-                    @Override
-                    public void endGraphTraversal() {
-                        super.endGraphTraversal();
-                    }
-
                     private void evaluateNode( final Node node,
                                                final Node parent ) {
                         if ( null != node ) {
@@ -254,5 +250,4 @@ public class GraphValidatorImpl
     private boolean isValid( final Collection<GraphValidationViolation> violations ) {
         return violations == null || violations.isEmpty();
     }
-
 }

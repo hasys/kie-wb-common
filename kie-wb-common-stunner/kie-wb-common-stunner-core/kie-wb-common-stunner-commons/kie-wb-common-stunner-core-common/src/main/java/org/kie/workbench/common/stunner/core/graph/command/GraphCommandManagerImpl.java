@@ -16,22 +16,16 @@
 
 package org.kie.workbench.common.stunner.core.graph.command;
 
-import org.kie.workbench.common.stunner.core.command.Command;
-import org.kie.workbench.common.stunner.core.command.CommandManager;
-import org.kie.workbench.common.stunner.core.command.CommandManagerFactory;
-import org.kie.workbench.common.stunner.core.command.CommandResult;
-import org.kie.workbench.common.stunner.core.command.event.local.CommandExecutedEvent;
-import org.kie.workbench.common.stunner.core.command.event.local.CommandUndoExecutedEvent;
-import org.kie.workbench.common.stunner.core.command.event.local.IsCommandAllowedEvent;
-import org.kie.workbench.common.stunner.core.command.exception.CommandException;
-import org.kie.workbench.common.stunner.core.rule.RuleViolation;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.kie.workbench.common.stunner.core.command.*;
+import org.kie.workbench.common.stunner.core.command.event.local.*;
+import org.kie.workbench.common.stunner.core.command.exception.CommandException;
+import org.kie.workbench.common.stunner.core.rule.RuleViolation;
 
 @Dependent
 public class GraphCommandManagerImpl
@@ -99,5 +93,4 @@ public class GraphCommandManagerImpl
         }
         return result;
     }
-
 }

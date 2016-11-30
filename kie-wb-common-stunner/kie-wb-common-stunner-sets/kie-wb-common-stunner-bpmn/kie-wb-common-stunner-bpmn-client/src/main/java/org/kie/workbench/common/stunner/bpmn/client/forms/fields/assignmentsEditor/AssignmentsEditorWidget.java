@@ -233,11 +233,9 @@ public class AssignmentsEditorWidget extends Composite implements HasValue<Strin
     }
 
     protected String createAssignmentsInfoString( AssignmentData assignmentData ) {
-        StringBuilder sb = new StringBuilder();
-        sb.append( '|' ).append( assignmentData.getInputVariablesString() ).append( '|' ).append( '|' ).
-                append( assignmentData.getOutputVariablesString() )
-                .append( '|' ).append( assignmentData.getAssignmentsString() );
-        return sb.toString();
+        return "|" + assignmentData.getInputVariablesString() +
+                "||" + assignmentData.getOutputVariablesString() +
+                '|' + assignmentData.getAssignmentsString();
     }
 
     protected String getVariableCountsString( String datainput, String datainputset, String dataoutput, String dataoutputset,

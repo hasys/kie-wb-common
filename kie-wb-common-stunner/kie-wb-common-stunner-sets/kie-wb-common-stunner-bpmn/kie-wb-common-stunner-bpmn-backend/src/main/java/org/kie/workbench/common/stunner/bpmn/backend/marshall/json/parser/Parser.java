@@ -16,21 +16,19 @@
 
 package org.kie.workbench.common.stunner.bpmn.backend.marshall.json.parser;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.JsonToken;
-
 import java.io.IOException;
+
+import org.codehaus.jackson.JsonToken;
 
 public interface Parser {
 
-    JsonToken nextToken() throws IOException, JsonParseException;
+    JsonToken nextToken() throws IOException;
 
-    String getCurrentName() throws IOException, JsonParseException;
+    String getCurrentName() throws IOException;
 
-    String getText() throws IOException, JsonParseException;
+    String getText() throws IOException;
 
-    int getIntValue() throws IOException, JsonParseException;
+    int getIntValue() throws IOException;
 
     boolean isConsumed();
-
 }

@@ -16,6 +16,9 @@
 
 package org.kie.workbench.common.stunner.core.client.canvas.controls.toolbox.command.builder;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gwt.logging.client.LogConfiguration;
 import org.kie.workbench.common.stunner.core.client.canvas.AbstractCanvas;
 import org.kie.workbench.common.stunner.core.client.canvas.AbstractCanvasHandler;
@@ -34,9 +37,6 @@ import org.kie.workbench.common.stunner.core.graph.Node;
 import org.kie.workbench.common.stunner.core.graph.processing.index.bounds.GraphBoundsIndexer;
 import org.kie.workbench.common.stunner.core.util.UUID;
 import org.uberfire.mvp.Command;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public abstract class AbstractBuilderCommand<I> extends AbstractToolboxCommand<I> {
 
@@ -79,12 +79,6 @@ public abstract class AbstractBuilderCommand<I> extends AbstractToolboxCommand<I
                            final Element element ) {
         super.mouseDown( context, element );
         showDragProxy( context, element );
-    }
-
-    @Override
-    public void click( final Context<AbstractCanvasHandler> context,
-                       final Element element ) {
-        super.click( context, element );
     }
 
     @SuppressWarnings( "unchecked" )
@@ -225,5 +219,4 @@ public abstract class AbstractBuilderCommand<I> extends AbstractToolboxCommand<I
             LOGGER.log( level, message );
         }
     }
-
 }

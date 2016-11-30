@@ -26,8 +26,7 @@ public class LienzoLayerUtils {
         int sx = ( int ) x;
         int sy = ( int ) y;
         final Shape<?> shape = lienzoLayer.getLienzoLayer().getLayer().findShapeAtPoint( sx, sy );
-        final String viewUUID = getShapeUUID( shape );
-        return viewUUID;
+        return getShapeUUID( shape );
     }
 
     private static String getShapeUUID( final Shape<?> lienzoShape ) {
@@ -55,5 +54,4 @@ public class LienzoLayerUtils {
         final String userData = ( String ) node.getUserData();
         return userData.substring( ShapeView.UUID_PREFIX.length(), userData.length() - 1 );
     }
-
 }

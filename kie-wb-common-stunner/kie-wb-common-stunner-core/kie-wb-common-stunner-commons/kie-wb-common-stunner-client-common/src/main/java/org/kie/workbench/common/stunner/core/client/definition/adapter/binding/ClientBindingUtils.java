@@ -16,18 +16,18 @@
 
 package org.kie.workbench.common.stunner.core.client.definition.adapter.binding;
 
-import org.jboss.errai.databinding.client.BindableProxy;
-import org.jboss.errai.databinding.client.HasProperties;
-import org.jboss.errai.databinding.client.NonExistingPropertyException;
-import org.jboss.errai.databinding.client.PropertyType;
-import org.jboss.errai.databinding.client.api.DataBinder;
-
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.jboss.errai.databinding.client.BindableProxy;
+import org.jboss.errai.databinding.client.HasProperties;
+import org.jboss.errai.databinding.client.NonExistingPropertyException;
+import org.jboss.errai.databinding.client.PropertyType;
+import org.jboss.errai.databinding.client.api.DataBinder;
 
 public class ClientBindingUtils {
 
@@ -86,32 +86,30 @@ public class ClientBindingUtils {
     @SuppressWarnings( "unchecked" )
     public static <T, R> R merge( final T source,
                                   final R target ) {
-        if ( null != source ) {
-            final HasProperties hasProperties = ( HasProperties ) DataBinder.forModel( source ).getModel();
-            if ( null != hasProperties ) {
-                final Map<String, PropertyType> propertyTypeMap = hasProperties.getBeanProperties();
-                if ( null != propertyTypeMap && !propertyTypeMap.isEmpty() ) {
-                    final HasProperties targetProperties = ( HasProperties ) DataBinder.forModel( target ).getModel();
-                    for ( final Map.Entry<String, PropertyType> entry : propertyTypeMap.entrySet() ) {
-                        final String pId = entry.getKey();
-                        try {
-                            targetProperties.set( pId, hasProperties.get( pId ) );
-
-                        } catch ( NonExistingPropertyException exception ) {
-                            // Just skip it, Go to next property.
-                            LOGGER.log( Level.INFO, "BindableAdapterUtils#merge - Skipping merge property [" + pId + "]" );
-
-                        }
-
-                    }
-                    return ( R ) target;
-
-                }
-
-            }
-
+        if ( null == source ) {
+            return null;
         }
+
+        final HasProperties hasProperties = ( HasProperties ) DataBinder.forModel( source ).getModel();
+        if ( null == hasProperties ) {
+            return null;
+        }
+
+        final Map<String, PropertyType> propertyTypeMap = hasProperties.getBeanProperties();
+        if ( null != propertyTypeMap && !propertyTypeMap.isEmpty() ) {
+            final HasProperties targetProperties = ( HasProperties ) DataBinder.forModel( target ).getModel();
+            for ( final Map.Entry<String, PropertyType> entry : propertyTypeMap.entrySet() ) {
+                final String pId = entry.getKey();
+                try {
+                    targetProperties.set( pId, hasProperties.get( pId ) );
+                } catch ( NonExistingPropertyException exception ) {
+                    // Just skip it, Go to next property.
+                    LOGGER.log( Level.INFO, "BindableAdapterUtils#merge - Skipping merge property [" + pId + "]" );
+                }
+            }
+            return target;
+        }
+
         return null;
     }
-
 }

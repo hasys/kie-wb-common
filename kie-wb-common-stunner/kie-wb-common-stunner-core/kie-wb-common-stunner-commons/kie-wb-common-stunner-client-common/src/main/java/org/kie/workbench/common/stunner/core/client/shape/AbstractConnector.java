@@ -16,6 +16,9 @@
 
 package org.kie.workbench.common.stunner.core.client.shape;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gwt.logging.client.LogConfiguration;
 import org.kie.workbench.common.stunner.core.client.shape.view.IsConnector;
 import org.kie.workbench.common.stunner.core.client.shape.view.ShapeView;
@@ -23,9 +26,6 @@ import org.kie.workbench.common.stunner.core.client.util.ShapeUtils;
 import org.kie.workbench.common.stunner.core.graph.Edge;
 import org.kie.workbench.common.stunner.core.graph.Node;
 import org.kie.workbench.common.stunner.core.graph.content.view.ViewConnector;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * A base shape impl for handling contents of edge (connector) graph elements.
@@ -58,7 +58,7 @@ public abstract class AbstractConnector<W, E extends Edge<ViewConnector<W>, Node
     public V getShapeView() {
         return view;
     }
-    
+
     /*
         ****************************************************************************************
         *                       CONTEXTUAL SHAPE DRAWING & UPDATES
@@ -141,7 +141,7 @@ public abstract class AbstractConnector<W, E extends Edge<ViewConnector<W>, Node
                                   final ShapeView<?> source,
                                   final ShapeView<?> target,
                                   final MutationContext mutationContext ) {
-        final ViewConnector connectionContent = ( ViewConnector ) element.getContent();
+        final ViewConnector connectionContent = element.getContent();
         final int sourceMagnet = connectionContent.getSourceMagnetIndex();
         final int targetMagnet = connectionContent.getTargetMagnetIndex();
         if ( null != source ) {
@@ -186,5 +186,4 @@ public abstract class AbstractConnector<W, E extends Edge<ViewConnector<W>, Node
             LOGGER.log( level, message );
         }
     }
-
 }

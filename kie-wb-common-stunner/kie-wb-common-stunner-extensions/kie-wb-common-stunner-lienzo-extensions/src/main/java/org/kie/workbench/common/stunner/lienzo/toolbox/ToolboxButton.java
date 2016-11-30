@@ -16,24 +16,17 @@
 
 package org.kie.workbench.common.stunner.lienzo.toolbox;
 
-import com.ait.lienzo.client.core.shape.IDrawable;
-import com.ait.lienzo.client.core.shape.IPrimitive;
-import com.ait.lienzo.client.core.shape.Layer;
-import com.ait.lienzo.client.core.shape.MultiPath;
-import com.ait.lienzo.client.core.shape.wires.LayoutContainer;
-import com.ait.lienzo.client.core.shape.wires.WiresManager;
-import com.ait.lienzo.client.core.shape.wires.WiresShape;
-import com.ait.lienzo.client.core.shape.wires.WiresUtils;
-import com.ait.lienzo.client.core.types.BoundingBox;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.ait.lienzo.client.core.shape.*;
+import com.ait.lienzo.client.core.shape.wires.*;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.tooling.nativetools.client.event.HandlerRegistrationManager;
 import com.google.gwt.user.client.Timer;
 import org.kie.workbench.common.stunner.lienzo.toolbox.event.ToolboxButtonEvent;
 import org.kie.workbench.common.stunner.lienzo.toolbox.event.ToolboxButtonEventHandler;
 import org.kie.workbench.common.stunner.lienzo.util.LienzoPaths;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ToolboxButton {
 
@@ -262,5 +255,4 @@ public class ToolboxButton {
             this.clickHandlerTimer = null;
         }
     }
-
 }

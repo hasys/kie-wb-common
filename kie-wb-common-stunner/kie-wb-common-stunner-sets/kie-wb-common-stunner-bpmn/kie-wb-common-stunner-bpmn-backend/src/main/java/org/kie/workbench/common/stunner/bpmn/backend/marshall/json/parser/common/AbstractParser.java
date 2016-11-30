@@ -16,11 +16,10 @@
 
 package org.kie.workbench.common.stunner.bpmn.backend.marshall.json.parser.common;
 
-import org.codehaus.jackson.JsonParseException;
+import java.io.IOException;
+
 import org.codehaus.jackson.JsonToken;
 import org.kie.workbench.common.stunner.bpmn.backend.marshall.json.parser.Parser;
-
-import java.io.IOException;
 
 public abstract class AbstractParser implements Parser {
 
@@ -30,10 +29,10 @@ public abstract class AbstractParser implements Parser {
         this.tokenCount = 0;
     }
 
-    protected abstract JsonToken next() throws IOException, JsonParseException;
+    protected abstract JsonToken next() throws IOException;
 
     @Override
-    public JsonToken nextToken() throws IOException, JsonParseException {
+    public JsonToken nextToken() throws IOException {
         JsonToken token = next();
         tokenCount++;
         return token;

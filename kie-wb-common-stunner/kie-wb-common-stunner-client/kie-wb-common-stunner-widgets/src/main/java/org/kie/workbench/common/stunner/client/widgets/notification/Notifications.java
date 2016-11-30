@@ -16,28 +16,27 @@
 
 package org.kie.workbench.common.stunner.client.widgets.notification;
 
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
+
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.view.client.HasData;
-import com.google.gwt.view.client.ListDataProvider;
-import com.google.gwt.view.client.ProvidesKey;
+import com.google.gwt.view.client.*;
 import org.gwtbootstrap3.extras.notify.client.constants.NotifyType;
 import org.gwtbootstrap3.extras.notify.client.ui.Notify;
 import org.gwtbootstrap3.extras.notify.client.ui.NotifySettings;
-import org.kie.workbench.common.stunner.client.widgets.notification.canvas.CanvasCommandNotification;
-import org.kie.workbench.common.stunner.client.widgets.notification.canvas.CanvasNotificationContext;
-import org.kie.workbench.common.stunner.client.widgets.notification.canvas.CanvasValidationFailNotification;
-import org.kie.workbench.common.stunner.client.widgets.notification.canvas.CanvasValidationSuccessNotification;
+import org.kie.workbench.common.stunner.client.widgets.notification.canvas.*;
 import org.kie.workbench.common.stunner.core.client.canvas.CanvasHandler;
 import org.kie.workbench.common.stunner.core.client.canvas.event.command.AbstractCanvasCommandEvent;
 import org.kie.workbench.common.stunner.core.client.canvas.event.command.CanvasCommandExecutedEvent;
 import org.kie.workbench.common.stunner.core.client.command.CanvasViolation;
-import org.kie.workbench.common.stunner.core.client.validation.canvas.CanvasValidationFailEvent;
-import org.kie.workbench.common.stunner.core.client.validation.canvas.CanvasValidationSuccessEvent;
-import org.kie.workbench.common.stunner.core.client.validation.canvas.CanvasValidationViolation;
+import org.kie.workbench.common.stunner.core.client.validation.canvas.*;
 import org.kie.workbench.common.stunner.core.command.Command;
 import org.kie.workbench.common.stunner.core.command.CommandResult;
 import org.kie.workbench.common.stunner.core.diagram.Diagram;
@@ -45,13 +44,6 @@ import org.kie.workbench.common.stunner.core.util.UUID;
 import org.kie.workbench.common.stunner.core.validation.event.AbstractValidationEvent;
 import org.kie.workbench.common.stunner.core.validation.event.AbstractValidationFailEvent;
 import org.uberfire.client.mvp.UberView;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import java.util.Collection;
-import java.util.List;
 
 @Dependent
 public class Notifications implements IsWidget {
@@ -138,9 +130,9 @@ public class Notifications implements IsWidget {
         view.clear();
 
     }
-    
+
     /*  ******************************************************************************************************
-                                 VIEW CALLBACKS 
+                                 VIEW CALLBACKS
      ****************************************************************************************************** */
 
     final ProvidesKey<Notification> KEY_PROVIDER = new ProvidesKey<Notification>() {
@@ -306,5 +298,4 @@ public class Notifications implements IsWidget {
         Notification notification = translate( validationFailEvent );
         add( notification );
     }
-
 }

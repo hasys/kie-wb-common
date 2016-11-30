@@ -81,7 +81,7 @@ public class StringUtils {
      * @param objects
      * @return
      */
-    public static String getStringForList( List<? extends Object> objects ) {
+    public static String getStringForList( List<?> objects ) {
         StringBuilder sb = new StringBuilder();
         for ( Object o : objects ) {
             sb.append( o.toString() ).append( ',' );
@@ -117,5 +117,4 @@ public class StringUtils {
         }
         return URL.decodeQueryString( s );
     }
-
 }

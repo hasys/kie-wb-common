@@ -15,8 +15,11 @@
 
 package org.kie.workbench.common.stunner.bpmn.project.factory.impl;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import org.kie.workbench.common.stunner.bpmn.BPMNDefinitionSet;
 import org.kie.workbench.common.stunner.bpmn.definition.BPMNDiagram;
+import org.kie.workbench.common.stunner.bpmn.definition.property.diagram.Package;
 import org.kie.workbench.common.stunner.bpmn.util.BPMNUtils;
 import org.kie.workbench.common.stunner.core.diagram.Metadata;
 import org.kie.workbench.common.stunner.core.factory.impl.BindableDiagramFactory;
@@ -27,8 +30,6 @@ import org.kie.workbench.common.stunner.core.graph.content.definition.Definition
 import org.kie.workbench.common.stunner.project.diagram.ProjectDiagram;
 import org.kie.workbench.common.stunner.project.diagram.ProjectMetadata;
 import org.kie.workbench.common.stunner.project.diagram.impl.ProjectDiagramImpl;
-
-import javax.enterprise.context.ApplicationScoped;
 
 /**
  * Custom BPMN factory instance for Diagrams on the Project context.
@@ -78,7 +79,7 @@ public class BPMNProjectDiagramFactory
         if (  null == p ) {
             String metadataPackage = metadata.getProjectPackage();
             if ( metadataPackage == null || metadataPackage.isEmpty() ) {
-                diagram.getDiagramSet().getPackageProperty().setValue( diagram.getDiagramSet().getPackageProperty().DEFAULT_PACKAGE );
+                diagram.getDiagramSet().getPackageProperty().setValue( Package.DEFAULT_PACKAGE );
             } else {
                 diagram.getDiagramSet().getPackageProperty().setValue( metadata.getProjectPackage() );
             }
@@ -93,5 +94,4 @@ public class BPMNProjectDiagramFactory
     private static Node<Definition<BPMNDiagram>, ?> getFirstDiagramNode( final Graph graph ) {
         return BPMNUtils.getFirstDiagramNode( graph );
     }
-
 }

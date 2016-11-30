@@ -16,13 +16,12 @@
 
 package org.kie.workbench.common.stunner.bpmn.backend.marshall.json.parser.common;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.JsonToken;
-import org.kie.workbench.common.stunner.bpmn.backend.marshall.json.parser.Parser;
-
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Queue;
+
+import org.codehaus.jackson.JsonToken;
+import org.kie.workbench.common.stunner.bpmn.backend.marshall.json.parser.Parser;
 
 public abstract class CompositeParser<T> extends AbstractParser {
 
@@ -49,7 +48,7 @@ public abstract class CompositeParser<T> extends AbstractParser {
     }
 
     @Override
-    protected JsonToken next() throws IOException, JsonParseException {
+    protected JsonToken next() throws IOException {
         if ( this.tokenCount == 0 && hasName() ) {
             return JsonToken.FIELD_NAME;
 
@@ -82,7 +81,7 @@ public abstract class CompositeParser<T> extends AbstractParser {
     }
 
     @Override
-    public String getCurrentName() throws IOException, JsonParseException {
+    public String getCurrentName() throws IOException {
         if ( this.tokenCount == 1 && hasName() ) {
             return name;
         } else {
@@ -92,12 +91,12 @@ public abstract class CompositeParser<T> extends AbstractParser {
     }
 
     @Override
-    public String getText() throws IOException, JsonParseException {
+    public String getText() throws IOException {
         return this.current.getText();
     }
 
     @Override
-    public int getIntValue() throws IOException, JsonParseException {
+    public int getIntValue() throws IOException {
         return this.current.getIntValue();
     }
 

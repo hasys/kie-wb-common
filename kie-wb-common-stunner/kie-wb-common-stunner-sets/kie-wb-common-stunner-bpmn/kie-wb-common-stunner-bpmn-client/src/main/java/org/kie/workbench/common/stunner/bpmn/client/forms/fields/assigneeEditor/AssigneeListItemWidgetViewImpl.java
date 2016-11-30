@@ -70,12 +70,8 @@ public class AssigneeListItemWidgetViewImpl implements AssigneeListItemWidgetVie
 
     @DataField
     protected ValueListBox<String> name = new ValueListBox<String>( new Renderer<String>() {
-        public String render( String object ) {
-            String s = "";
-            if ( object != null ) {
-                s = object.toString();
-            }
-            return s;
+        public String render( String text ) {
+            return (text != null) ? text : "";
         }
 
         public void render( String object, Appendable appendable ) throws IOException {
@@ -224,5 +220,4 @@ public class AssigneeListItemWidgetViewImpl implements AssigneeListItemWidgetVie
             parentWidget.notifyModelChanged();
         }
     }
-
 }

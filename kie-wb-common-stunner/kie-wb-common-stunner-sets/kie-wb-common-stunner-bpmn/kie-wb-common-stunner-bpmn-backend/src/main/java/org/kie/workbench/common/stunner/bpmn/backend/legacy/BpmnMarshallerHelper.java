@@ -15,9 +15,9 @@
  */
 package org.kie.workbench.common.stunner.bpmn.backend.legacy;
 
-import org.eclipse.bpmn2.BaseElement;
-
 import java.util.Map;
+
+import org.eclipse.bpmn2.BaseElement;
 
 /**
  * A helper to marshall specific properties of the Process Designer models,
@@ -33,6 +33,6 @@ public interface BpmnMarshallerHelper {
      * @param baseElement the base element to be customized.
      * @param properties  the set of properties extracted from the json model.
      */
-    public void applyProperties( BaseElement baseElement, Map<String, String> properties );
+    void applyProperties( BaseElement baseElement, Map<String, String> properties );
 
 }

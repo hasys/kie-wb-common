@@ -15,6 +15,22 @@
  */
 package org.kie.workbench.common.stunner.bpmn.backend.legacy.plugin.impl;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.kie.workbench.common.stunner.bpmn.backend.legacy.plugin.IDiagramPlugin;
 import org.kie.workbench.common.stunner.bpmn.backend.legacy.plugin.IDiagramPluginFactory;
 import org.kie.workbench.common.stunner.bpmn.backend.legacy.plugin.IDiagramPluginService;
@@ -27,16 +43,6 @@ import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.*;
 
 /**
  * A service to manage plugins in the platform.
@@ -85,15 +91,13 @@ public class PluginServiceImpl implements IDiagramPluginService {
     private static Logger _logger = LoggerFactory.getLogger( PluginServiceImpl.class );
 
     private static Map<String, IDiagramPlugin> initializeLocalPlugins( ServletContext context ) {
-        Map<String, IDiagramPlugin> local = new HashMap<String, IDiagramPlugin>();
+        Map<String, IDiagramPlugin> local = new HashMap<>();
         //we read the plugins.xml file and make sense of it.
         FileInputStream fileStream = null;
         try {
             try {
-                fileStream = new FileInputStream( new StringBuilder( context.getRealPath( "/" ) )
-                        .append( ConfigurationProvider.getInstance().getDesignerContext() ).
-                                append( "js" ).append( "/" ).append( "Plugins" ).append( "/" ).
-                                append( "plugins.xml" ).toString() );
+                fileStream = new FileInputStream(context.getRealPath("/") +
+                        ConfigurationProvider.getInstance().getDesignerContext() + "js/Plugins/plugins.xml");
             } catch ( FileNotFoundException e ) {
                 throw new RuntimeException( e );
             }

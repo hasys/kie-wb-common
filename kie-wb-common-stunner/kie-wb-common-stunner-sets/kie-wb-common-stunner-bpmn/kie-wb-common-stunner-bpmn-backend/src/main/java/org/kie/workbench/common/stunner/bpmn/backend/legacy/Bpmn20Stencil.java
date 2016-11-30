@@ -101,16 +101,16 @@ public enum Bpmn20Stencil {
     public EClass eventType;
     public AssociationDirection associationDirection;
 
-    private Bpmn20Stencil( EClass className ) {
+    Bpmn20Stencil( EClass className ) {
         this.className = className;
     }
 
-    private Bpmn20Stencil( EClass className, AssociationDirection assocDir ) {
+    Bpmn20Stencil( EClass className, AssociationDirection assocDir ) {
         this.className = className;
         this.associationDirection = assocDir;
     }
 
-    private Bpmn20Stencil( EClass className, EClass eventType ) {
+    Bpmn20Stencil( EClass className, EClass eventType ) {
         this.className = className;
         this.eventType = eventType;
     }

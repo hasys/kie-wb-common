@@ -29,7 +29,7 @@ public interface IDiagramPlugin {
      * @return the name of the plugin.
      * The name of the plugin should be unique amongst all plugins, so you should make sure to qualify it.
      */
-    public String getName();
+    String getName();
 
     /**
      * @return the contents of a plugin.
@@ -37,20 +37,20 @@ public interface IDiagramPlugin {
      * <p>
      * The object returned by this method MUST be closed explicitely.
      */
-    public InputStream getContents();
+    InputStream getContents();
 
     /**
      * @return true if the plugin should be considered a core plugin and loaded for all profiles.
      */
-    public boolean isCore();
+    boolean isCore();
 
     /**
      * @return the properties of the plugin
      */
-    public Map<String, Object> getProperties();
+    Map<String, Object> getProperties();
 
     /**
      * @return true if the contents of the plugin can be compressed.
      */
-    public boolean isCompressable();
+    boolean isCompressable();
 }

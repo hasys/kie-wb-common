@@ -16,16 +16,13 @@
 
 package org.kie.workbench.common.stunner.lienzo.toolbox;
 
+import java.util.Iterator;
+import java.util.List;
+
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.animation.*;
-import com.ait.lienzo.client.core.event.AnimationFrameAttributesChangedBatcher;
-import com.ait.lienzo.client.core.event.AttributesChangedEvent;
-import com.ait.lienzo.client.core.event.AttributesChangedHandler;
-import com.ait.lienzo.client.core.event.IAttributesChangedBatcher;
-import com.ait.lienzo.client.core.shape.Group;
-import com.ait.lienzo.client.core.shape.Layer;
-import com.ait.lienzo.client.core.shape.Node;
-import com.ait.lienzo.client.core.shape.Shape;
+import com.ait.lienzo.client.core.event.*;
+import com.ait.lienzo.client.core.shape.*;
 import com.ait.lienzo.client.core.shape.wires.WiresShape;
 import com.ait.lienzo.client.core.shape.wires.WiresUtils;
 import com.ait.lienzo.client.core.types.Point2D;
@@ -34,13 +31,8 @@ import com.ait.tooling.common.api.flow.Flows;
 import com.ait.tooling.nativetools.client.event.HandlerRegistrationManager;
 import org.kie.workbench.common.stunner.lienzo.grid.Grid;
 import org.kie.workbench.common.stunner.lienzo.toolbox.grid.GridToolbox;
-import org.w3c.dom.Attr;
 
-import javax.smartcardio.ATR;
-import java.util.Iterator;
-import java.util.List;
-
-import static com.ait.lienzo.client.core.AttributeOp.any;
+import static com.ait.lienzo.client.core.AttributeOp.*;
 
 public abstract class AbstractToolbox implements GridToolbox {
 
@@ -205,5 +197,4 @@ public abstract class AbstractToolbox implements GridToolbox {
     private void batch() {
         this.getLayer().batch();
     }
-
 }

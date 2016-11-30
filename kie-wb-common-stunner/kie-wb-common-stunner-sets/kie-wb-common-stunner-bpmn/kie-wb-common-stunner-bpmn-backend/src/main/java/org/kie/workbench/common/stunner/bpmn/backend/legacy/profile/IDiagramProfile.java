@@ -15,12 +15,13 @@
  */
 package org.kie.workbench.common.stunner.bpmn.backend.legacy.profile;
 
+import java.util.Collection;
+
+import javax.servlet.ServletContext;
+
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.kie.workbench.common.stunner.bpmn.backend.legacy.repository.Repository;
-
-import javax.servlet.ServletContext;
-import java.util.Collection;
 
 /**
  * A profile for the editor to choose which stencilset
@@ -34,95 +35,95 @@ public interface IDiagramProfile {
      * @return the name of the profile
      * it will be passed by the user when opening the editor.
      */
-    public String getName();
+    String getName();
 
     /**
      * @return the title of the profile.
      */
-    public String getTitle();
+    String getTitle();
 
     /**
      * @return the stencil set used by the profile.
      */
-    public String getStencilSet();
+    String getStencilSet();
 
     /**
      * @return the stencil set extensions used by the profile
      */
-    public Collection<String> getStencilSetExtensions();
+    Collection<String> getStencilSetExtensions();
 
-    public String getSerializedModelExtension();
+    String getSerializedModelExtension();
 
     /**
      * @return the stencil url used by the profile.
      */
-    public String getStencilSetURL();
+    String getStencilSetURL();
 
     /**
      * @return stencil namespace url.
      */
-    public String getStencilSetNamespaceURL();
+    String getStencilSetNamespaceURL();
 
     /**
      * @return stencil set extension url used by the profile.
      */
-    public String getStencilSetExtensionURL();
+    String getStencilSetExtensionURL();
 
     /**
      * @return the plugins to load for the profile.
      */
-    public Collection<String> getPlugins();
+    Collection<String> getPlugins();
 
     /**
      * @return a classLoader to transform the json into the final model.
      */
-    public IDiagramMarshaller createMarshaller();
+    IDiagramMarshaller createMarshaller();
 
     /**
      * @return an unmarshaller to transform the model into the json.
      */
-    public IDiagramUnmarshaller createUnmarshaller();
+    IDiagramUnmarshaller createUnmarshaller();
 
-    public String getRepositoryGlobalDir();
+    String getRepositoryGlobalDir();
 
-    public String getRepositoryGlobalDir( String uuid );
+    String getRepositoryGlobalDir( String uuid );
 
     /**
      * @return the local history enabled.
      */
-    public String getLocalHistoryEnabled();
+    String getLocalHistoryEnabled();
 
     /**
      * @return the local history timeout.
      */
-    public String getLocalHistoryTimeout();
+    String getLocalHistoryTimeout();
 
     /**
      * @return the store svg on save option.
      */
-    public String getStoreSVGonSaveOption();
+    String getStoreSVGonSaveOption();
 
     /**
      * @return the repository.
      */
-    public Repository getRepository();
+    Repository getRepository();
 
     /**
      * Parser to produce the final model to be saved.
      *
      * @author Antoine Toulme
      */
-    public interface IDiagramMarshaller {
+    interface IDiagramMarshaller {
 
         /**
          * @param jsonModel the model
          * @return the string representation of the serialized model.
          */
-        public String parseModel( String jsonModel, String preProcessingData ) throws Exception;
+        String parseModel( String jsonModel, String preProcessingData ) throws Exception;
 
-        public Definitions getDefinitions( String jsonModel, String preProcessingData ) throws Exception;
+        Definitions getDefinitions(String jsonModel, String preProcessingData) throws Exception;
 
-        public Resource getResource( String jsonModel, String preProcessingData ) throws Exception;
+        Resource getResource( String jsonModel, String preProcessingData ) throws Exception;
     }
 
     /**
@@ -130,16 +131,15 @@ public interface IDiagramProfile {
      *
      * @author Tihomir Surdilovic
      */
-    public interface IDiagramUnmarshaller {
+    interface IDiagramUnmarshaller {
 
         /**
          * @param xmlModel xml model
          * @param profile  process profile.
          * @return the json model
          */
-        public String parseModel( String xmlModel, IDiagramProfile profile, String preProcessingData ) throws Exception;
+        String parseModel( String xmlModel, IDiagramProfile profile, String preProcessingData ) throws Exception;
     }
 
-    public void init( ServletContext context );
-
+    void init( ServletContext context );
 }

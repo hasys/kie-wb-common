@@ -16,7 +16,19 @@
 
 package org.kie.workbench.common.stunner.bpmn.backend.marshall.json.builder;
 
-import org.codehaus.jackson.*;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Stack;
+
+import org.codehaus.jackson.Base64Variant;
+import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonStreamContext;
+import org.codehaus.jackson.ObjectCodec;
 import org.kie.workbench.common.stunner.bpmn.BPMNDefinitionSet;
 import org.kie.workbench.common.stunner.bpmn.backend.marshall.json.oryx.Bpmn2OryxManager;
 import org.kie.workbench.common.stunner.bpmn.definition.BPMNDiagram;
@@ -41,14 +53,6 @@ import org.kie.workbench.common.stunner.core.graph.processing.index.Index;
 import org.kie.workbench.common.stunner.core.graph.util.GraphUtils;
 import org.kie.workbench.common.stunner.core.rule.RuleViolation;
 import org.kie.workbench.common.stunner.core.util.UUID;
-
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Stack;
 
 /**
  * Support for a basic single process hierarchy
@@ -90,32 +94,32 @@ public class BPMNGraphGenerator extends JsonGenerator {
     }
 
     @Override
-    public void writeStartObject() throws IOException, JsonGenerationException {
+    public void writeStartObject() throws IOException {
         parsers.peek().writeStartObject();
     }
 
     @Override
-    public void writeEndObject() throws IOException, JsonGenerationException {
+    public void writeEndObject() throws IOException {
         parsers.peek().writeEndObject();
     }
 
     @Override
-    public void writeFieldName( String s ) throws IOException, JsonGenerationException {
+    public void writeFieldName( String s ) throws IOException {
         parsers.peek().writeFieldName( s );
     }
 
     @Override
-    public void writeObject( Object o ) throws IOException, JsonProcessingException {
+    public void writeObject( Object o ) throws IOException  {
         parsers.peek().writeObject( o );
     }
 
     @Override
-    public void writeStartArray() throws IOException, JsonGenerationException {
+    public void writeStartArray() throws IOException {
         parsers.peek().writeStartArray();
     }
 
     @Override
-    public void writeEndArray() throws IOException, JsonGenerationException {
+    public void writeEndArray() throws IOException {
         parsers.peek().writeEndArray();
     }
 
@@ -621,99 +625,99 @@ public class BPMNGraphGenerator extends JsonGenerator {
     }
 
     @Override
-    public void writeString( String s ) throws IOException, JsonGenerationException {
+    public void writeString( String s ) throws IOException {
     }
 
     @Override
-    public void writeString( char[] chars, int i, int i1 ) throws IOException, JsonGenerationException {
+    public void writeString( char[] chars, int i, int i1 ) throws IOException {
     }
 
     @Override
-    public void writeRawUTF8String( byte[] bytes, int i, int i1 ) throws IOException, JsonGenerationException {
+    public void writeRawUTF8String( byte[] bytes, int i, int i1 ) throws IOException {
     }
 
     @Override
-    public void writeUTF8String( byte[] bytes, int i, int i1 ) throws IOException, JsonGenerationException {
+    public void writeUTF8String( byte[] bytes, int i, int i1 ) throws IOException {
     }
 
     @Override
-    public void writeRaw( String s ) throws IOException, JsonGenerationException {
+    public void writeRaw( String s ) throws IOException {
     }
 
     @Override
-    public void writeRaw( String s, int i, int i1 ) throws IOException, JsonGenerationException {
+    public void writeRaw( String s, int i, int i1 ) throws IOException {
     }
 
     @Override
-    public void writeRaw( char[] chars, int i, int i1 ) throws IOException, JsonGenerationException {
+    public void writeRaw( char[] chars, int i, int i1 ) throws IOException {
     }
 
     @Override
-    public void writeRaw( char c ) throws IOException, JsonGenerationException {
+    public void writeRaw( char c ) throws IOException {
     }
 
     @Override
-    public void writeRawValue( String s ) throws IOException, JsonGenerationException {
+    public void writeRawValue( String s ) throws IOException {
     }
 
     @Override
-    public void writeRawValue( String s, int i, int i1 ) throws IOException, JsonGenerationException {
+    public void writeRawValue( String s, int i, int i1 ) throws IOException {
     }
 
     @Override
-    public void writeRawValue( char[] chars, int i, int i1 ) throws IOException, JsonGenerationException {
+    public void writeRawValue( char[] chars, int i, int i1 ) throws IOException {
     }
 
     @Override
-    public void writeBinary( Base64Variant base64Variant, byte[] bytes, int i, int i1 ) throws IOException, JsonGenerationException {
+    public void writeBinary( Base64Variant base64Variant, byte[] bytes, int i, int i1 ) throws IOException {
     }
 
     @Override
-    public void writeNumber( int i ) throws IOException, JsonGenerationException {
+    public void writeNumber( int i ) throws IOException {
     }
 
     @Override
-    public void writeNumber( long l ) throws IOException, JsonGenerationException {
+    public void writeNumber( long l ) throws IOException {
     }
 
     @Override
-    public void writeNumber( BigInteger bigInteger ) throws IOException, JsonGenerationException {
+    public void writeNumber( BigInteger bigInteger ) throws IOException {
     }
 
     @Override
-    public void writeNumber( double v ) throws IOException, JsonGenerationException {
+    public void writeNumber( double v ) throws IOException {
     }
 
     @Override
-    public void writeNumber( float v ) throws IOException, JsonGenerationException {
+    public void writeNumber( float v ) throws IOException {
     }
 
     @Override
-    public void writeNumber( BigDecimal bigDecimal ) throws IOException, JsonGenerationException {
+    public void writeNumber( BigDecimal bigDecimal ) throws IOException {
     }
 
     @Override
-    public void writeNumber( String s ) throws IOException, JsonGenerationException, UnsupportedOperationException {
+    public void writeNumber( String s ) throws IOException, UnsupportedOperationException {
     }
 
     @Override
-    public void writeBoolean( boolean b ) throws IOException, JsonGenerationException {
+    public void writeBoolean( boolean b ) throws IOException {
     }
 
     @Override
-    public void writeNull() throws IOException, JsonGenerationException {
+    public void writeNull() throws IOException {
     }
 
     @Override
-    public void writeTree( JsonNode jsonNode ) throws IOException, JsonProcessingException {
+    public void writeTree( JsonNode jsonNode ) throws IOException {
     }
 
     @Override
-    public void copyCurrentEvent( JsonParser jsonParser ) throws IOException, JsonProcessingException {
+    public void copyCurrentEvent( JsonParser jsonParser ) throws IOException {
     }
 
     @Override
-    public void copyCurrentStructure( JsonParser jsonParser ) throws IOException, JsonProcessingException {
+    public void copyCurrentStructure( JsonParser jsonParser ) throws IOException {
     }
 
     @Override

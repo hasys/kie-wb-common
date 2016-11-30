@@ -16,10 +16,10 @@
 
 package org.kie.workbench.common.stunner.core.client.shape.view.event;
 
-import com.google.gwt.event.shared.HandlerRegistration;
-
 import java.util.LinkedList;
 import java.util.List;
+
+import com.google.gwt.event.shared.HandlerRegistration;
 
 public class HandlerRegistrationImpl implements HandlerRegistration {
     private final List<HandlerRegistration> m_list = new LinkedList<>();
@@ -29,10 +29,9 @@ public class HandlerRegistrationImpl implements HandlerRegistration {
 
     public HandlerRegistrationImpl( HandlerRegistration handler, HandlerRegistration... handlers ) {
         this.register( handler );
-        HandlerRegistration[] arr$ = handlers;
         int len$ = handlers.length;
         for ( int i$ = 0; i$ < len$; ++i$ ) {
-            HandlerRegistration h = arr$[ i$ ];
+            HandlerRegistration h = handlers[ i$ ];
             this.register( h );
         }
 
@@ -49,7 +48,7 @@ public class HandlerRegistrationImpl implements HandlerRegistration {
     public final HandlerRegistrationImpl destroy() {
         int size = this.size();
         for ( int i = 0; i < size; ++i ) {
-            ( ( HandlerRegistration ) this.m_list.get( i ) ).removeHandler();
+            this.m_list.get(i).removeHandler();
         }
         return this.clear();
     }

@@ -16,6 +16,9 @@
 
 package org.kie.workbench.common.stunner.core.client.canvas.controls.builder.impl;
 
+import java.util.*;
+import java.util.logging.Logger;
+
 import org.kie.workbench.common.stunner.core.client.api.ClientDefinitionManager;
 import org.kie.workbench.common.stunner.core.client.canvas.AbstractCanvasHandler;
 import org.kie.workbench.common.stunner.core.client.canvas.command.CanvasCommandFactory;
@@ -25,30 +28,18 @@ import org.kie.workbench.common.stunner.core.client.canvas.controls.builder.requ
 import org.kie.workbench.common.stunner.core.client.canvas.util.CanvasLayoutUtils;
 import org.kie.workbench.common.stunner.core.client.command.CanvasCommandManager;
 import org.kie.workbench.common.stunner.core.client.command.CanvasViolation;
-import org.kie.workbench.common.stunner.core.client.service.ClientFactoryService;
-import org.kie.workbench.common.stunner.core.client.service.ClientRuntimeError;
-import org.kie.workbench.common.stunner.core.client.service.ServiceCallback;
+import org.kie.workbench.common.stunner.core.client.service.*;
 import org.kie.workbench.common.stunner.core.command.Command;
 import org.kie.workbench.common.stunner.core.command.impl.CompositeCommandImpl;
-import org.kie.workbench.common.stunner.core.graph.Edge;
+import org.kie.workbench.common.stunner.core.graph.*;
 import org.kie.workbench.common.stunner.core.graph.Element;
-import org.kie.workbench.common.stunner.core.graph.Node;
 import org.kie.workbench.common.stunner.core.graph.content.view.View;
 import org.kie.workbench.common.stunner.core.graph.processing.index.bounds.GraphBoundsIndexer;
 import org.kie.workbench.common.stunner.core.graph.util.GraphUtils;
-import org.kie.workbench.common.stunner.core.rule.DefaultRuleViolations;
-import org.kie.workbench.common.stunner.core.rule.RuleManager;
-import org.kie.workbench.common.stunner.core.rule.RuleViolation;
-import org.kie.workbench.common.stunner.core.rule.RuleViolations;
+import org.kie.workbench.common.stunner.core.rule.*;
 import org.kie.workbench.common.stunner.core.rule.model.ModelCardinalityRuleManager;
 import org.kie.workbench.common.stunner.core.rule.model.ModelContainmentRuleManager;
 import org.kie.workbench.common.stunner.core.util.UUID;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Logger;
 
 public abstract class AbstractElementBuilderControl extends AbstractCanvasHandlerControl
         implements ElementBuilderControl<AbstractCanvasHandler> {
@@ -239,8 +230,7 @@ public abstract class AbstractElementBuilderControl extends AbstractCanvasHandle
         if ( _x > -1 && _y > -1 ) {
             final String rootUUID = canvasHandler.getDiagram().getMetadata().getCanvasRootUUID();
             graphBoundsIndexer.setRootUUID( rootUUID ).build( canvasHandler.getDiagram().getGraph() );
-            final Node<View<?>, Edge> r = graphBoundsIndexer.getAt( _x, _y );
-            return r;
+            return graphBoundsIndexer.getAt( _x, _y );
         }
         return null;
     }
@@ -272,5 +262,4 @@ public abstract class AbstractElementBuilderControl extends AbstractCanvasHandle
     protected String getShapeSetId() {
         return canvasHandler.getDiagram().getMetadata().getShapeSetId();
     }
-
 }

@@ -16,10 +16,17 @@
 
 package org.kie.workbench.common.stunner.core.processors;
 
-import org.uberfire.annotations.processors.exceptions.GenerationException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.*;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
@@ -27,10 +34,8 @@ import javax.lang.model.util.ElementFilter;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+
+import org.uberfire.annotations.processors.exceptions.GenerationException;
 
 public class GeneratorUtils extends org.uberfire.annotations.processors.GeneratorUtils {
 
@@ -206,14 +211,13 @@ public class GeneratorUtils extends org.uberfire.annotations.processors.Generato
             return false;
         } else {
             ArrayList requiredTypes = new ArrayList();
-            String[] i = requiredParameterTypes;
             int actualType = requiredParameterTypes.length;
             for ( int requiredType = 0; requiredType < actualType; ++requiredType ) {
-                String parameterType = i[ requiredType ];
+                String parameterType = requiredParameterTypes[ requiredType ];
                 requiredTypes.add( elementUtils.getTypeElement( parameterType ).asType() );
             }
             for ( int var9 = 0; var9 < requiredTypes.size(); ++var9 ) {
-                TypeMirror var10 = ( ( VariableElement ) e.getParameters().get( var9 ) ).asType();
+                TypeMirror var10 = e.getParameters().get(var9).asType();
                 TypeMirror var11 = ( TypeMirror ) requiredTypes.get( var9 );
                 if ( !typeUtils.isAssignable( var10, var11 ) ) {
                     return false;
@@ -254,5 +258,4 @@ public class GeneratorUtils extends org.uberfire.annotations.processors.Generato
         }
         return msg.toString();
     }
-
 }
