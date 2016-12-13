@@ -25,7 +25,7 @@ public class CreateEmptyDiagramEvent implements UberFireEvent {
 
     private String shapeSetId;
 
-    public CreateEmptyDiagramEvent( final String shapeSetId ) {
+    public CreateEmptyDiagramEvent(final String shapeSetId) {
         this.shapeSetId = shapeSetId;
     }
 
@@ -37,5 +37,4 @@ public class CreateEmptyDiagramEvent implements UberFireEvent {
     public String toString() {
         return "ShapeSetSelectedEvent [shapeSet=" + shapeSetId + "]";
     }
-
 }

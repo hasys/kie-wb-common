@@ -15,18 +15,17 @@
 
 package org.kie.workbench.common.stunner.client.widgets.toolbar.impl;
 
+import javax.enterprise.inject.Instance;
+
 import org.kie.workbench.common.stunner.client.widgets.toolbar.ToolbarView;
 import org.kie.workbench.common.stunner.client.widgets.toolbar.item.AbstractToolbarItem;
 import org.kie.workbench.common.stunner.core.client.session.ClientSession;
 
-import javax.enterprise.inject.Instance;
-
 class ToolbarImpl extends AbstractToolbar<ClientSession> {
 
-    ToolbarImpl( final Instance<AbstractToolbarItem<ClientSession>> toolbarItems,
-                 final ToolbarView view ) {
-        super( toolbarItems, view );
+    ToolbarImpl(final Instance<AbstractToolbarItem<ClientSession>> toolbarItems,
+                final ToolbarView view) {
+        super(toolbarItems, view);
         doInit();
     }
-
 }

@@ -16,6 +16,8 @@
 
 package org.kie.workbench.common.stunner.client.widgets.navigation.navigator.view;
 
+import javax.enterprise.context.Dependent;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -31,8 +33,6 @@ import org.kie.workbench.common.stunner.client.widgets.navigation.navigator.Navi
 import org.kie.workbench.common.stunner.client.widgets.navigation.navigator.NavigatorItemView;
 import org.kie.workbench.common.stunner.client.widgets.navigation.navigator.NavigatorView;
 
-import javax.enterprise.context.Dependent;
-
 @Dependent
 public class BootstrapNavigatorView
         extends Composite
@@ -42,7 +42,7 @@ public class BootstrapNavigatorView
 
     }
 
-    private static ViewBinder uiBinder = GWT.create( ViewBinder.class );
+    private static ViewBinder uiBinder = GWT.create(ViewBinder.class);
 
     @UiField
     FlowPanel mainPanel;
@@ -57,15 +57,15 @@ public class BootstrapNavigatorView
     private int itemCounter;
 
     public BootstrapNavigatorView() {
-        initWidget( uiBinder.createAndBindUi( this ) );
+        initWidget(uiBinder.createAndBindUi(this));
         this.currentRow = null;
         this.itemCounter = 0;
-        setLoading( false );
+        setLoading(false);
     }
 
     @Override
-    public BootstrapNavigatorView add( final NavigatorItemView<NavigatorItem<?>> view ) {
-        addItem( view.asWidget() );
+    public BootstrapNavigatorView add(final NavigatorItemView<NavigatorItem<?>> view) {
+        addItem(view.asWidget());
         return this;
     }
 
@@ -77,23 +77,21 @@ public class BootstrapNavigatorView
     }
 
     @Override
-    public NavigatorView<NavigatorItem<?>> setLoading( final boolean loading ) {
-        container.setVisible( !loading );
-        loadingPanel.setVisible( loading );
+    public NavigatorView<NavigatorItem<?>> setLoading(final boolean loading) {
+        container.setVisible(!loading);
+        loadingPanel.setVisible(loading);
         return this;
     }
 
-    private void addItem( final IsWidget widget ) {
-        if ( null == currentRow || ( itemCounter == 4 ) ) {
+    private void addItem(final IsWidget widget) {
+        if (null == currentRow || (itemCounter == 4)) {
             currentRow = new Row();
-            container.add( currentRow );
+            container.add(currentRow);
             itemCounter = 0;
         }
-        final Column column = new Column( ColumnSize.MD_3 );
-        column.add( widget );
-        currentRow.add( column );
+        final Column column = new Column(ColumnSize.MD_3);
+        column.add(widget);
+        currentRow.add(column);
         itemCounter++;
-
     }
-
 }

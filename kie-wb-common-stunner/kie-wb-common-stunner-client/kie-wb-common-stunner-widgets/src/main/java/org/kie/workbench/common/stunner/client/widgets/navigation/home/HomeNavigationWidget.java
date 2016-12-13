@@ -16,6 +16,12 @@
 
 package org.kie.workbench.common.stunner.client.widgets.navigation.home;
 
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import org.gwtbootstrap3.client.ui.constants.IconType;
@@ -24,27 +30,20 @@ import org.kie.workbench.common.stunner.client.widgets.navigation.navigator.diag
 import org.kie.workbench.common.stunner.client.widgets.navigation.navigator.shapesets.ShapeSetsNavigator;
 import org.uberfire.client.mvp.UberView;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import java.util.logging.Logger;
-
 @Dependent
 public class HomeNavigationWidget implements IsWidget {
 
-    private static Logger LOGGER = Logger.getLogger( HomeNavigationWidget.class.getName() );
+    private static Logger LOGGER = Logger.getLogger(HomeNavigationWidget.class.getName());
 
     public interface View extends UberView<HomeNavigationWidget> {
 
-        View setIcon( IconType iconType );
+        View setIcon(IconType iconType);
 
-        View setIconTitle( String text );
+        View setIconTitle(String text);
 
-        View add( HomeNavigationItem.View view );
+        View add(HomeNavigationItem.View view);
 
         View clear();
-
     }
 
     DiagramsNavigator diagramsNavigator;
@@ -56,10 +55,10 @@ public class HomeNavigationWidget implements IsWidget {
     private HomeNavigationItem diagramsNavigatorItem;
 
     @Inject
-    public HomeNavigationWidget( final View view,
-                                 final Instance<HomeNavigationItem> navigationItemInstances,
-                                 final DiagramsNavigator diagramsNavigator,
-                                 final ShapeSetsNavigator shapeSetsNavigator ) {
+    public HomeNavigationWidget(final View view,
+                                final Instance<HomeNavigationItem> navigationItemInstances,
+                                final DiagramsNavigator diagramsNavigator,
+                                final ShapeSetsNavigator shapeSetsNavigator) {
         this.view = view;
         this.navigationItemInstances = navigationItemInstances;
         this.diagramsNavigator = diagramsNavigator;
@@ -70,7 +69,7 @@ public class HomeNavigationWidget implements IsWidget {
 
     @PostConstruct
     public void init() {
-        view.init( this );
+        view.init(this);
     }
 
     @Override
@@ -82,26 +81,24 @@ public class HomeNavigationWidget implements IsWidget {
         clear();
         // A group for creating new diagrams using the Shape Sets navigator.
         this.shapeSetsNavigatorItem = newItem();
-        view.add( shapeSetsNavigatorItem.getView() );
+        view.add(shapeSetsNavigatorItem.getView());
         shapeSetsNavigatorItem
-                .setCollapsed( true )
-                .setVisible( false )
-                .show( "Create a diagram", "Create a new diagram", shapeSetsNavigator );
+                .setCollapsed(true)
+                .setVisible(false)
+                .show("Create a diagram", "Create a new diagram", shapeSetsNavigator);
         // A group that contains existing diagrams using the Diagrams navigator.
         this.diagramsNavigatorItem = newItem();
-        view.add( diagramsNavigatorItem.getView() );
+        view.add(diagramsNavigatorItem.getView());
         diagramsNavigatorItem
-                .setCollapsed( false )
-                .setVisible( true )
-                .show( "My diagrams", "Load a diagram", diagramsNavigator );
-
+                .setCollapsed(false)
+                .setVisible(true)
+                .show("My diagrams", "Load a diagram", diagramsNavigator);
     }
 
     public void clear() {
         view.clear();
         this.diagramsNavigatorItem = null;
         this.shapeSetsNavigatorItem = null;
-
     }
 
     public DiagramsNavigator getDiagramsNavigator() {
@@ -113,34 +110,29 @@ public class HomeNavigationWidget implements IsWidget {
     }
 
     void onButtonClick() {
-        if ( shapeSetsNavigatorItem.getView().isPanelVisible() ) {
+        if (shapeSetsNavigatorItem.getView().isPanelVisible()) {
             focusDiagramsNavigatorItem();
-
         } else {
             focusShapeSetsNavigatorItem();
-
         }
-
     }
 
     private void focusShapeSetsNavigatorItem() {
         shapeSetsNavigatorItem
-                .setVisible( true )
-                .setCollapsed( false );
-        diagramsNavigatorItem.setCollapsed( true );
-        view.setIcon( IconType.MINUS_CIRCLE );
-        view.setIconTitle( "Explore" );
-
+                .setVisible(true)
+                .setCollapsed(false);
+        diagramsNavigatorItem.setCollapsed(true);
+        view.setIcon(IconType.MINUS_CIRCLE);
+        view.setIconTitle("Explore");
     }
 
     private void focusDiagramsNavigatorItem() {
         shapeSetsNavigatorItem
-                .setVisible( false )
-                .setCollapsed( true );
-        diagramsNavigatorItem.setCollapsed( false );
-        view.setIcon( IconType.PLUS_CIRCLE );
-        view.setIconTitle( "Create" );
-
+                .setVisible(false)
+                .setCollapsed(true);
+        diagramsNavigatorItem.setCollapsed(false);
+        view.setIcon(IconType.PLUS_CIRCLE);
+        view.setIconTitle("Create");
     }
 
     private HomeNavigationItem newItem() {

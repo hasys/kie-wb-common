@@ -20,8 +20,7 @@ import org.kie.workbench.common.stunner.core.client.service.ClientRuntimeError;
 
 public interface ToolbarCommandCallback<T> {
 
-    void onCommandExecuted( T result );
+    void onCommandExecuted(T result);
 
-    void onError( ClientRuntimeError error );
-
+    void onError(ClientRuntimeError error);
 }

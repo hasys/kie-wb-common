@@ -21,14 +21,13 @@ import org.kie.workbench.common.stunner.shapes.def.ConnectorShapeDef;
 
 public class ConnectorShape<W> extends AbstractBasicConnector<W, ConnectorView, ConnectorShapeDef<W>> {
 
-    public ConnectorShape( final ConnectorView view,
-                           final ConnectorShapeDef<W> proxy ) {
-        super( view, proxy );
+    public ConnectorShape(final ConnectorView view,
+                          final ConnectorShapeDef<W> proxy) {
+        super(view, proxy);
     }
 
     @Override
     public String toString() {
         return "ConnectorShape{}";
     }
-
 }

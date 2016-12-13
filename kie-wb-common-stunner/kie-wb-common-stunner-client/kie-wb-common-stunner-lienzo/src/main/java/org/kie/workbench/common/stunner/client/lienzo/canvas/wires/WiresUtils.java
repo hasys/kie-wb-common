@@ -17,7 +17,11 @@
 package org.kie.workbench.common.stunner.client.lienzo.canvas.wires;
 
 import com.ait.lienzo.client.core.shape.IDrawable;
-import com.ait.lienzo.client.core.shape.wires.*;
+import com.ait.lienzo.client.core.shape.wires.WiresConnector;
+import com.ait.lienzo.client.core.shape.wires.WiresContainer;
+import com.ait.lienzo.client.core.shape.wires.WiresLayer;
+import com.ait.lienzo.client.core.shape.wires.WiresMagnet;
+import com.ait.lienzo.client.core.shape.wires.WiresShape;
 import org.kie.workbench.common.stunner.core.client.canvas.AbstractCanvasHandler;
 import org.kie.workbench.common.stunner.core.client.canvas.Point2D;
 import org.kie.workbench.common.stunner.core.client.shape.view.ShapeView;
@@ -26,48 +30,43 @@ import org.kie.workbench.common.stunner.core.graph.Node;
 
 public final class WiresUtils {
 
-    public static Point2D getAbsolute( final IDrawable<?> shape ) {
-        final com.ait.lienzo.client.core.types.Point2D p = com.ait.lienzo.client.core.shape.wires.WiresUtils.getLocation( shape );
-        return new Point2D( p.getX(), p.getY() );
+    public static Point2D getAbsolute(final IDrawable<?> shape) {
+        final com.ait.lienzo.client.core.types.Point2D p = com.ait.lienzo.client.core.shape.wires.WiresUtils.getLocation(shape);
+        return new Point2D(p.getX(), p.getY());
     }
 
-    public static Node getNode( final AbstractCanvasHandler canvasHandler,
-                                final WiresContainer shape ) {
-        if ( null == shape ) {
+    public static Node getNode(final AbstractCanvasHandler canvasHandler,
+                               final WiresContainer shape) {
+        if (null == shape) {
             return null;
         }
-        if ( shape instanceof ShapeView ) {
-            final ShapeView view = ( ShapeView ) shape;
-            return canvasHandler.getGraphIndex().getNode( view.getUUID() );
-
-        } else if ( shape instanceof WiresLayer ) {
+        if (shape instanceof ShapeView) {
+            final ShapeView view = (ShapeView) shape;
+            return canvasHandler.getGraphIndex().getNode(view.getUUID());
+        } else if (shape instanceof WiresLayer) {
             final String canvasRoot = canvasHandler.getDiagram().getMetadata().getCanvasRootUUID();
-            if ( null != canvasRoot ) {
-                return canvasHandler.getGraphIndex().getNode( canvasRoot );
-
+            if (null != canvasRoot) {
+                return canvasHandler.getGraphIndex().getNode(canvasRoot);
             }
-
         }
         return null;
     }
 
-    public static Node getNode( final AbstractCanvasHandler canvasHandler,
-                                final WiresMagnet magnet ) {
-        if ( null == magnet ) {
+    public static Node getNode(final AbstractCanvasHandler canvasHandler,
+                               final WiresMagnet magnet) {
+        if (null == magnet) {
             return null;
         }
         final WiresShape shape = magnet.getMagnets().getWiresShape();
-        return getNode( canvasHandler, shape );
+        return getNode(canvasHandler, shape);
     }
 
-    public static Edge getEdge( final AbstractCanvasHandler canvasHandler,
-                                final WiresConnector connector ) {
-        if ( connector instanceof ShapeView ) {
-            final ShapeView view = ( ShapeView ) connector;
-            return canvasHandler.getGraphIndex().getEdge( view.getUUID() );
-
+    public static Edge getEdge(final AbstractCanvasHandler canvasHandler,
+                               final WiresConnector connector) {
+        if (connector instanceof ShapeView) {
+            final ShapeView view = (ShapeView) connector;
+            return canvasHandler.getGraphIndex().getEdge(view.getUUID());
         }
         return null;
     }
-
 }

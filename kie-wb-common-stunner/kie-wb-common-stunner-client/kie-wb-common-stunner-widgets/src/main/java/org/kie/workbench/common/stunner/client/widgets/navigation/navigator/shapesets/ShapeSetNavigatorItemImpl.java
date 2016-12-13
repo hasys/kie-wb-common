@@ -16,6 +16,12 @@
 
 package org.kie.workbench.common.stunner.client.widgets.navigation.navigator.shapesets;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+
 import com.google.gwt.logging.client.LogConfiguration;
 import com.google.gwt.safehtml.shared.SafeUri;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -27,16 +33,10 @@ import org.kie.workbench.common.stunner.core.client.ShapeManager;
 import org.kie.workbench.common.stunner.core.client.ShapeSet;
 import org.uberfire.mvp.Command;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 @Dependent
 public class ShapeSetNavigatorItemImpl implements IsWidget, ShapeSetNavigatorItem {
 
-    private static Logger LOGGER = Logger.getLogger( ShapeSetNavigatorItemImpl.class.getName() );
+    private static Logger LOGGER = Logger.getLogger(ShapeSetNavigatorItemImpl.class.getName());
 
     ShapeManager shapeManager;
     DefinitionManager definitionManager;
@@ -46,9 +46,9 @@ public class ShapeSetNavigatorItemImpl implements IsWidget, ShapeSetNavigatorIte
     private Command callback;
 
     @Inject
-    public ShapeSetNavigatorItemImpl( final ShapeManager shapeManager,
-                                      final DefinitionManager definitionManager,
-                                      final NavigatorItemView<NavigatorItem> view ) {
+    public ShapeSetNavigatorItemImpl(final ShapeManager shapeManager,
+                                     final DefinitionManager definitionManager,
+                                     final NavigatorItemView<NavigatorItem> view) {
         this.shapeManager = shapeManager;
         this.definitionManager = definitionManager;
         this.view = view;
@@ -56,7 +56,7 @@ public class ShapeSetNavigatorItemImpl implements IsWidget, ShapeSetNavigatorIte
 
     @PostConstruct
     public void init() {
-        view.init( this );
+        view.init(this);
     }
 
     @Override
@@ -64,22 +64,21 @@ public class ShapeSetNavigatorItemImpl implements IsWidget, ShapeSetNavigatorIte
         return view.asWidget();
     }
 
-    public void show( final ShapeSet shapeSet,
-                      final int widthInPx,
-                      final int heightInPx,
-                      final Command callback ) {
+    public void show(final ShapeSet shapeSet,
+                     final int widthInPx,
+                     final int heightInPx,
+                     final Command callback) {
         this.callback = callback;
         this.uuid = shapeSet.getId();
         final String defSetId = shapeSet.getDefinitionSetId();
-        final SafeUri thumbUri = shapeManager.getThumbnail( defSetId );
-        final Object defSet = definitionManager.definitionSets().getDefinitionSetById( defSetId );
-        final String description = definitionManager.adapters().forDefinitionSet().getDescription( defSet );
+        final SafeUri thumbUri = shapeManager.getThumbnail(defSetId);
+        final Object defSet = definitionManager.definitionSets().getDefinitionSetById(defSetId);
+        final String description = definitionManager.adapters().forDefinitionSet().getDescription(defSet);
         view
-                .setUUID( uuid )
-                .setItemTitle( description )
-                .setThumbUri( thumbUri );
-        view.setItemPxSize( widthInPx, heightInPx );
-
+                .setUUID(uuid)
+                .setItemTitle(description)
+                .setThumbUri(thumbUri);
+        view.setItemPxSize(widthInPx, heightInPx);
     }
 
     @Override
@@ -94,15 +93,14 @@ public class ShapeSetNavigatorItemImpl implements IsWidget, ShapeSetNavigatorIte
 
     @Override
     public void onItemSelected() {
-        if ( null != callback ) {
+        if (null != callback) {
             callback.execute();
         }
     }
 
-    private void log( final Level level, final String message ) {
-        if ( LogConfiguration.loggingIsEnabled() ) {
-            LOGGER.log( level, message );
+    private void log(final Level level, final String message) {
+        if (LogConfiguration.loggingIsEnabled()) {
+            LOGGER.log(level, message);
         }
     }
-
 }

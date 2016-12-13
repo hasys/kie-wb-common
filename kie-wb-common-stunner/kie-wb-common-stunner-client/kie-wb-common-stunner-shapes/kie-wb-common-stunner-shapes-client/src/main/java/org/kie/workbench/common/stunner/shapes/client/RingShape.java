@@ -27,40 +27,37 @@ import org.kie.workbench.common.stunner.shapes.def.RingShapeDef;
 // TODO
 public class RingShape<W> extends AbstractBasicShapeWithTitle<W, RingView, RingShapeDef<W>> {
 
-    public RingShape( final RingView view,
-                      final RingShapeDef<W> proxy ) {
-        super( view, proxy );
+    public RingShape(final RingView view,
+                     final RingShapeDef<W> proxy) {
+        super(view, proxy);
     }
 
     @Override
-    public void applyProperties( final Node<View<W>, Edge> element, final MutationContext mutationContext ) {
-        super.applyProperties( element, mutationContext );
+    public void applyProperties(final Node<View<W>, Edge> element, final MutationContext mutationContext) {
+        super.applyProperties(element, mutationContext);
         // Outer Radius.
-        final Double outerRadius = proxy.getOuterRadius( getDefinition( element ) );
-        _applyOuterRadius( element, outerRadius, mutationContext );
+        final Double outerRadius = proxy.getOuterRadius(getDefinition(element));
+        _applyOuterRadius(element, outerRadius, mutationContext);
         // Inner Radius.
-        final Double innerRadius = proxy.getInnerRadius( getDefinition( element ) );
-        _applyInnerRadius( element, innerRadius, mutationContext );
-
+        final Double innerRadius = proxy.getInnerRadius(getDefinition(element));
+        _applyInnerRadius(element, innerRadius, mutationContext);
     }
 
-    protected RingShape<W> _applyOuterRadius( final Node<View<W>, Edge> element,
-                                              final Double radius,
-                                              final MutationContext mutationContext ) {
-        if ( null != radius ) {
-            getShapeView().setOuterRadius( radius );
-            GraphUtils.updateBounds( radius, element.getContent() );
-
+    protected RingShape<W> _applyOuterRadius(final Node<View<W>, Edge> element,
+                                             final Double radius,
+                                             final MutationContext mutationContext) {
+        if (null != radius) {
+            getShapeView().setOuterRadius(radius);
+            GraphUtils.updateBounds(radius, element.getContent());
         }
         return this;
     }
 
-    protected RingShape<W> _applyInnerRadius( final Node<View<W>, Edge> element,
-                                              final Double radius,
-                                              final MutationContext mutationContext ) {
-        if ( null != radius ) {
-            getShapeView().setInnerRadius( radius );
-
+    protected RingShape<W> _applyInnerRadius(final Node<View<W>, Edge> element,
+                                             final Double radius,
+                                             final MutationContext mutationContext) {
+        if (null != radius) {
+            getShapeView().setInnerRadius(radius);
         }
         return this;
     }
@@ -69,5 +66,4 @@ public class RingShape<W> extends AbstractBasicShapeWithTitle<W, RingView, RingS
     public String toString() {
         return "RingShape{}";
     }
-
 }

@@ -16,15 +16,15 @@
 
 package org.kie.workbench.common.stunner.shapes.client.view.animatiion;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.ait.lienzo.client.core.animation.AnimationProperties;
 import com.ait.lienzo.client.core.animation.AnimationProperty;
 import com.ait.lienzo.client.core.animation.AnimationTweener;
 import com.ait.lienzo.client.core.shape.Group;
 import org.kie.workbench.common.stunner.shapes.client.BasicConnector;
 import org.kie.workbench.common.stunner.shapes.client.view.BasicConnectorView;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class BasicConnectorAnimation
         extends AbstractBasicAnimation<BasicConnector> {
@@ -37,20 +37,19 @@ public class BasicConnectorAnimation
     @Override
     public void run() {
         final AnimationTweener tweener = AnimationTweener.LINEAR;
-        final BasicConnectorView<?> view = ( BasicConnectorView<?> ) getSource().getShapeView();
+        final BasicConnectorView<?> view = (BasicConnectorView<?>) getSource().getShapeView();
         final Group group = view.getGroup();
         final long duration = getDuration();
         // Shape property animations.
-        final AnimationProperties _ps = translate( decoratableLineAnimationProperties );
-        group.animate( tweener, _ps, duration, getAnimationCallback() );
+        final AnimationProperties _ps = translate(decoratableLineAnimationProperties);
+        group.animate(tweener, _ps, duration, getAnimationCallback());
         decoratableLineAnimationProperties.clear();
-
     }
 
-    private AnimationProperties translate( final List<AnimationProperty> ps ) {
+    private AnimationProperties translate(final List<AnimationProperty> ps) {
         final AnimationProperties _ps = new AnimationProperties();
-        for ( final com.ait.lienzo.client.core.animation.AnimationProperty p : ps ) {
-            _ps.push( p );
+        for (final com.ait.lienzo.client.core.animation.AnimationProperty p : ps) {
+            _ps.push(p);
         }
         return _ps;
     }
@@ -59,16 +58,15 @@ public class BasicConnectorAnimation
         decoratableLineAnimationProperties.clear();
     }
 
-    public void animateFillColor( final String value ) {
-        decoratableLineAnimationProperties.add( AnimationProperty.Properties.FILL_COLOR( value ) );
+    public void animateFillColor(final String value) {
+        decoratableLineAnimationProperties.add(AnimationProperty.Properties.FILL_COLOR(value));
     }
 
-    public void animateStrokeColor( final String value ) {
-        decoratableLineAnimationProperties.add( AnimationProperty.Properties.STROKE_COLOR( value ) );
+    public void animateStrokeColor(final String value) {
+        decoratableLineAnimationProperties.add(AnimationProperty.Properties.STROKE_COLOR(value));
     }
 
-    public void animateStrokeWidth( final Double value ) {
-        decoratableLineAnimationProperties.add( AnimationProperty.Properties.STROKE_WIDTH( value ) );
+    public void animateStrokeWidth(final Double value) {
+        decoratableLineAnimationProperties.add(AnimationProperty.Properties.STROKE_WIDTH(value));
     }
-
 }

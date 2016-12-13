@@ -23,7 +23,7 @@ import org.kie.workbench.common.stunner.lienzo.util.LienzoPaths;
 
 /**
  * The lienzo view implementation for the Rectangle shape.
- *
+ * <p>
  * TODO: Disabling for now the resize for rectangles when they're using a corner radius value different
  * from zero - ARC resize is not implemented yet on lienzo side, and the corners are built using ARCs.
  * See <a>org.kie.workbench.common.stunner.lienzo.util.LienzoPaths#rectangle</a>.
@@ -33,43 +33,39 @@ public class RectangleView extends BasicShapeView<RectangleView>
 
     private final double corner_radius;
 
-    public RectangleView( final double width,
-                          final double height,
-                          final double corner ) {
-        super( create( new MultiPath(), width, height, corner ) );
-        super.setResizable( corner == 0 );
+    public RectangleView(final double width,
+                         final double height,
+                         final double corner) {
+        super(create(new MultiPath(), width, height, corner));
+        super.setResizable(corner == 0);
         this.corner_radius = corner;
     }
 
     @Override
-    public RectangleView setSize( final double width,
-                                  final double height ) {
-        create( getPath().clear(), width, height, corner_radius );
-        updateFillGradient( width, height );
+    public RectangleView setSize(final double width,
+                                 final double height) {
+        create(getPath().clear(), width, height, corner_radius);
+        updateFillGradient(width, height);
         refresh();
         return this;
-
     }
 
-
     @Override
-    public WiresShape setResizable( boolean resizable ) {
-        return super.setResizable( corner_radius == 0 && resizable );
+    public WiresShape setResizable(boolean resizable) {
+        return super.setResizable(corner_radius == 0 && resizable);
     }
 
     /**
      * Append the path parts for a rectangle.
-     *
      * @param path The source multipath
-     * @param w    The rectangle width
-     * @param h    The rectangle height
-     * @param r    The rectangle corner radius
+     * @param w The rectangle width
+     * @param h The rectangle height
+     * @param r The rectangle corner radius
      */
-    private static MultiPath create( final MultiPath path,
-                                     final double w,
-                                     final double h,
-                                     final double r ) {
-        return LienzoPaths.rectangle( path, w, h, r );
+    private static MultiPath create(final MultiPath path,
+                                    final double w,
+                                    final double h,
+                                    final double r) {
+        return LienzoPaths.rectangle(path, w, h, r);
     }
-
 }

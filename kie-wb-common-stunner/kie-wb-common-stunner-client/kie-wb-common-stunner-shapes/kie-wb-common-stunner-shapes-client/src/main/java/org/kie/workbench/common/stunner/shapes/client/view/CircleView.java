@@ -27,28 +27,26 @@ import org.kie.workbench.common.stunner.core.client.shape.view.HasRadius;
 public class CircleView extends BasicShapeView<CircleView>
         implements HasRadius<CircleView> {
 
-    public CircleView( final double radius ) {
-        super( create( new MultiPath(), radius ) );
+    public CircleView(final double radius) {
+        super(create(new MultiPath(), radius));
     }
 
     @Override
-    public CircleView setRadius( final double radius ) {
-        create( getPath().clear(), radius );
-        updateFillGradient( radius * 2, radius * 2 );
+    public CircleView setRadius(final double radius) {
+        create(getPath().clear(), radius);
+        updateFillGradient(radius * 2, radius * 2);
         refresh();
-        super.setResizable( false );
+        super.setResizable(false);
         return this;
-
     }
 
-    private static MultiPath create( final MultiPath path,
-                                     final double radius ) {
-        return path.M( radius, 0 ).circle( radius ).Z();
+    private static MultiPath create(final MultiPath path,
+                                    final double radius) {
+        return path.M(radius, 0).circle(radius).Z();
     }
 
     @Override
-    public WiresShape setResizable( final boolean resizable ) {
-        return super.setResizable( false );
+    public WiresShape setResizable(final boolean resizable) {
+        return super.setResizable(false);
     }
-
 }

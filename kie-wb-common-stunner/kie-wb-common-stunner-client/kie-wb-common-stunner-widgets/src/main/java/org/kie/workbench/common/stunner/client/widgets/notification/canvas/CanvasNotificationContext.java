@@ -22,9 +22,9 @@ public final class CanvasNotificationContext {
     private final String diagramUUID;
     private final String diagramTitle;
 
-    public CanvasNotificationContext( final String canvasUUID,
-                                      final String diagramUUID,
-                                      final String diagramTitle ) {
+    public CanvasNotificationContext(final String canvasUUID,
+                                     final String diagramUUID,
+                                     final String diagramTitle) {
         this.canvasUUID = canvasUUID;
         this.diagramUUID = diagramUUID;
         this.diagramTitle = diagramTitle;
@@ -46,5 +46,4 @@ public final class CanvasNotificationContext {
     public String toString() {
         return "[Diagram='" + diagramTitle + "' (" + diagramUUID + "), Canvas=" + canvasUUID + "]";
     }
-
 }

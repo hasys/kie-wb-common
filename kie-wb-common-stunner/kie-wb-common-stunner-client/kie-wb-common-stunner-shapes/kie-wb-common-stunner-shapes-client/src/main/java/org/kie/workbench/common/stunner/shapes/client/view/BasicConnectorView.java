@@ -47,31 +47,31 @@ public abstract class BasicConnectorView<T> extends AbstractConnectorView<T>
     private Double strokeWidth;
     private String color;
 
-    public BasicConnectorView( final AbstractDirectionalMultiPointShape<?> line,
-                               final MultiPathDecorator headDecorator,
-                               final MultiPathDecorator tailDecorator ) {
-        super( line, headDecorator, tailDecorator );
+    public BasicConnectorView(final AbstractDirectionalMultiPointShape<?> line,
+                              final MultiPathDecorator headDecorator,
+                              final MultiPathDecorator tailDecorator) {
+        super(line, headDecorator, tailDecorator);
     }
 
-    public BasicConnectorView( final WiresMagnet headMagnet,
-                               final WiresMagnet tailMagnet,
-                               final AbstractDirectionalMultiPointShape<?> line,
-                               final MultiPathDecorator headDecorator,
-                               final MultiPathDecorator tailDecorator ) {
-        super( headMagnet, tailMagnet, line, headDecorator, tailDecorator );
+    public BasicConnectorView(final WiresMagnet headMagnet,
+                              final WiresMagnet tailMagnet,
+                              final AbstractDirectionalMultiPointShape<?> line,
+                              final MultiPathDecorator headDecorator,
+                              final MultiPathDecorator tailDecorator) {
+        super(headMagnet, tailMagnet, line, headDecorator, tailDecorator);
     }
 
     protected void init() {
         super.init();
         this.textPosition = WiresLayoutContainer.Layout.CENTER;
         this.textRotationDegrees = 0;
-        this.eventHandlerManager = new ViewEventHandlerManager( getLine(), SUPPORTED_EVENT_TYPES );
+        this.eventHandlerManager = new ViewEventHandlerManager(getLine(), SUPPORTED_EVENT_TYPES);
         enableShowControlsOnMouseEnter();
     }
 
     @Override
-    public boolean supports( final ViewEventType type ) {
-        return eventHandlerManager.supports( type );
+    public boolean supports(final ViewEventType type) {
+        return eventHandlerManager.supports(type);
     }
 
     @Override
@@ -80,119 +80,112 @@ public abstract class BasicConnectorView<T> extends AbstractConnectorView<T>
     }
 
     @Override
-    public T addHandler( final ViewEventType type,
-                         final ViewHandler<? extends ViewEvent> eventHandler ) {
-        eventHandlerManager.addHandler( type, eventHandler );
-        return ( T ) this;
-
+    public T addHandler(final ViewEventType type,
+                        final ViewHandler<? extends ViewEvent> eventHandler) {
+        eventHandlerManager.addHandler(type, eventHandler);
+        return (T) this;
     }
 
     @Override
-    public T removeHandler( final ViewHandler<? extends ViewEvent> eventHandler ) {
-        eventHandlerManager.removeHandler( eventHandler );
-        return ( T ) this;
-
+    public T removeHandler(final ViewHandler<? extends ViewEvent> eventHandler) {
+        eventHandlerManager.removeHandler(eventHandler);
+        return (T) this;
     }
 
     @Override
     public T disableHandlers() {
         eventHandlerManager.disable();
-        return ( T ) this;
-
+        return (T) this;
     }
 
     @Override
     public T enableHandlers() {
         eventHandlerManager.enable();
-        return ( T ) this;
-
+        return (T) this;
     }
 
     @Override
-    public T setTitle( final String title ) {
-        if ( null != text ) {
+    public T setTitle(final String title) {
+        if (null != text) {
             text.removeFromParent();
         }
-        if ( null != title ) {
+        if (null != title) {
             // TODO
         }
-        return ( T ) this;
+        return (T) this;
     }
 
     @Override
-    public T setTitlePosition( final Position position ) {
-        if ( Position.BOTTOM.equals( position ) ) {
+    public T setTitlePosition(final Position position) {
+        if (Position.BOTTOM.equals(position)) {
             this.textPosition = LayoutContainer.Layout.BOTTOM;
-        } else if ( Position.TOP.equals( position ) ) {
+        } else if (Position.TOP.equals(position)) {
             this.textPosition = LayoutContainer.Layout.TOP;
-        } else if ( Position.LEFT.equals( position ) ) {
+        } else if (Position.LEFT.equals(position)) {
             this.textPosition = LayoutContainer.Layout.LEFT;
-        } else if ( Position.RIGHT.equals( position ) ) {
+        } else if (Position.RIGHT.equals(position)) {
             this.textPosition = LayoutContainer.Layout.RIGHT;
-        } else if ( Position.CENTER.equals( position ) ) {
+        } else if (Position.CENTER.equals(position)) {
             this.textPosition = LayoutContainer.Layout.CENTER;
         }
-        return ( T ) this;
+        return (T) this;
     }
 
     @Override
-    @SuppressWarnings( "unchecked" )
-    public T setTitleRotation( double degrees ) {
+    @SuppressWarnings("unchecked")
+    public T setTitleRotation(double degrees) {
         this.textRotationDegrees = degrees;
-        return ( T ) this;
+        return (T) this;
     }
 
     @Override
-    public T setTitleStrokeColor( final String color ) {
-        text.setStrokeColor( color );
-        return ( T ) this;
+    public T setTitleStrokeColor(final String color) {
+        text.setStrokeColor(color);
+        return (T) this;
     }
 
     @Override
-    public T setTitleFontFamily( final String fontFamily ) {
-        text.setFontFamily( fontFamily );
-        return ( T ) this;
+    public T setTitleFontFamily(final String fontFamily) {
+        text.setFontFamily(fontFamily);
+        return (T) this;
     }
 
     @Override
-    public T setTitleFontSize( final double fontSize ) {
-        text.setFontSize( fontSize );
-        return ( T ) this;
+    public T setTitleFontSize(final double fontSize) {
+        text.setFontSize(fontSize);
+        return (T) this;
     }
 
     @Override
-    public T setTitleStrokeWidth( final double strokeWidth ) {
-        text.setStrokeWidth( strokeWidth );
-        return ( T ) this;
+    public T setTitleStrokeWidth(final double strokeWidth) {
+        text.setStrokeWidth(strokeWidth);
+        return (T) this;
     }
 
     @Override
     public T moveTitleToTop() {
         text.moveToTop();
-        return ( T ) this;
+        return (T) this;
     }
 
     @Override
-    public T setTitleAlpha( final double alpha ) {
-        text.setAlpha( alpha );
-        return ( T ) this;
-
+    public T setTitleAlpha(final double alpha) {
+        text.setAlpha(alpha);
+        return (T) this;
     }
 
     @Override
     public T refreshTitle() {
-        return ( T ) this;
+        return (T) this;
     }
 
     @Override
     protected void doDestroy() {
         // Clear registered event handlers.
-        if ( null != eventHandlerManager ) {
+        if (null != eventHandlerManager) {
             eventHandlerManager.destroy();
             eventHandlerManager = null;
-
         }
-
     }
 
     @Override
@@ -204,5 +197,4 @@ public abstract class BasicConnectorView<T> extends AbstractConnectorView<T>
         this.strokeWidth = null;
         this.color = null;
     }
-
 }

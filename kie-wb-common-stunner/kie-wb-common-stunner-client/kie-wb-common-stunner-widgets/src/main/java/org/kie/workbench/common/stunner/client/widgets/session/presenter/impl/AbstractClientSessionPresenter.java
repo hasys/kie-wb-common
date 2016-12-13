@@ -15,6 +15,8 @@
 
 package org.kie.workbench.common.stunner.client.widgets.session.presenter.impl;
 
+import javax.enterprise.event.Event;
+
 import org.kie.workbench.common.stunner.client.widgets.event.SessionDiagramOpenedEvent;
 import org.kie.workbench.common.stunner.client.widgets.session.presenter.ClientSessionPresenter;
 import org.kie.workbench.common.stunner.core.client.canvas.AbstractCanvas;
@@ -24,8 +26,6 @@ import org.kie.workbench.common.stunner.core.client.session.impl.AbstractClientS
 import org.kie.workbench.common.stunner.core.client.session.impl.AbstractClientSessionManager;
 import org.kie.workbench.common.stunner.core.diagram.Diagram;
 import org.uberfire.mvp.Command;
-
-import javax.enterprise.event.Event;
 
 public abstract class AbstractClientSessionPresenter<S extends AbstractClientSession, V extends ClientSessionPresenter.View>
         implements ClientSessionPresenter<AbstractCanvas, AbstractCanvasHandler, S, V> {
@@ -37,9 +37,9 @@ public abstract class AbstractClientSessionPresenter<S extends AbstractClientSes
     private boolean displayNotifications;
     private boolean displayErrors;
 
-    public AbstractClientSessionPresenter( final AbstractClientSessionManager clientSessionManager,
-                                           final Event<SessionDiagramOpenedEvent> sessionDiagramOpenedEvent,
-                                           final V view ) {
+    public AbstractClientSessionPresenter(final AbstractClientSessionManager clientSessionManager,
+                                          final Event<SessionDiagramOpenedEvent> sessionDiagramOpenedEvent,
+                                          final V view) {
         this.clientSessionManager = clientSessionManager;
         this.sessionDiagramOpenedEvent = sessionDiagramOpenedEvent;
         this.view = view;
@@ -52,20 +52,20 @@ public abstract class AbstractClientSessionPresenter<S extends AbstractClientSes
     protected abstract void doPauseSession();
 
     @Override
-    @SuppressWarnings( "unchecked" )
-    public ClientSessionPresenter<AbstractCanvas, AbstractCanvasHandler, S, V> initialize( final S session,
-                            final int width,
-                            final int height ) {
+    @SuppressWarnings("unchecked")
+    public ClientSessionPresenter<AbstractCanvas, AbstractCanvasHandler, S, V> initialize(final S session,
+                                                                                          final int width,
+                                                                                          final int height) {
         this.session = session;
         // Create the canvas with a given size.
-        session.getCanvas().initialize( width, height );
+        session.getCanvas().initialize(width, height);
         // Initialize the canvas to handle.
-        getCanvasHandler().initialize( session.getCanvas() );
+        getCanvasHandler().initialize(session.getCanvas());
         // Initialize the view.
-        view.setCanvas( session.getCanvas().getView().asWidget() );
+        view.setCanvas(session.getCanvas().getView().asWidget());
 
         // Enable canvas loading callback.
-        session.getCanvas().setLoadingObserverCallback( new CanvasLoadingObserver.Callback() {
+        session.getCanvas().setLoadingObserverCallback(new CanvasLoadingObserver.Callback() {
 
             @Override
             public void onLoadingStarted() {
@@ -76,24 +76,23 @@ public abstract class AbstractClientSessionPresenter<S extends AbstractClientSes
             public void onLoadingCompleted() {
                 fireProcessingCompleted();
             }
-
-        } );
+        });
         return this;
     }
 
     @Override
-    @SuppressWarnings( "unchecked" )
-    public ClientSessionPresenter<AbstractCanvas, AbstractCanvasHandler, S, V> open( Diagram diagram, Command callback ) {
+    @SuppressWarnings("unchecked")
+    public ClientSessionPresenter<AbstractCanvas, AbstractCanvasHandler, S, V> open(Diagram diagram, Command callback) {
         // Notify processing starts.
         fireProcessingStarted();
         // Open the session & Draw the graph on the canvas.
-        clientSessionManager.open( session );
-        getCanvasHandler().draw( diagram );
+        clientSessionManager.open(session);
+        getCanvasHandler().draw(diagram);
         // Callback.
         callback.execute();
         // Notify processing ends.
         fireProcessingCompleted();
-        sessionDiagramOpenedEvent.fire( new SessionDiagramOpenedEvent( session ) );
+        sessionDiagramOpenedEvent.fire(new SessionDiagramOpenedEvent(session));
         return this;
     }
 
@@ -103,13 +102,13 @@ public abstract class AbstractClientSessionPresenter<S extends AbstractClientSes
     }
 
     @Override
-    public ClientSessionPresenter<AbstractCanvas, AbstractCanvasHandler, S, V> setDisplayErrors( final boolean showErrors ) {
+    public ClientSessionPresenter<AbstractCanvas, AbstractCanvasHandler, S, V> setDisplayErrors(final boolean showErrors) {
         this.displayErrors = showErrors;
         return this;
     }
 
     @Override
-    public ClientSessionPresenter<AbstractCanvas, AbstractCanvasHandler, S, V> setDisplayNotifications( final boolean showNotifications ) {
+    public ClientSessionPresenter<AbstractCanvas, AbstractCanvasHandler, S, V> setDisplayNotifications(final boolean showNotifications) {
         this.displayNotifications = showNotifications;
         return this;
     }
@@ -144,11 +143,10 @@ public abstract class AbstractClientSessionPresenter<S extends AbstractClientSes
     }
 
     private void fireProcessingStarted() {
-        view.setLoading( true );
+        view.setLoading(true);
     }
 
     private void fireProcessingCompleted() {
-        view.setLoading( false );
+        view.setLoading(false);
     }
-
 }

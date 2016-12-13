@@ -16,6 +16,11 @@
 
 package org.kie.workbench.common.stunner.client.lienzo.canvas.controls.resize;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+
 import com.ait.lienzo.client.core.shape.wires.IControlHandle;
 import com.ait.lienzo.client.core.shape.wires.IControlHandleList;
 import com.ait.lienzo.client.core.shape.wires.WiresShape;
@@ -33,59 +38,54 @@ import org.kie.workbench.common.stunner.core.client.shape.view.event.ResizeEvent
 import org.kie.workbench.common.stunner.core.client.shape.view.event.ResizeHandler;
 import org.kie.workbench.common.stunner.core.client.shape.view.event.ViewEventType;
 import org.kie.workbench.common.stunner.core.graph.Element;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 // TODO: Handler registrations, update model, resize toolbox, etc
 
 @Dependent
 public class ResizeControlImpl extends AbstractCanvasHandlerRegistrationControl implements ResizeControl<AbstractCanvasHandler, Element> {
 
-    private static Logger LOGGER = Logger.getLogger( ResizeControlImpl.class.getName() );
+    private static Logger LOGGER = Logger.getLogger(ResizeControlImpl.class.getName());
 
     private final CanvasCommandFactory canvasCommandFactory;
     private final CanvasCommandManager<AbstractCanvasHandler> canvasCommandManager;
 
     protected ResizeControlImpl() {
-        this( null, null );
+        this(null, null);
     }
 
     @Inject
-    public ResizeControlImpl( final CanvasCommandFactory canvasCommandFactory,
-                              final @Session CanvasCommandManager<AbstractCanvasHandler> canvasCommandManager ) {
+    public ResizeControlImpl(final CanvasCommandFactory canvasCommandFactory,
+                             final @Session CanvasCommandManager<AbstractCanvasHandler> canvasCommandManager) {
         this.canvasCommandFactory = canvasCommandFactory;
         this.canvasCommandManager = canvasCommandManager;
     }
 
     @Override
-    @SuppressWarnings( "unchecked" )
-    public void register( final Element element ) {
+    @SuppressWarnings("unchecked")
+    public void register(final Element element) {
         final AbstractCanvas<?> canvas = canvasHandler.getCanvas();
-        final Shape<?> shape = canvas.getShape( element.getUUID() );
-        if ( registerCPHandlers( shape.getShapeView() ) ) {
-            registerResizeHandlers( element, shape );
+        final Shape<?> shape = canvas.getShape(element.getUUID());
+        if (registerCPHandlers(shape.getShapeView())) {
+            registerResizeHandlers(element, shape);
         }
     }
 
-    private void registerResizeHandlers( final Element element,
-                                         final Shape<?> shape ) {
-        if ( shape.getShapeView() instanceof HasEventHandlers ) {
-            final HasEventHandlers hasEventHandlers = ( HasEventHandlers ) shape.getShapeView();
+    private void registerResizeHandlers(final Element element,
+                                        final Shape<?> shape) {
+        if (shape.getShapeView() instanceof HasEventHandlers) {
+            final HasEventHandlers hasEventHandlers = (HasEventHandlers) shape.getShapeView();
             final ResizeHandler resizeHandler = new ResizeHandler() {
                 @Override
-                public void start( final ResizeEvent event ) {
+                public void start(final ResizeEvent event) {
                 }
 
                 @Override
-                public void handle( final ResizeEvent event ) {
+                public void handle(final ResizeEvent event) {
                 }
 
                 @Override
-                public void end( final ResizeEvent event ) {
-                    LOGGER.log( Level.FINE, "Shape [" + element.getUUID() + "] resized to size {"
-                            + event.getWidth() + ", " + event.getHeight() + "]" );
+                public void end(final ResizeEvent event) {
+                    LOGGER.log(Level.FINE, "Shape [" + element.getUUID() + "] resized to size {"
+                            + event.getWidth() + ", " + event.getHeight() + "]");
                     // TODO: Update the model when resize is done.
                     /*CommandResult<CanvasViolation> result =
                             canvasCommandManager.execute( canvasHandler,
@@ -94,10 +94,9 @@ public class ResizeControlImpl extends AbstractCanvasHandlerRegistrationControl 
                         // TODO: DragContext#reset & show error somewhere.
                     }*/
                 }
-
             };
-            hasEventHandlers.addHandler( ViewEventType.RESIZE, resizeHandler );
-            registerHandler( element.getUUID(), resizeHandler );
+            hasEventHandlers.addHandler(ViewEventType.RESIZE, resizeHandler);
+            registerHandler(element.getUUID(), resizeHandler);
         }
     }
 
@@ -105,26 +104,25 @@ public class ResizeControlImpl extends AbstractCanvasHandlerRegistrationControl 
      * This method shows the shape's control points on when clicking on it.
      * TODO: Move this code to some view class or make the conrol points stuff more generic for shape views.
      */
-    private boolean registerCPHandlers( final ShapeView<?> shapeView ) {
-        if ( shapeView instanceof WiresShape ) {
-            final WiresShape wiresShape = ( WiresShape ) shapeView;
+    private boolean registerCPHandlers(final ShapeView<?> shapeView) {
+        if (shapeView instanceof WiresShape) {
+            final WiresShape wiresShape = (WiresShape) shapeView;
             // Enable resize controls on chick + shift down.
             wiresShape
-                    .setResizable( true )
+                    .setResizable(true)
                     .getGroup()
-                    .addNodeMouseClickHandler( event -> {
-                        final IControlHandleList controlHandles = wiresShape.loadControls( IControlHandle.ControlHandleStandardType.RESIZE );
-                        if ( null != controlHandles ) {
-                            if ( event.isShiftKeyDown() && !controlHandles.isVisible() ) {
+                    .addNodeMouseClickHandler(event -> {
+                        final IControlHandleList controlHandles = wiresShape.loadControls(IControlHandle.ControlHandleStandardType.RESIZE);
+                        if (null != controlHandles) {
+                            if (event.isShiftKeyDown() && !controlHandles.isVisible()) {
                                 controlHandles.show();
                             } else {
                                 controlHandles.hide();
                             }
                         }
-                    } );
+                    });
             return true;
         }
         return false;
     }
-
 }

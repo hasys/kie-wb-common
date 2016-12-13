@@ -15,23 +15,23 @@
 
 package org.kie.workbench.common.stunner.client.widgets.menu.dev.impl;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+
 import org.kie.workbench.common.stunner.client.widgets.menu.dev.AbstractMenuDevCommand;
 import org.kie.workbench.common.stunner.core.client.session.impl.AbstractClientSessionManager;
 import org.kie.workbench.common.stunner.core.client.util.StunnerClientLogger;
-
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 
 @Dependent
 public class LogSessionDevCommand extends AbstractMenuDevCommand {
 
     protected LogSessionDevCommand() {
-        this( null );
+        this(null);
     }
 
     @Inject
-    public LogSessionDevCommand( final AbstractClientSessionManager sessionManager ) {
-        super( sessionManager );
+    public LogSessionDevCommand(final AbstractClientSessionManager sessionManager) {
+        super(sessionManager);
     }
 
     @Override
@@ -41,7 +41,6 @@ public class LogSessionDevCommand extends AbstractMenuDevCommand {
 
     @Override
     public void execute() {
-        StunnerClientLogger.logSessionInfo( getSession() );
+        StunnerClientLogger.logSessionInfo(getSession());
     }
-
 }

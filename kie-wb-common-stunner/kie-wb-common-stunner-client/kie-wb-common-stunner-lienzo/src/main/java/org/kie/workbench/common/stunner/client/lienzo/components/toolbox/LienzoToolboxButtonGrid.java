@@ -25,10 +25,10 @@ public class LienzoToolboxButtonGrid implements ToolboxButtonGrid {
     private final int rows;
     private final int cols;
 
-    public LienzoToolboxButtonGrid( final int padding,
-                                    final int iconSize,
-                                    final int rows,
-                                    final int cols ) {
+    public LienzoToolboxButtonGrid(final int padding,
+                                   final int iconSize,
+                                   final int rows,
+                                   final int cols) {
         this.padding = padding;
         this.iconSize = iconSize;
         this.rows = rows;
@@ -54,5 +54,4 @@ public class LienzoToolboxButtonGrid implements ToolboxButtonGrid {
     public int getColumns() {
         return cols;
     }
-
 }

@@ -20,9 +20,7 @@ import com.ait.lienzo.client.core.animation.AnimationProperties;
 import com.ait.lienzo.client.core.animation.AnimationTweener;
 import org.kie.workbench.common.stunner.core.client.shape.Shape;
 
-import static com.ait.lienzo.client.core.animation.AnimationProperty.Properties.STROKE_ALPHA;
-import static com.ait.lienzo.client.core.animation.AnimationProperty.Properties.STROKE_COLOR;
-import static com.ait.lienzo.client.core.animation.AnimationProperty.Properties.STROKE_WIDTH;
+import static com.ait.lienzo.client.core.animation.AnimationProperty.Properties.*;
 
 abstract class BasicDecoratorAnimation<S extends Shape> extends AbstractBasicAnimation<S> {
 
@@ -30,9 +28,9 @@ abstract class BasicDecoratorAnimation<S extends Shape> extends AbstractBasicAni
     private final double strokeWidth;
     private final double strokeAlpha;
 
-    public BasicDecoratorAnimation( final String color,
-                                    final double strokeWidth,
-                                    final double strokeAlpha ) {
+    public BasicDecoratorAnimation(final String color,
+                                   final double strokeWidth,
+                                   final double strokeAlpha) {
         this.color = color;
         this.strokeWidth = strokeWidth;
         this.strokeAlpha = strokeAlpha;
@@ -44,10 +42,8 @@ abstract class BasicDecoratorAnimation<S extends Shape> extends AbstractBasicAni
     public void run() {
         getDecorator().animate(
                 AnimationTweener.LINEAR,
-                AnimationProperties.toPropertyList( STROKE_ALPHA( strokeAlpha ), STROKE_COLOR( color ), STROKE_WIDTH( strokeWidth ) ),
+                AnimationProperties.toPropertyList(STROKE_ALPHA(strokeAlpha), STROKE_COLOR(color), STROKE_WIDTH(strokeWidth)),
                 getDuration(),
-                getAnimationCallback() );
-
+                getAnimationCallback());
     }
-
 }

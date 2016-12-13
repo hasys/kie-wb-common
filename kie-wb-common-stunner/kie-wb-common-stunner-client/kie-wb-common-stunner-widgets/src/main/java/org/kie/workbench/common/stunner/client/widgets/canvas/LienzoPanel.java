@@ -16,6 +16,10 @@
 
 package org.kie.workbench.common.stunner.client.widgets.canvas;
 
+import javax.enterprise.context.Dependent;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 import org.kie.workbench.common.stunner.core.client.canvas.event.keyboard.KeyDownEvent;
@@ -24,17 +28,12 @@ import org.kie.workbench.common.stunner.core.client.canvas.event.keyboard.KeyUpE
 import org.kie.workbench.common.stunner.core.client.canvas.event.keyboard.KeyboardEvent;
 import org.uberfire.client.mvp.UberView;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-
 @Dependent
 public class LienzoPanel implements IsWidget {
 
     public interface View extends UberView<LienzoPanel> {
 
         void destroy();
-
     }
 
     Event<KeyPressEvent> keyPressEvent;
@@ -45,9 +44,9 @@ public class LienzoPanel implements IsWidget {
     private boolean listening;
 
     @Inject
-    public LienzoPanel( final Event<KeyPressEvent> keyPressEvent,
-                        final Event<KeyDownEvent> keyDownEvent,
-                        final Event<KeyUpEvent> keyUpEvent ) {
+    public LienzoPanel(final Event<KeyPressEvent> keyPressEvent,
+                       final Event<KeyDownEvent> keyDownEvent,
+                       final Event<KeyUpEvent> keyUpEvent) {
         this.keyPressEvent = keyPressEvent;
         this.keyDownEvent = keyDownEvent;
         this.keyUpEvent = keyUpEvent;
@@ -59,12 +58,11 @@ public class LienzoPanel implements IsWidget {
         return view.asWidget();
     }
 
-    public void show( final int width,
-                      final int height,
-                      final int padding ) {
-        view = new LienzoPanelView( width + padding, height + padding );
-        view.init( this );
-
+    public void show(final int width,
+                     final int height,
+                     final int padding) {
+        view = new LienzoPanelView(width + padding, height + padding);
+        view.init(this);
     }
 
     public void destroy() {
@@ -80,54 +78,41 @@ public class LienzoPanel implements IsWidget {
         this.listening = false;
     }
 
-    void onKeyPress( final int unicodeChar ) {
-        if ( listening ) {
-            final KeyboardEvent.Key key = getKey( unicodeChar );
-            if ( null != key ) {
-                keyPressEvent.fire( new KeyPressEvent( key ) );
-
+    void onKeyPress(final int unicodeChar) {
+        if (listening) {
+            final KeyboardEvent.Key key = getKey(unicodeChar);
+            if (null != key) {
+                keyPressEvent.fire(new KeyPressEvent(key));
             }
-
         }
-
     }
 
-    void onKeyDown( final int unicodeChar ) {
-        if ( listening ) {
-            final KeyboardEvent.Key key = getKey( unicodeChar );
-            if ( null != key ) {
-                keyDownEvent.fire( new KeyDownEvent( key ) );
-
+    void onKeyDown(final int unicodeChar) {
+        if (listening) {
+            final KeyboardEvent.Key key = getKey(unicodeChar);
+            if (null != key) {
+                keyDownEvent.fire(new KeyDownEvent(key));
             }
-
         }
-
     }
 
-    void onKeyUp( final int unicodeChar ) {
-        if ( listening ) {
-            final KeyboardEvent.Key key = getKey( unicodeChar );
-            if ( null != key ) {
-                keyUpEvent.fire( new KeyUpEvent( key ) );
-
+    void onKeyUp(final int unicodeChar) {
+        if (listening) {
+            final KeyboardEvent.Key key = getKey(unicodeChar);
+            if (null != key) {
+                keyUpEvent.fire(new KeyUpEvent(key));
             }
-
         }
-
     }
 
-    private KeyboardEvent.Key getKey( final int unicodeChar ) {
+    private KeyboardEvent.Key getKey(final int unicodeChar) {
         final KeyboardEvent.Key[] keys = KeyboardEvent.Key.values();
-        for ( final KeyboardEvent.Key key : keys ) {
+        for (final KeyboardEvent.Key key : keys) {
             final int c = key.getUnicharCode();
-            if ( c == unicodeChar ) {
+            if (c == unicodeChar) {
                 return key;
-
             }
-
         }
         return null;
-
     }
-
 }

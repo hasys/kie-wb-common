@@ -15,7 +15,12 @@
  */
 package org.kie.workbench.common.stunner.client.widgets.canvas.wires;
 
-import com.ait.lienzo.client.core.shape.wires.*;
+import com.ait.lienzo.client.core.shape.wires.IConnectionAcceptor;
+import com.ait.lienzo.client.core.shape.wires.IContainmentAcceptor;
+import com.ait.lienzo.client.core.shape.wires.IDockingAcceptor;
+import com.ait.lienzo.client.core.shape.wires.WiresConnector;
+import com.ait.lienzo.client.core.shape.wires.WiresManager;
+import com.ait.lienzo.client.core.shape.wires.WiresShape;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresConnectorControl;
 import org.kie.workbench.common.stunner.client.lienzo.canvas.wires.WiresCanvas;
 import org.kie.workbench.common.stunner.client.lienzo.shape.view.AbstractConnectorView;
@@ -32,63 +37,60 @@ public class WiresCanvasView extends CanvasView implements WiresCanvas.View {
 
     public void init() {
         super.init();
-        wiresManager = WiresManager.get( canvasLayer );
+        wiresManager = WiresManager.get(canvasLayer);
     }
 
     @Override
-    public WiresCanvas.View addShape( final ShapeView<?> shapeView ) {
-        if ( isWiresShape( shapeView ) ) {
-            WiresShape wiresShape = ( WiresShape ) shapeView;
-            wiresManager.register( wiresShape );
-            wiresManager.getMagnetManager().createMagnets( wiresShape );
-            wiresShape.getContainer().setUserData( WiresCanvas.WIRES_CANVAS_GROUP_ID );
-
-        } else if ( isConnector( shapeView ) ) {
-            WiresConnector wiresConnector = ( WiresConnector ) shapeView;
-            final WiresConnectorControl connectorControl = wiresManager.register( wiresConnector );
-            if ( shapeView instanceof AbstractConnectorView ) {
-                ( ( AbstractConnectorView ) shapeView ).setControl( connectorControl );
+    public WiresCanvas.View addShape(final ShapeView<?> shapeView) {
+        if (isWiresShape(shapeView)) {
+            WiresShape wiresShape = (WiresShape) shapeView;
+            wiresManager.register(wiresShape);
+            wiresManager.getMagnetManager().createMagnets(wiresShape);
+            wiresShape.getContainer().setUserData(WiresCanvas.WIRES_CANVAS_GROUP_ID);
+        } else if (isConnector(shapeView)) {
+            WiresConnector wiresConnector = (WiresConnector) shapeView;
+            final WiresConnectorControl connectorControl = wiresManager.register(wiresConnector);
+            if (shapeView instanceof AbstractConnectorView) {
+                ((AbstractConnectorView) shapeView).setControl(connectorControl);
             }
-            wiresConnector.getGroup().setUserData( WiresCanvas.WIRES_CANVAS_GROUP_ID );
-
+            wiresConnector.getGroup().setUserData(WiresCanvas.WIRES_CANVAS_GROUP_ID);
         } else {
-            super.addShape( shapeView );
-
+            super.addShape(shapeView);
         }
         return this;
     }
 
     @Override
-    public WiresCanvas.View removeShape( final ShapeView<?> shapeView ) {
-        if ( isWiresShape( shapeView ) ) {
-            WiresShape wiresShape = ( WiresShape ) shapeView;
-            wiresManager.deregister( wiresShape );
-        } else if ( isConnector( shapeView ) ) {
-            WiresConnector wiresConnector = ( WiresConnector ) shapeView;
-            wiresManager.deregister( wiresConnector );
+    public WiresCanvas.View removeShape(final ShapeView<?> shapeView) {
+        if (isWiresShape(shapeView)) {
+            WiresShape wiresShape = (WiresShape) shapeView;
+            wiresManager.deregister(wiresShape);
+        } else if (isConnector(shapeView)) {
+            WiresConnector wiresConnector = (WiresConnector) shapeView;
+            wiresManager.deregister(wiresConnector);
         } else {
-            super.removeShape( shapeView );
+            super.removeShape(shapeView);
         }
         return this;
     }
 
     @Override
-    public WiresCanvas.View setConnectionAcceptor( final IConnectionAcceptor connectionAcceptor ) {
-        wiresManager.setConnectionAcceptor( connectionAcceptor );
+    public WiresCanvas.View setConnectionAcceptor(final IConnectionAcceptor connectionAcceptor) {
+        wiresManager.setConnectionAcceptor(connectionAcceptor);
         return this;
     }
 
     @Override
-    public WiresCanvas.View setContainmentAcceptor( final IContainmentAcceptor containmentAcceptor ) {
-        wiresManager.setContainmentAcceptor( containmentAcceptor );
-        wiresManager.getLayer().setContainmentAcceptor( containmentAcceptor );
+    public WiresCanvas.View setContainmentAcceptor(final IContainmentAcceptor containmentAcceptor) {
+        wiresManager.setContainmentAcceptor(containmentAcceptor);
+        wiresManager.getLayer().setContainmentAcceptor(containmentAcceptor);
         return this;
     }
 
     @Override
-    public WiresCanvas.View setDockingAcceptor( final IDockingAcceptor dockingAcceptor ) {
-        wiresManager.setDockingAcceptor( dockingAcceptor );
-        wiresManager.getLayer().setDockingAcceptor( dockingAcceptor );
+    public WiresCanvas.View setDockingAcceptor(final IDockingAcceptor dockingAcceptor) {
+        wiresManager.setDockingAcceptor(dockingAcceptor);
+        wiresManager.getLayer().setDockingAcceptor(dockingAcceptor);
         return this;
     }
 
@@ -97,14 +99,11 @@ public class WiresCanvasView extends CanvasView implements WiresCanvas.View {
         return wiresManager;
     }
 
-    private boolean isConnector( final ShapeView<?> shapeView ) {
+    private boolean isConnector(final ShapeView<?> shapeView) {
         return shapeView instanceof IsConnector;
-
     }
 
-    private boolean isWiresShape( final ShapeView<?> shapeView ) {
+    private boolean isWiresShape(final ShapeView<?> shapeView) {
         return shapeView instanceof WiresShape;
-
     }
-
 }

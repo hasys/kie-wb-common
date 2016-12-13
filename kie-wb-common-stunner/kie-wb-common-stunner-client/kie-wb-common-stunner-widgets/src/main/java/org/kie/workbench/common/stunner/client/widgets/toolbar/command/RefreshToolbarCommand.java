@@ -15,20 +15,20 @@
 
 package org.kie.workbench.common.stunner.client.widgets.toolbar.command;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+
 import org.gwtbootstrap3.client.ui.constants.IconType;
 import org.kie.workbench.common.stunner.core.client.session.command.impl.RefreshSessionCommand;
 import org.kie.workbench.common.stunner.core.client.session.command.impl.SessionCommandFactory;
 import org.kie.workbench.common.stunner.core.client.session.impl.AbstractClientFullSession;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-
 @Dependent
 public class RefreshToolbarCommand extends AbstractToolbarSessionCommand<AbstractClientFullSession, RefreshSessionCommand> {
 
     @Inject
-    public RefreshToolbarCommand( final SessionCommandFactory sessionCommandFactory ) {
-        super( sessionCommandFactory.newRefreshSessionCommand() );
+    public RefreshToolbarCommand(final SessionCommandFactory sessionCommandFactory) {
+        super(sessionCommandFactory.newRefreshSessionCommand());
     }
 
     @Override
@@ -51,5 +51,4 @@ public class RefreshToolbarCommand extends AbstractToolbarSessionCommand<Abstrac
     protected boolean requiresConfirm() {
         return true;
     }
-
 }

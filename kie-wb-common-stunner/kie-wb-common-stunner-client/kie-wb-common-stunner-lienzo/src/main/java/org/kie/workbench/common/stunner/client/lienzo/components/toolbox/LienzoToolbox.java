@@ -23,7 +23,7 @@ public class LienzoToolbox implements Toolbox {
 
     private final GridToolbox toolbox;
 
-    public LienzoToolbox( final GridToolbox toolbox ) {
+    public LienzoToolbox(final GridToolbox toolbox) {
         this.toolbox = toolbox;
     }
 
@@ -41,5 +41,4 @@ public class LienzoToolbox implements Toolbox {
     public void remove() {
         toolbox.remove();
     }
-
 }

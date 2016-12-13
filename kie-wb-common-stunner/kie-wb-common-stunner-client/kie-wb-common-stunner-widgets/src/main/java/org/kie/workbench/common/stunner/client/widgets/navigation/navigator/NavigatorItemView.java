@@ -21,14 +21,13 @@ import org.uberfire.client.mvp.UberView;
 
 public interface NavigatorItemView<P extends NavigatorItem> extends UberView<P> {
 
-    NavigatorItemView setUUID( String uuid );
+    NavigatorItemView setUUID(String uuid);
 
-    NavigatorItemView setItemTitle( String title );
+    NavigatorItemView setItemTitle(String title);
 
-    NavigatorItemView setThumbData( String thumbData );
+    NavigatorItemView setThumbData(String thumbData);
 
-    NavigatorItemView setThumbUri( SafeUri safeUri );
+    NavigatorItemView setThumbUri(SafeUri safeUri);
 
-    NavigatorItemView setItemPxSize( int width, int height );
-
+    NavigatorItemView setItemPxSize(int width, int height);
 }

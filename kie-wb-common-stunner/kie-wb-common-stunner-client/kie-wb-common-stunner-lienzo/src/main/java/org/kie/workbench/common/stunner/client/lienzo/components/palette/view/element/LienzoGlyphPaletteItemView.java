@@ -31,5 +31,4 @@ public interface LienzoGlyphPaletteItemView extends PaletteItemView<GlyphPalette
     void expand();
 
     void collapse();
-
 }

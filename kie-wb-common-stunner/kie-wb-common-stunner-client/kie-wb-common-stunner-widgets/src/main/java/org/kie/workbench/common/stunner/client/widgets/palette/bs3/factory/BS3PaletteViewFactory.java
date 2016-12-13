@@ -20,10 +20,9 @@ import com.google.gwt.user.client.ui.IsWidget;
 
 public interface BS3PaletteViewFactory {
 
-    boolean accepts( String defSetId );
+    boolean accepts(String defSetId);
 
-    IsWidget getCategoryView( String defSetId, String categoryId, final int width, final int height );
+    IsWidget getCategoryView(String defSetId, String categoryId, final int width, final int height);
 
-    IsWidget getDefinitionView( String defSetId, String defId, final int width, final int height );
-
+    IsWidget getDefinitionView(String defSetId, String defId, final int width, final int height);
 }

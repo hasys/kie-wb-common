@@ -25,10 +25,12 @@
       height: 100%;
       margin: 15px;
     }
+
     .addIcon {
       float: right;
       cursor: pointer;
     }
+
     .groupPanel {
       margin-right: 25px;
     }

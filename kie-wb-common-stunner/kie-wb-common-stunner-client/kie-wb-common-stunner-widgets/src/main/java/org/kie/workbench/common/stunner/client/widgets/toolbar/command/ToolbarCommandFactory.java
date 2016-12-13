@@ -33,19 +33,19 @@ public class ToolbarCommandFactory {
     private final Instance<RefreshToolbarCommand> refreshCommand;
 
     protected ToolbarCommandFactory() {
-        this( null, null, null, null, null, null, null, null, null );
+        this(null, null, null, null, null, null, null, null, null);
     }
 
     @Inject
-    public ToolbarCommandFactory( final Instance<ClearSelectionToolbarCommand> clearSelectionCommand,
-                                  final Instance<VisitGraphToolbarCommand> visitGraphCommand,
-                                  final Instance<SwitchGridToolbarCommand> switchGridCommand,
-                                  final Instance<ClearToolbarCommand> clearCommand,
-                                  final Instance<DeleteSelectionToolbarCommand> deleteSelectionCommand,
-                                  final Instance<UndoToolbarCommand> undoCommand,
-                                  final Instance<RedoToolbarCommand> redoCommand,
-                                  final Instance<ValidateToolbarCommand> validateCommand,
-                                  final Instance<RefreshToolbarCommand> refreshCommand ) {
+    public ToolbarCommandFactory(final Instance<ClearSelectionToolbarCommand> clearSelectionCommand,
+                                 final Instance<VisitGraphToolbarCommand> visitGraphCommand,
+                                 final Instance<SwitchGridToolbarCommand> switchGridCommand,
+                                 final Instance<ClearToolbarCommand> clearCommand,
+                                 final Instance<DeleteSelectionToolbarCommand> deleteSelectionCommand,
+                                 final Instance<UndoToolbarCommand> undoCommand,
+                                 final Instance<RedoToolbarCommand> redoCommand,
+                                 final Instance<ValidateToolbarCommand> validateCommand,
+                                 final Instance<RefreshToolbarCommand> refreshCommand) {
         this.clearSelectionCommand = clearSelectionCommand;
         this.visitGraphCommand = visitGraphCommand;
         this.switchGridCommand = switchGridCommand;
@@ -92,5 +92,4 @@ public class ToolbarCommandFactory {
     public RefreshToolbarCommand newRefreshCommand() {
         return refreshCommand.get();
     }
-
 }

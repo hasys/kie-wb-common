@@ -16,18 +16,18 @@
 
 package org.kie.workbench.common.stunner.client.widgets.loading;
 
-import com.google.gwt.logging.client.LogConfiguration;
-import com.google.gwt.user.client.Timer;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+import com.google.gwt.logging.client.LogConfiguration;
+import com.google.gwt.user.client.Timer;
 
 @ApplicationScoped
 public class LoadingBox {
 
-    private static Logger LOGGER = Logger.getLogger( LoadingBox.class.getName() );
+    private static Logger LOGGER = Logger.getLogger(LoadingBox.class.getName());
     private static final int TIMEOUT = 30000; // 30s.
 
     public interface View {
@@ -35,7 +35,6 @@ public class LoadingBox {
         View show();
 
         View hide();
-
     }
 
     View view;
@@ -43,29 +42,26 @@ public class LoadingBox {
     private Timer timer;
 
     protected LoadingBox() {
-        this( null );
+        this(null);
     }
 
     @Inject
-    public LoadingBox( final View view ) {
+    public LoadingBox(final View view) {
         this.view = view;
     }
 
     public void show() {
-        if ( null != this.timer
-                && this.timer.isRunning() ) {
+        if (null != this.timer
+                && this.timer.isRunning()) {
             return;
-
         }
         startTimer();
         view.show();
-
     }
 
     public void hide() {
         stopTimer();
         view.hide();
-
     }
 
     private void startTimer() {
@@ -73,24 +69,22 @@ public class LoadingBox {
         this.timer = new Timer() {
             @Override
             public void run() {
-                log( Level.WARNING, "Loading box - Timeout exceeded!" );
+                log(Level.WARNING, "Loading box - Timeout exceeded!");
                 hide();
             }
         };
-        timer.schedule( TIMEOUT );
-
+        timer.schedule(TIMEOUT);
     }
 
     private void stopTimer() {
-        if ( null != this.timer ) {
-            if ( this.timer.isRunning() ) {
+        if (null != this.timer) {
+            if (this.timer.isRunning()) {
                 this.timer.cancel();
             }
             this.timer = null;
         }
-
     }
-    
+
     /*public void onCanvasProcessingStarted(@Observes CanvasProcessingStartedEvent canvasProcessingStartedEvent) {
         checkNotNull("canvasProcessingStartedEvent", canvasProcessingStartedEvent);
         show();
@@ -111,10 +105,9 @@ public class LoadingBox {
         hide();
     }*/
 
-    private void log( final Level level, final String message ) {
-        if ( LogConfiguration.loggingIsEnabled() ) {
-            LOGGER.log( level, message );
+    private void log(final Level level, final String message) {
+        if (LogConfiguration.loggingIsEnabled()) {
+            LOGGER.log(level, message);
         }
     }
-
 }

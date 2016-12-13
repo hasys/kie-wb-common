@@ -20,9 +20,8 @@ import org.kie.workbench.common.stunner.client.widgets.notification.AbstractNoti
 
 public final class CanvasValidationSuccessNotification extends AbstractNotification<String, CanvasNotificationContext> {
 
-    public CanvasValidationSuccessNotification( final String uuid,
-                                                final CanvasNotificationContext context ) {
-        super( uuid, Type.INFO, "Validation successful", context );
+    public CanvasValidationSuccessNotification(final String uuid,
+                                               final CanvasNotificationContext context) {
+        super(uuid, Type.INFO, "Validation successful", context);
     }
-
 }

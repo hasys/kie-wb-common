@@ -19,24 +19,23 @@ import com.ait.lienzo.client.core.shape.Group;
 import com.ait.lienzo.client.core.shape.Picture;
 import org.kie.workbench.common.stunner.client.lienzo.shape.view.glyph.AbstractLienzoShapeGlyph;
 
-import static org.kie.workbench.common.stunner.shapes.client.util.BasicShapesUtils.scalePicture;
+import static org.kie.workbench.common.stunner.shapes.client.util.BasicShapesUtils.*;
 
 public final class PictureGlyph extends AbstractLienzoShapeGlyph {
 
-    public PictureGlyph( final String uri,
-                         final double width,
-                         final double height ) {
-        super( new Group(), width, height );
-        build( uri, width, height );
-    }
-
-    private void build( final String uri,
+    public PictureGlyph(final String uri,
                         final double width,
-                        final double height ) {
-
-        final Picture picture = new Picture( uri );
-        scalePicture( picture, width, height );
-        group.add( picture );
+                        final double height) {
+        super(new Group(), width, height);
+        build(uri, width, height);
     }
 
+    private void build(final String uri,
+                       final double width,
+                       final double height) {
+
+        final Picture picture = new Picture(uri);
+        scalePicture(picture, width, height);
+        group.add(picture);
+    }
 }

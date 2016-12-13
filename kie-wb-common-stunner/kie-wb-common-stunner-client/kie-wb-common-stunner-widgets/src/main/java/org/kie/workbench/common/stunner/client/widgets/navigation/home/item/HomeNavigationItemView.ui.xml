@@ -27,7 +27,7 @@
 
         <b:Heading size="H1" ui:field="heading">
 
-          <b:Anchor dataParent="#mainPanelGroup" ui:field="headingAnchor" dataToggle="COLLAPSE" />
+          <b:Anchor dataParent="#mainPanelGroup" ui:field="headingAnchor" dataToggle="COLLAPSE"/>
 
         </b:Heading>
 

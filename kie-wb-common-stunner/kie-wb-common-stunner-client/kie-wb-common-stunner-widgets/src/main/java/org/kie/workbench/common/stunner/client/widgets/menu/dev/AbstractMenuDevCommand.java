@@ -27,7 +27,7 @@ public abstract class AbstractMenuDevCommand
 
     private final AbstractClientSessionManager sessionManager;
 
-    protected AbstractMenuDevCommand( final AbstractClientSessionManager sessionManager ) {
+    protected AbstractMenuDevCommand(final AbstractClientSessionManager sessionManager) {
         this.sessionManager = sessionManager;
     }
 
@@ -51,5 +51,4 @@ public abstract class AbstractMenuDevCommand
     protected Graph getGraph() {
         return null != getDiagram() ? getDiagram().getGraph() : null;
     }
-
 }

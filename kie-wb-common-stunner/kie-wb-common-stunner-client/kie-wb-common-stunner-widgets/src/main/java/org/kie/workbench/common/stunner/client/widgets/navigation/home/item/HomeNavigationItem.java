@@ -16,98 +16,93 @@
 
 package org.kie.workbench.common.stunner.client.widgets.navigation.home.item;
 
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+
 import com.google.gwt.user.client.ui.IsWidget;
 import org.gwtbootstrap3.client.ui.constants.IconType;
 import org.kie.workbench.common.stunner.client.widgets.navigation.navigator.Navigator;
 import org.uberfire.client.mvp.UberView;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import java.util.logging.Logger;
-
 @Dependent
 public class HomeNavigationItem {
 
-    private static Logger LOGGER = Logger.getLogger( HomeNavigationItem.class.getName() );
+    private static Logger LOGGER = Logger.getLogger(HomeNavigationItem.class.getName());
 
     public interface View extends UberView<HomeNavigationItem> {
 
-        View setCollapsed( boolean collapsed );
+        View setCollapsed(boolean collapsed);
 
-        View setPanelTitle( String title );
+        View setPanelTitle(String title);
 
-        View setPanelIcon( IconType icon );
+        View setPanelIcon(IconType icon);
 
-        View setTooltip( String tooltip );
+        View setTooltip(String tooltip);
 
-        View setPanelVisible( boolean visible );
+        View setPanelVisible(boolean visible);
 
         boolean isPanelVisible();
 
         boolean isPanelCollapsed();
 
-        View add( IsWidget widget );
+        View add(IsWidget widget);
 
         View clear();
-
     }
 
     View view;
 
     @Inject
-    public HomeNavigationItem( final View view ) {
+    public HomeNavigationItem(final View view) {
         this.view = view;
     }
 
     @PostConstruct
     public void init() {
-        view.init( this );
+        view.init(this);
     }
 
-    public HomeNavigationItem setVisible( final boolean visible ) {
-        view.setPanelVisible( visible );
+    public HomeNavigationItem setVisible(final boolean visible) {
+        view.setPanelVisible(visible);
         return this;
     }
 
-    public HomeNavigationItem setCollapsed( final boolean collapsed ) {
-        view.setCollapsed( collapsed );
+    public HomeNavigationItem setCollapsed(final boolean collapsed) {
+        view.setCollapsed(collapsed);
         return this;
     }
 
-    public void show( final String title,
-                      final String tooltip,
-                      final Navigator<?> navigator ) {
-        show( title, null, tooltip, navigator );
+    public void show(final String title,
+                     final String tooltip,
+                     final Navigator<?> navigator) {
+        show(title, null, tooltip, navigator);
     }
 
-    public void show( final IconType icon,
-                      final String tooltip,
-                      final Navigator<?> navigator ) {
-        show( null, icon, tooltip, navigator );
+    public void show(final IconType icon,
+                     final String tooltip,
+                     final Navigator<?> navigator) {
+        show(null, icon, tooltip, navigator);
     }
 
-    private void show( final String title,
-                       final IconType icon,
-                       final String tooltip,
-                       final Navigator<?> navigator ) {
+    private void show(final String title,
+                      final IconType icon,
+                      final String tooltip,
+                      final Navigator<?> navigator) {
         clear();
-        if ( null != navigator ) {
-            if ( null != title ) {
-                view.setPanelTitle( title );
-                view.setCollapsed( false );
-
+        if (null != navigator) {
+            if (null != title) {
+                view.setPanelTitle(title);
+                view.setCollapsed(false);
             } else {
-                view.setPanelIcon( icon );
-                view.setCollapsed( true );
-
+                view.setPanelIcon(icon);
+                view.setCollapsed(true);
             }
-            view.setTooltip( tooltip );
-            view.add( navigator.asWidget() );
+            view.setTooltip(tooltip);
+            view.add(navigator.asWidget());
             navigator.show();
-
         }
-
     }
 
     public void clear() {

@@ -16,6 +16,8 @@
 
 package org.kie.workbench.common.stunner.client.lienzo.canvas.controls.toolbox.command.palette;
 
+import javax.annotation.PostConstruct;
+
 import com.ait.lienzo.client.core.shape.Shape;
 import org.kie.workbench.common.stunner.client.lienzo.LienzoLayer;
 import org.kie.workbench.common.stunner.client.lienzo.components.palette.AbstractLienzoGlyphItemsPalette;
@@ -35,22 +37,20 @@ import org.kie.workbench.common.stunner.core.client.service.ClientFactoryService
 import org.kie.workbench.common.stunner.core.graph.processing.index.bounds.GraphBoundsIndexer;
 import org.kie.workbench.common.stunner.core.lookup.util.CommonLookups;
 
-import javax.annotation.PostConstruct;
-
 /// Abstract for not being discovered by the CDI environment, for now...
 public abstract class LienzoNewPaletteNodeToolboxCommand extends NewPaletteNodeCommand<Shape<?>> {
 
-    public LienzoNewPaletteNodeToolboxCommand( final ClientFactoryService clientFactoryServices,
-                                               final CommonLookups commonLookups,
-                                               final ShapeManager shapeManager,
-                                               final DefinitionsPaletteBuilder definitionsPaletteBuilder,
-                                               final LienzoGlyphsHoverPalette palette,
-                                               final NodeDragProxy<AbstractCanvasHandler> nodeDragProxyFactory,
-                                               final NodeBuilderControl<AbstractCanvasHandler> nodeBuilderControl,
-                                               final GraphBoundsIndexer graphBoundsIndexer ) {
-        super( clientFactoryServices, commonLookups, shapeManager,
+    public LienzoNewPaletteNodeToolboxCommand(final ClientFactoryService clientFactoryServices,
+                                              final CommonLookups commonLookups,
+                                              final ShapeManager shapeManager,
+                                              final DefinitionsPaletteBuilder definitionsPaletteBuilder,
+                                              final LienzoGlyphsHoverPalette palette,
+                                              final NodeDragProxy<AbstractCanvasHandler> nodeDragProxyFactory,
+                                              final NodeBuilderControl<AbstractCanvasHandler> nodeBuilderControl,
+                                              final GraphBoundsIndexer graphBoundsIndexer) {
+        super(clientFactoryServices, commonLookups, shapeManager,
                 definitionsPaletteBuilder, palette, nodeDragProxyFactory,
-                nodeBuilderControl, graphBoundsIndexer, SVGUtils.createSVGIcon( SVGUtils.getAddIcon() ) );
+                nodeBuilderControl, graphBoundsIndexer, SVGUtils.createSVGIcon(SVGUtils.getAddIcon()));
     }
 
     // TODO: i18n.
@@ -58,25 +58,25 @@ public abstract class LienzoNewPaletteNodeToolboxCommand extends NewPaletteNodeC
     public void init() {
         getLienzoPalette()
                 .expand()
-                .setIconSize( 15 )
-                .setPadding( 5 )
-                .setLayout( LienzoPalette.Layout.VERTICAL );
-        ( ( AbstractLienzoGlyphItemsPalette ) getLienzoPalette() ).getDefinitionGlyphTooltip().setPrefix( "Click to create a " );
+                .setIconSize(15)
+                .setPadding(5)
+                .setLayout(LienzoPalette.Layout.VERTICAL);
+        ((AbstractLienzoGlyphItemsPalette) getLienzoPalette()).getDefinitionGlyphTooltip().setPrefix("Click to create a ");
     }
 
     @Override
-    protected void beforeBindPalette( final DefinitionsPalette paletteDefinition,
-                                      final Context<AbstractCanvasHandler> context ) {
-        super.beforeBindPalette( paletteDefinition, context );
+    protected void beforeBindPalette(final DefinitionsPalette paletteDefinition,
+                                     final Context<AbstractCanvasHandler> context) {
+        super.beforeBindPalette(paletteDefinition, context);
         final String ssid = canvasHandler.getDiagram().getMetadata().getShapeSetId();
-        getLienzoPalette().setShapeSetId( ssid );
+        getLienzoPalette().setShapeSetId(ssid);
     }
 
     @Override
-    @SuppressWarnings( "unchecked" )
+    @SuppressWarnings("unchecked")
     protected void attachPaletteView() {
-        final LienzoLayer lienzoLayer = ( LienzoLayer ) canvasHandler.getCanvas().getLayer();
-        getPaletteView().attach( lienzoLayer.getLienzoLayer() );
+        final LienzoLayer lienzoLayer = (LienzoLayer) canvasHandler.getCanvas().getLayer();
+        getPaletteView().attach(lienzoLayer.getLienzoLayer());
     }
 
     @Override
@@ -85,6 +85,6 @@ public abstract class LienzoNewPaletteNodeToolboxCommand extends NewPaletteNodeC
     }
 
     protected LienzoGlyphsHoverPalette getLienzoPalette() {
-        return ( LienzoGlyphsHoverPalette ) palette;
+        return (LienzoGlyphsHoverPalette) palette;
     }
 }

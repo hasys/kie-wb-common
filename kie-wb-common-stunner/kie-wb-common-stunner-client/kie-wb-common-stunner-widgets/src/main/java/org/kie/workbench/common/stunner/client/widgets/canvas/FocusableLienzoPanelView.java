@@ -17,7 +17,11 @@ package org.kie.workbench.common.stunner.client.widgets.canvas;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseWheelEvent;
+import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -26,32 +30,31 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class FocusableLienzoPanelView extends com.ait.lienzo.client.widget.LienzoPanel {
 
-    public FocusableLienzoPanelView( final int width,
-                                     final int height ) {
-        super( width,
-                height );
+    public FocusableLienzoPanelView(final int width,
+                                    final int height) {
+        super(width,
+                height);
         //Basic support to loose focus on other Widgets when a WiresCanvas is clicked
-        addMouseDownHandler( new MouseDownHandler() {
+        addMouseDownHandler(new MouseDownHandler() {
             @Override
-            public void onMouseDown( final MouseDownEvent event ) {
+            public void onMouseDown(final MouseDownEvent event) {
                 broadcastBlurEvent();
             }
-        } );
-        addMouseWheelHandler( new MouseWheelHandler() {
+        });
+        addMouseWheelHandler(new MouseWheelHandler() {
             @Override
-            public void onMouseWheel( final MouseWheelEvent event ) {
+            public void onMouseWheel(final MouseWheelEvent event) {
                 broadcastBlurEvent();
             }
-        } );
+        });
     }
 
     protected void broadcastBlurEvent() {
         final NativeEvent blur = Document.get().createBlurEvent();
-        for ( int i = 0; i < RootPanel.get().getWidgetCount(); i++ ) {
-            final Widget w = RootPanel.get().getWidget( i );
-            DomEvent.fireNativeEvent( blur,
-                    w );
+        for (int i = 0; i < RootPanel.get().getWidgetCount(); i++) {
+            final Widget w = RootPanel.get().getWidget(i);
+            DomEvent.fireNativeEvent(blur,
+                    w);
         }
     }
-
 }

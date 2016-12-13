@@ -16,6 +16,8 @@
 
 package org.kie.workbench.common.stunner.client.lienzo.canvas.controls.zoom;
 
+import javax.enterprise.context.Dependent;
+
 import com.ait.lienzo.client.core.mediator.EventFilter;
 import com.ait.lienzo.client.core.mediator.IEventFilter;
 import com.ait.lienzo.client.core.mediator.MouseWheelZoomMediator;
@@ -23,40 +25,37 @@ import org.kie.workbench.common.stunner.client.lienzo.canvas.controls.AbstractMe
 import org.kie.workbench.common.stunner.core.client.canvas.AbstractCanvas;
 import org.kie.workbench.common.stunner.core.client.canvas.controls.zoom.ZoomControl;
 
-import javax.enterprise.context.Dependent;
-
 @Dependent
 public class ZoomWheelControlImpl extends AbstractMediatorControl<MouseWheelZoomMediator> implements ZoomControl<AbstractCanvas> {
 
     private static final double MIN_SCALE = 1;
     private static final double MAX_SCALE = 2;
 
-    private final IEventFilter[] filters = new IEventFilter[]{ EventFilter.CONTROL };
+    private final IEventFilter[] filters = new IEventFilter[]{EventFilter.CONTROL};
 
     @Override
     protected MouseWheelZoomMediator buildMediator() {
-        return new MouseWheelZoomMediator( filters ) {{
-            setMinScale( MIN_SCALE );
-            setMaxScale( MAX_SCALE );
+        return new MouseWheelZoomMediator(filters) {{
+            setMinScale(MIN_SCALE);
+            setMaxScale(MAX_SCALE);
         }};
     }
 
     @Override
-    public ZoomControl<AbstractCanvas> setMinScale( final double minScale ) {
-        getMediator().setMinScale( minScale );
+    public ZoomControl<AbstractCanvas> setMinScale(final double minScale) {
+        getMediator().setMinScale(minScale);
         return this;
     }
 
     @Override
-    public ZoomControl<AbstractCanvas> setMaxScale( final double maxScale ) {
-        getMediator().setMaxScale( maxScale );
+    public ZoomControl<AbstractCanvas> setMaxScale(final double maxScale) {
+        getMediator().setMaxScale(maxScale);
         return this;
     }
 
     @Override
-    public ZoomControl<AbstractCanvas> setZoomFactory( final double factor ) {
-        getMediator().setZoomFactor( factor );
+    public ZoomControl<AbstractCanvas> setZoomFactory(final double factor) {
+        getMediator().setZoomFactor(factor);
         return this;
     }
-
 }

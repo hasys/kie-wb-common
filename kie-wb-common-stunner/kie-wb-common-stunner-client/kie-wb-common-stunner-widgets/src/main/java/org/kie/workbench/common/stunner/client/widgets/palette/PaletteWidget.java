@@ -26,21 +26,19 @@ public interface PaletteWidget<D extends PaletteDefinition, V extends PaletteWid
 
     interface ItemDropCallback {
 
-        void onDropItem( Object definition,
-                         ShapeFactory<?, ?, ? extends Shape> factory,
-                         double x,
-                         double y );
-
+        void onDropItem(Object definition,
+                        ShapeFactory<?, ?, ? extends Shape> factory,
+                        double x,
+                        double y);
     }
 
-    PaletteWidget<D, V> onItemDrop( ItemDropCallback callback );
+    PaletteWidget<D, V> onItemDrop(ItemDropCallback callback);
 
-    PaletteWidget<D, V> setMaxWidth( int maxWidth );
+    PaletteWidget<D, V> setMaxWidth(int maxWidth);
 
-    PaletteWidget<D, V> setMaxHeight( int maxHeight );
+    PaletteWidget<D, V> setMaxHeight(int maxHeight);
 
     void unbind();
 
     V getView();
-
 }

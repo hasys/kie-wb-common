@@ -16,6 +16,15 @@
 
 package org.kie.workbench.common.stunner.client.widgets.navigation.navigator.diagrams;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
 import com.google.gwt.logging.client.LogConfiguration;
 import com.google.gwt.user.client.ui.Widget;
 import org.kie.workbench.common.stunner.client.widgets.event.LoadDiagramEvent;
@@ -31,19 +40,10 @@ import org.kie.workbench.common.stunner.core.lookup.diagram.DiagramLookupRequest
 import org.kie.workbench.common.stunner.core.lookup.diagram.DiagramLookupRequestImpl;
 import org.kie.workbench.common.stunner.core.lookup.diagram.DiagramRepresentation;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.event.Event;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 @Dependent
 public class DiagramsNavigatorImpl implements DiagramsNavigator {
 
-    private static Logger LOGGER = Logger.getLogger( DiagramsNavigatorImpl.class.getName() );
+    private static Logger LOGGER = Logger.getLogger(DiagramsNavigatorImpl.class.getName());
 
     ClientDiagramService clientDiagramServices;
     Instance<DiagramNavigatorItem> navigatorItemInstances;
@@ -55,10 +55,10 @@ public class DiagramsNavigatorImpl implements DiagramsNavigator {
     private int height;
 
     @Inject
-    public DiagramsNavigatorImpl( final ClientDiagramService clientDiagramServices,
-                                  final Instance<DiagramNavigatorItem> navigatorItemInstances,
-                                  final Event<LoadDiagramEvent> loadDiagramEventEvent,
-                                  final NavigatorView<?> view ) {
+    public DiagramsNavigatorImpl(final ClientDiagramService clientDiagramServices,
+                                 final Instance<DiagramNavigatorItem> navigatorItemInstances,
+                                 final Event<LoadDiagramEvent> loadDiagramEventEvent,
+                                 final NavigatorView<?> view) {
         this.clientDiagramServices = clientDiagramServices;
         this.navigatorItemInstances = navigatorItemInstances;
         this.loadDiagramEventEvent = loadDiagramEventEvent;
@@ -73,7 +73,7 @@ public class DiagramsNavigatorImpl implements DiagramsNavigator {
     }
 
     @Override
-    public Navigator<DiagramRepresentation> setItemPxSize( int width, int height ) {
+    public Navigator<DiagramRepresentation> setItemPxSize(int width, int height) {
         this.width = width;
         this.height = height;
         return this;
@@ -84,27 +84,24 @@ public class DiagramsNavigatorImpl implements DiagramsNavigator {
         fireProcessingStarted();
         clear();
         final DiagramLookupRequest request = new DiagramLookupRequestImpl.Builder().build();
-        clientDiagramServices.lookup( request, new ServiceCallback<LookupManager.LookupResponse<DiagramRepresentation>>() {
+        clientDiagramServices.lookup(request, new ServiceCallback<LookupManager.LookupResponse<DiagramRepresentation>>() {
             @Override
-            public void onSuccess( final LookupManager.LookupResponse<DiagramRepresentation> response ) {
+            public void onSuccess(final LookupManager.LookupResponse<DiagramRepresentation> response) {
                 final List<DiagramRepresentation> items = response.getResults();
-                if ( null != items && !items.isEmpty() ) {
-                    for ( final DiagramRepresentation diagram : items ) {
-                        addEntry( diagram );
+                if (null != items && !items.isEmpty()) {
+                    for (final DiagramRepresentation diagram : items) {
+                        addEntry(diagram);
                     }
-
                 }
                 // Notify some processing ends.
                 fireProcessingCompleted();
-
             }
 
             @Override
-            public void onError( final ClientRuntimeError error ) {
-                showError( error );
+            public void onError(final ClientRuntimeError error) {
+                showError(error);
             }
-
-        } );
+        });
         return this;
     }
 
@@ -124,46 +121,45 @@ public class DiagramsNavigatorImpl implements DiagramsNavigator {
         return view;
     }
 
-    private void addEntry( final DiagramRepresentation diagramRepresentation ) {
+    private void addEntry(final DiagramRepresentation diagramRepresentation) {
         final DiagramNavigatorItem item = navigatorItemInstances.get();
-        view.add( item.getView() );
-        items.add( item );
-        item.show( diagramRepresentation,
+        view.add(item.getView());
+        items.add(item);
+        item.show(diagramRepresentation,
                 width,
                 height,
                 () -> {
-                    fireLoadDiagram( diagramRepresentation );
-                } );
+                    fireLoadDiagram(diagramRepresentation);
+                });
     }
 
-    private void fireLoadDiagram( final DiagramRepresentation diagramRepresentation ) {
+    private void fireLoadDiagram(final DiagramRepresentation diagramRepresentation) {
         final String name = diagramRepresentation.getName();
         final String path = diagramRepresentation.getPath().toURI();
-        loadDiagramEventEvent.fire( new LoadDiagramEvent( path, name ) );
+        loadDiagramEventEvent.fire(new LoadDiagramEvent(path, name));
     }
 
     private void fireProcessingStarted() {
-        view.setLoading( true );
+        view.setLoading(true);
     }
 
     private void fireProcessingCompleted() {
-        view.setLoading( false );
+        view.setLoading(false);
     }
 
-    private void showError( final ClientRuntimeError error ) {
-        final String message = StunnerClientLogger.getErrorMessage( error );
-        showError( message );
+    private void showError(final ClientRuntimeError error) {
+        final String message = StunnerClientLogger.getErrorMessage(error);
+        showError(message);
     }
 
-    private void showError( final String error ) {
+    private void showError(final String error) {
         fireProcessingCompleted();
-        log( Level.SEVERE, error );
+        log(Level.SEVERE, error);
     }
 
-    private void log( final Level level, final String message ) {
-        if ( LogConfiguration.loggingIsEnabled() ) {
-            LOGGER.log( level, message );
+    private void log(final Level level, final String message) {
+        if (LogConfiguration.loggingIsEnabled()) {
+            LOGGER.log(level, message);
         }
     }
-
 }

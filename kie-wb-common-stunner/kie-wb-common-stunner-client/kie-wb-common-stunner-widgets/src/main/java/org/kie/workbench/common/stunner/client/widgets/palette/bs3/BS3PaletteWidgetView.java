@@ -16,6 +16,8 @@
 
 package org.kie.workbench.common.stunner.client.widgets.palette.bs3;
 
+import javax.enterprise.context.Dependent;
+
 import com.ait.lienzo.client.core.shape.Group;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
@@ -30,8 +32,6 @@ import org.kie.workbench.common.stunner.core.client.components.glyph.ShapeGlyphD
 import org.kie.workbench.common.stunner.core.client.shape.view.glyph.Glyph;
 import org.uberfire.client.mvp.UberView;
 
-import javax.enterprise.context.Dependent;
-
 @Dependent
 public class BS3PaletteWidgetView extends Composite implements PaletteWidgetView<IsWidget>, UberView<BS3PaletteWidgetImpl> {
 
@@ -39,7 +39,7 @@ public class BS3PaletteWidgetView extends Composite implements PaletteWidgetView
 
     }
 
-    private static BS3PaletteWidgetView.ViewBinder uiBinder = GWT.create( BS3PaletteWidgetView.ViewBinder.class );
+    private static BS3PaletteWidgetView.ViewBinder uiBinder = GWT.create(BS3PaletteWidgetView.ViewBinder.class);
 
     @UiField
     FlowPanel mainPanel;
@@ -57,66 +57,60 @@ public class BS3PaletteWidgetView extends Composite implements PaletteWidgetView
     }
 
     @Override
-    public void init( final BS3PaletteWidgetImpl presenter ) {
+    public void init(final BS3PaletteWidgetImpl presenter) {
         this.presenter = presenter;
-        initWidget( uiBinder.createAndBindUi( this ) );
+        initWidget(uiBinder.createAndBindUi(this));
     }
 
     @Override
-    public void showEmptyView( final boolean visible ) {
-        emptyViewPanel.setVisible( visible );
-        palettePanel.setVisible( !visible );
+    public void showEmptyView(final boolean visible) {
+        emptyViewPanel.setVisible(visible);
+        palettePanel.setVisible(!visible);
     }
 
     @Override
-    public void showDragProxy( final String itemId,
-                               final double x,
-                               final double y ) {
-        final Glyph<Group> glyph = ( Glyph<Group> ) presenter.getShapeGlyph( itemId );
-        shapeGlyphDragHandler.show( glyph, x, y, new ShapeGlyphDragHandler.Callback() {
+    public void showDragProxy(final String itemId,
+                              final double x,
+                              final double y) {
+        final Glyph<Group> glyph = (Glyph<Group>) presenter.getShapeGlyph(itemId);
+        shapeGlyphDragHandler.show(glyph, x, y, new ShapeGlyphDragHandler.Callback() {
 
             @Override
-            public void onMove( final double x,
-                                final double y ) {
-                presenter.onDragProxyMove( itemId, x, y );
-
+            public void onMove(final double x,
+                               final double y) {
+                presenter.onDragProxyMove(itemId, x, y);
             }
 
             @Override
-            public void onComplete( final double x,
-                                    final double y ) {
-                presenter.onDragProxyComplete( itemId, x, y );
-
+            public void onComplete(final double x,
+                                   final double y) {
+                presenter.onDragProxyComplete(itemId, x, y);
             }
-
-        } );
-
+        });
     }
 
     @Override
-    public void setBackgroundColor( final String color ) {
-        palettePanel.getElement().getStyle().setBackgroundColor( color );
-
+    public void setBackgroundColor(final String color) {
+        palettePanel.getElement().getStyle().setBackgroundColor(color);
     }
 
     @Override
-    public void setMarginTop( final int mTop ) {
-        palettePanel.getElement().getStyle().setMarginTop( mTop, Style.Unit.PX );
-
+    public void setMarginTop(final int mTop) {
+        palettePanel.getElement().getStyle().setMarginTop(mTop, Style.Unit.PX);
     }
 
     @Override
-    public void show( final IsWidget paletteView ) {
-        palettePanel.add( paletteView );
+    public void show(final IsWidget paletteView) {
+        palettePanel.add(paletteView);
     }
 
     @Override
-    public void show( final IsWidget paletteView,
-                      final int width,
-                      final int height ) {
-        palettePanel.add( paletteView );
-        palettePanel.getElement().getStyle().setWidth( width, Style.Unit.PX );
-        palettePanel.getElement().getStyle().setHeight( height, Style.Unit.PX );
+    public void show(final IsWidget paletteView,
+                     final int width,
+                     final int height) {
+        palettePanel.add(paletteView);
+        palettePanel.getElement().getStyle().setWidth(width, Style.Unit.PX);
+        palettePanel.getElement().getStyle().setHeight(height, Style.Unit.PX);
     }
 
     @Override
@@ -128,5 +122,4 @@ public class BS3PaletteWidgetView extends Composite implements PaletteWidgetView
     public void destroy() {
         mainPanel.clear();
     }
-
 }

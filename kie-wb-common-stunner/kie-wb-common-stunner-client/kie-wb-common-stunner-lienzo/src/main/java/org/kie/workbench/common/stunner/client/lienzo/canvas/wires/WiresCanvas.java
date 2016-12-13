@@ -16,6 +16,11 @@
 
 package org.kie.workbench.common.stunner.client.lienzo.canvas.wires;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+
 import com.ait.lienzo.client.core.shape.wires.IConnectionAcceptor;
 import com.ait.lienzo.client.core.shape.wires.IContainmentAcceptor;
 import com.ait.lienzo.client.core.shape.wires.IDockingAcceptor;
@@ -31,11 +36,6 @@ import org.kie.workbench.common.stunner.core.client.canvas.event.CanvasFocusedEv
 import org.kie.workbench.common.stunner.core.client.canvas.event.registration.CanvasShapeAddedEvent;
 import org.kie.workbench.common.stunner.core.client.canvas.event.registration.CanvasShapeRemovedEvent;
 
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * Lienzo "Wires" based Canvas .
  */
@@ -43,40 +43,38 @@ public abstract class WiresCanvas extends AbstractCanvas<WiresCanvas.View> {
 
     public static final String WIRES_CANVAS_GROUP_ID = "stnner.wiresCanvas";
 
-    private static Logger LOGGER = Logger.getLogger( WiresCanvas.class.getName() );
+    private static Logger LOGGER = Logger.getLogger(WiresCanvas.class.getName());
 
     public interface View extends AbstractCanvas.View<LienzoPanel> {
 
-        View setConnectionAcceptor( IConnectionAcceptor connectionAcceptor );
+        View setConnectionAcceptor(IConnectionAcceptor connectionAcceptor);
 
-        View setContainmentAcceptor( IContainmentAcceptor containmentAcceptor );
+        View setContainmentAcceptor(IContainmentAcceptor containmentAcceptor);
 
-        View setDockingAcceptor( IDockingAcceptor dockingAcceptor );
+        View setDockingAcceptor(IDockingAcceptor dockingAcceptor);
 
         WiresManager getWiresManager();
-
     }
 
     @Inject
-    public WiresCanvas( final Event<CanvasClearEvent> canvasClearEvent,
-                        final Event<CanvasShapeAddedEvent> canvasShapeAddedEvent,
-                        final Event<CanvasShapeRemovedEvent> canvasShapeRemovedEvent,
-                        final Event<CanvasDrawnEvent> canvasDrawnEvent,
-                        final Event<CanvasFocusedEvent> canvasFocusedEvent,
-                        final @Lienzo Layer layer,
-                        final View view ) {
-        super( canvasClearEvent, canvasShapeAddedEvent, canvasShapeRemovedEvent,
-                canvasDrawnEvent, canvasFocusedEvent, layer, view );
+    public WiresCanvas(final Event<CanvasClearEvent> canvasClearEvent,
+                       final Event<CanvasShapeAddedEvent> canvasShapeAddedEvent,
+                       final Event<CanvasShapeRemovedEvent> canvasShapeRemovedEvent,
+                       final Event<CanvasDrawnEvent> canvasDrawnEvent,
+                       final Event<CanvasFocusedEvent> canvasFocusedEvent,
+                       final @Lienzo Layer layer,
+                       final View view) {
+        super(canvasClearEvent, canvasShapeAddedEvent, canvasShapeRemovedEvent,
+                canvasDrawnEvent, canvasFocusedEvent, layer, view);
     }
 
     public WiresManager getWiresManager() {
         return view.getWiresManager();
     }
 
-    private void log( final Level level, final String message ) {
-        if ( LogConfiguration.loggingIsEnabled() ) {
-            LOGGER.log( level, message );
+    private void log(final Level level, final String message) {
+        if (LogConfiguration.loggingIsEnabled()) {
+            LOGGER.log(level, message);
         }
     }
-
 }

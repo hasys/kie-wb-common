@@ -24,14 +24,13 @@ public abstract class AbstractLienzoGlyphPaletteItemView
         extends AbstractLienzoPaletteItemView<GlyphPaletteItem, IPrimitive<?>>
         implements LienzoGlyphPaletteItemView {
 
-    public AbstractLienzoGlyphPaletteItemView( final GlyphPaletteItem item,
-                                               final LienzoPaletteView paletteView ) {
-        super( item, paletteView );
+    public AbstractLienzoGlyphPaletteItemView(final GlyphPaletteItem item,
+                                              final LienzoPaletteView paletteView) {
+        super(item, paletteView);
     }
 
     @Override
     public Decorator getDecorator() {
         return Decorator.DEFAULT;
     }
-
 }

@@ -34,12 +34,12 @@ public abstract class AbstractLienzoPalette<D extends HasPaletteItems, V extends
     protected boolean isExpandable;
 
     protected AbstractLienzoPalette() {
-        this( null, null );
+        this(null, null);
     }
 
-    public AbstractLienzoPalette( final ShapeManager shapeManager,
-                                  final V view ) {
-        super( shapeManager );
+    public AbstractLienzoPalette(final ShapeManager shapeManager,
+                                 final V view) {
+        super(shapeManager);
         this.view = view;
         this.expanded = false;
         this.iconSize = 50;
@@ -55,11 +55,11 @@ public abstract class AbstractLienzoPalette<D extends HasPaletteItems, V extends
     public abstract double[] computePaletteSize();
 
     protected void doInit() {
-        view.setPresenter( this );
+        view.setPresenter(this);
     }
 
     @Override
-    @SuppressWarnings( "unchecked" )
+    @SuppressWarnings("unchecked")
     public AbstractLienzoPalette bind() {
         view.clear();
         beforeBind();
@@ -76,7 +76,7 @@ public abstract class AbstractLienzoPalette<D extends HasPaletteItems, V extends
     }
 
     @Override
-    public LienzoPalette<D, V> setExpandable( final boolean canExpand ) {
+    public LienzoPalette<D, V> setExpandable(final boolean canExpand) {
         this.isExpandable = canExpand;
         return this;
     }
@@ -86,26 +86,26 @@ public abstract class AbstractLienzoPalette<D extends HasPaletteItems, V extends
     }
 
     @Override
-    public void setLayout( final Layout layout ) {
+    public void setLayout(final Layout layout) {
         this.layout = layout;
     }
 
     @Override
-    public LienzoPalette<D, V> setIconSize( final int iconSize ) {
+    public LienzoPalette<D, V> setIconSize(final int iconSize) {
         this.iconSize = iconSize;
         return this;
     }
 
     @Override
-    public LienzoPalette<D, V> setPadding( final int padding ) {
+    public LienzoPalette<D, V> setPadding(final int padding) {
         this.padding = padding;
         return this;
     }
 
     @Override
     public LienzoPalette<D, V> expand() {
-        if ( !isExpandable ) {
-            throw new IllegalStateException( "Palette is not expandable" );
+        if (!isExpandable) {
+            throw new IllegalStateException("Palette is not expandable");
         }
         this.expanded = true;
         doExpandCollapse();
@@ -114,8 +114,8 @@ public abstract class AbstractLienzoPalette<D extends HasPaletteItems, V extends
 
     @Override
     public LienzoPalette<D, V> collapse() {
-        if ( !isExpandable ) {
-            throw new IllegalStateException( "Palette is not expandable" );
+        if (!isExpandable) {
+            throw new IllegalStateException("Palette is not expandable");
         }
         this.expanded = false;
         doExpandCollapse();
@@ -131,8 +131,8 @@ public abstract class AbstractLienzoPalette<D extends HasPaletteItems, V extends
         final PaletteGridLayoutBuilder gridLayoutBuilder = isHorizontalLayout() ?
                 PaletteGridLayoutBuilder.HORIZONTAL :
                 PaletteGridLayoutBuilder.VERTICAL;
-        gridLayoutBuilder.setIconSize( iconSize );
-        gridLayoutBuilder.setPadding( padding );
+        gridLayoutBuilder.setIconSize(iconSize);
+        gridLayoutBuilder.setPadding(padding);
         return gridLayoutBuilder.build();
     }
 
@@ -141,12 +141,11 @@ public abstract class AbstractLienzoPalette<D extends HasPaletteItems, V extends
     }
 
     protected boolean isHorizontalLayout() {
-        return layout.equals( Layout.HORIZONTAL );
+        return layout.equals(Layout.HORIZONTAL);
     }
 
     @Override
     public V getView() {
         return view;
     }
-
 }

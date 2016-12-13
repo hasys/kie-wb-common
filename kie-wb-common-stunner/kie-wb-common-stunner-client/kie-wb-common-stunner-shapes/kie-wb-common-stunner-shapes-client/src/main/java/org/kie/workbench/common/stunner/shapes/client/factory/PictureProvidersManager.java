@@ -15,50 +15,49 @@
 
 package org.kie.workbench.common.stunner.shapes.client.factory;
 
-import com.google.gwt.safehtml.shared.SafeUri;
-import org.jboss.errai.ioc.client.api.ManagedInstance;
-import org.kie.workbench.common.stunner.shapes.def.picture.PictureProvider;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
-import static org.uberfire.commons.validation.PortablePreconditions.checkNotNull;
+import com.google.gwt.safehtml.shared.SafeUri;
+import org.jboss.errai.ioc.client.api.ManagedInstance;
+import org.kie.workbench.common.stunner.shapes.def.picture.PictureProvider;
+
+import static org.uberfire.commons.validation.PortablePreconditions.*;
 
 @ApplicationScoped
 public class PictureProvidersManager {
 
-    private static Logger LOGGER = Logger.getLogger( PictureProvidersManager.class.getName() );
+    private static Logger LOGGER = Logger.getLogger(PictureProvidersManager.class.getName());
 
     private final ManagedInstance<PictureProvider> pictureProviderManagedInstances;
     private final List<PictureProvider> providers = new LinkedList<>();
 
     @Inject
-    public PictureProvidersManager( ManagedInstance<PictureProvider> pictureProviderManagedInstances ) {
+    public PictureProvidersManager(ManagedInstance<PictureProvider> pictureProviderManagedInstances) {
         this.pictureProviderManagedInstances = pictureProviderManagedInstances;
     }
 
     @PostConstruct
     public void init() {
-        pictureProviderManagedInstances.forEach( providers::add );
+        pictureProviderManagedInstances.forEach(providers::add);
     }
 
-    @SuppressWarnings( "unchecked" )
-    public SafeUri getUri( final Object source ) {
-        checkNotNull( "source", source );
+    @SuppressWarnings("unchecked")
+    public SafeUri getUri(final Object source) {
+        checkNotNull("source", source);
         final Class<?> type = source.getClass();
         PictureProvider provider = providers.stream()
-                .filter( pictureProvider -> pictureProvider.getSourceType().equals( type ) ).findFirst().orElse( null );
-        if ( null != provider ) {
-            return provider.getThumbnailUri( source );
+                .filter(pictureProvider -> pictureProvider.getSourceType().equals(type)).findFirst().orElse(null);
+        if (null != provider) {
+            return provider.getThumbnailUri(source);
         } else {
-            LOGGER.log( Level.SEVERE, "Picture provider not found for [" + source + "]" );
+            LOGGER.log(Level.SEVERE, "Picture provider not found for [" + source + "]");
             return null;
         }
     }
-
 }

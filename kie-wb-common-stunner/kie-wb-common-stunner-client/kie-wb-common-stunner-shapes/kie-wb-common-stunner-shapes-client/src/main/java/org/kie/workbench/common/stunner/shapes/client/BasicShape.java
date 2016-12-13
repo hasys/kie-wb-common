@@ -54,48 +54,48 @@ public abstract class BasicShape<W, V extends BasicShapeView>
     private Double _strokeAlpha = null;
     private String _strokeColor = null;
 
-    public BasicShape( final V shapeView ) {
-        super( shapeView );
+    public BasicShape(final V shapeView) {
+        super(shapeView);
     }
 
-    protected abstract String getBackgroundColor( Node<View<W>, Edge> element );
+    protected abstract String getBackgroundColor(Node<View<W>, Edge> element);
 
-    protected abstract Double getBackgroundAlpha( Node<View<W>, Edge> element );
+    protected abstract Double getBackgroundAlpha(Node<View<W>, Edge> element);
 
-    protected abstract String getBorderColor( Node<View<W>, Edge> element );
+    protected abstract String getBorderColor(Node<View<W>, Edge> element);
 
-    protected abstract Double getBorderSize( Node<View<W>, Edge> element );
+    protected abstract Double getBorderSize(Node<View<W>, Edge> element);
 
-    protected abstract Double getBorderAlpha( Node<View<W>, Edge> element );
+    protected abstract Double getBorderAlpha(Node<View<W>, Edge> element);
 
-    protected W getDefinition( final Node<View<W>, Edge> element ) {
+    protected W getDefinition(final Node<View<W>, Edge> element) {
         return element.getContent().getDefinition();
     }
 
     @Override
-    public void applyProperties( Node<View<W>, Edge> element, MutationContext mutationContext ) {
-        super.applyProperties( element, mutationContext );
+    public void applyProperties(Node<View<W>, Edge> element, MutationContext mutationContext) {
+        super.applyProperties(element, mutationContext);
         // Fill color.
-        final String color = getBackgroundColor( element );
-        super.applyFillColor( color, mutationContext );
+        final String color = getBackgroundColor(element);
+        super.applyFillColor(color, mutationContext);
         // Fill alpha.
-        final Double alpha = getBackgroundAlpha( element );
-        super.applyFillAlpha( alpha, mutationContext );
+        final Double alpha = getBackgroundAlpha(element);
+        super.applyFillAlpha(alpha, mutationContext);
         // Apply border styles.
-        _strokeColor = getBorderColor( element );
-        _strokeWidth = getBorderSize( element );
-        super.applyBorders( _strokeColor, _strokeWidth, mutationContext );
+        _strokeColor = getBorderColor(element);
+        _strokeWidth = getBorderSize(element);
+        super.applyBorders(_strokeColor, _strokeWidth, mutationContext);
         // Apply border alpha.
-        _strokeAlpha = getBorderAlpha( element );
-        super.applyBorderAlpha( _strokeAlpha, mutationContext );
+        _strokeAlpha = getBorderAlpha(element);
+        super.applyBorderAlpha(_strokeAlpha, mutationContext);
     }
 
     @Override
     public void beforeDraw() {
         super.beforeDraw();
-        if ( hasAnimation() ) {
+        if (hasAnimation()) {
             getAnimation()
-                    .setCallback( new Animation.AnimationCallback() {
+                    .setCallback(new Animation.AnimationCallback() {
                         @Override
                         public void onStart() {
                         }
@@ -108,137 +108,119 @@ public abstract class BasicShape<W, V extends BasicShapeView>
                         public void onComplete() {
                             BasicShape.this.animation = null;
                         }
-                    } )
+                    })
                     .run();
-
         }
-
     }
 
     @Override
-    public void applyState( final ShapeState shapeState ) {
-        if ( !this.state.equals( shapeState ) ) {
+    public void applyState(final ShapeState shapeState) {
+        if (!this.state.equals(shapeState)) {
             this.state = shapeState;
-            if ( ShapeState.SELECTED.equals( shapeState ) ) {
+            if (ShapeState.SELECTED.equals(shapeState)) {
                 applySelectedState();
-            } else if ( ShapeState.HIGHLIGHT.equals( shapeState ) ) {
+            } else if (ShapeState.HIGHLIGHT.equals(shapeState)) {
                 applyHighlightState();
-            } else if ( ShapeState.INVALID.equals( shapeState ) ) {
+            } else if (ShapeState.INVALID.equals(shapeState)) {
                 applyInvalidState();
             } else {
                 applyNoneState();
             }
-
         }
-
     }
 
     private void applySelectedState() {
-        applyActiveState( ShapeState.SELECTED.getColor() );
+        applyActiveState(ShapeState.SELECTED.getColor());
     }
 
     private void applyInvalidState() {
-        applyActiveState( ShapeState.INVALID.getColor() );
+        applyActiveState(ShapeState.INVALID.getColor());
     }
 
     private void applyHighlightState() {
-        applyActiveState( ShapeState.HIGHLIGHT.getColor() );
+        applyActiveState(ShapeState.HIGHLIGHT.getColor());
     }
 
-    private void applyActiveState( final String color ) {
-        new BasicShapeDecoratorAnimation( color, 1.5, 1 ).forShape( this ).run();
-
+    private void applyActiveState(final String color) {
+        new BasicShapeDecoratorAnimation(color, 1.5, 1).forShape(this).run();
     }
 
     private void applyNoneState() {
-        new BasicShapeDecoratorAnimation( this._strokeColor,
+        new BasicShapeDecoratorAnimation(this._strokeColor,
                 null != this._strokeWidth ? this._strokeWidth : 1,
-                null != this._strokeAlpha ? this._strokeAlpha : 1 )
-                .forShape( this )
+                null != this._strokeAlpha ? this._strokeAlpha : 1)
+                .forShape(this)
                 .run();
     }
 
     @Override
-    protected void applyFillColor( final String color,
-                                   final MutationContext mutationContext ) {
+    protected void applyFillColor(final String color,
+                                  final MutationContext mutationContext) {
         final boolean hasGradient = getShapeView() instanceof HasFillGradient;
         // Fill gradient cannot be animated for now in lienzo.
-        if ( color != null && color.trim().length() > 0
+        if (color != null && color.trim().length() > 0
                 && !hasGradient
-                && isAnimationMutation( mutationContext ) ) {
-            getAnimation().animateFillColor( color );
-
+                && isAnimationMutation(mutationContext)) {
+            getAnimation().animateFillColor(color);
         } else {
-            super.applyFillColor( color, mutationContext );
-
+            super.applyFillColor(color, mutationContext);
         }
-
     }
 
     @Override
-    protected void applyFontAlpha( final HasTitle hasTitle,
-                                   final Double alpha,
-                                   final MutationContext mutationContext ) {
-        final boolean isAnimation = isAnimationMutation( mutationContext );
-        if ( isAnimation ) {
-            getAnimation().animateFontAlpha( alpha );
-
+    protected void applyFontAlpha(final HasTitle hasTitle,
+                                  final Double alpha,
+                                  final MutationContext mutationContext) {
+        final boolean isAnimation = isAnimationMutation(mutationContext);
+        if (isAnimation) {
+            getAnimation().animateFontAlpha(alpha);
         } else {
-            super.applyFontAlpha( hasTitle, alpha, mutationContext );
-
+            super.applyFontAlpha(hasTitle, alpha, mutationContext);
         }
-
     }
 
-    protected void _applyWidthAndHeight( final Node<View<W>, Edge> element,
-                                         final Double width,
-                                         final Double height,
-                                         final MutationContext mutationContext ) {
-        applySize( ( HasSize ) getShapeView(), width, height, mutationContext );
-        GraphUtils.updateBounds( width, height, element.getContent() );
+    protected void _applyWidthAndHeight(final Node<View<W>, Edge> element,
+                                        final Double width,
+                                        final Double height,
+                                        final MutationContext mutationContext) {
+        applySize((HasSize) getShapeView(), width, height, mutationContext);
+        GraphUtils.updateBounds(width, height, element.getContent());
     }
 
     @Override
-    protected void applySize( final HasSize hasSize,
-                              final double width,
-                              final double height,
-                              final MutationContext mutationContext ) {
+    protected void applySize(final HasSize hasSize,
+                             final double width,
+                             final double height,
+                             final MutationContext mutationContext) {
         // TODO: Shape (multipath) resize animations.
-        if ( false && isAnimationMutation( mutationContext ) ) {
-            getAnimation().animateSize( width, height );
-
+        if (false && isAnimationMutation(mutationContext)) {
+            getAnimation().animateSize(width, height);
         } else {
-            super.applySize( hasSize, width, height, mutationContext );
-
+            super.applySize(hasSize, width, height, mutationContext);
         }
-
     }
 
-    protected void _applyRadius( final Node<View<W>, Edge> element,
-                                 final Double radius,
-                                 final MutationContext mutationContext ) {
-        if ( null != radius ) {
-            applyRadius( ( HasRadius ) getShapeView(), radius, mutationContext );
-            GraphUtils.updateBounds( radius, element.getContent() );
+    protected void _applyRadius(final Node<View<W>, Edge> element,
+                                final Double radius,
+                                final MutationContext mutationContext) {
+        if (null != radius) {
+            applyRadius((HasRadius) getShapeView(), radius, mutationContext);
+            GraphUtils.updateBounds(radius, element.getContent());
         }
     }
 
     @Override
-    protected void applyRadius( final HasRadius hasRadius,
-                                final double radius,
-                                final MutationContext mutationContext ) {
-        if ( radius > 0 ) {
+    protected void applyRadius(final HasRadius hasRadius,
+                               final double radius,
+                               final MutationContext mutationContext) {
+        if (radius > 0) {
             // TODO: Shape (multipath) resize animations.
-            if ( false && isAnimationMutation( mutationContext ) ) {
-                getAnimation().animateRadius( radius );
-
+            if (false && isAnimationMutation(mutationContext)) {
+                getAnimation().animateRadius(radius);
             } else {
-                super.applyRadius( hasRadius, radius, mutationContext );
-
+                super.applyRadius(hasRadius, radius, mutationContext);
             }
-
         }
-
     }
 
     private boolean hasAnimation() {
@@ -246,9 +228,9 @@ public abstract class BasicShape<W, V extends BasicShapeView>
     }
 
     private BasicShapeAnimation getAnimation() {
-        if ( !hasAnimation() ) {
+        if (!hasAnimation()) {
             this.animation = new BasicShapeAnimation();
-            this.animation.forShape( this );
+            this.animation.forShape(this);
         }
         return animation;
     }

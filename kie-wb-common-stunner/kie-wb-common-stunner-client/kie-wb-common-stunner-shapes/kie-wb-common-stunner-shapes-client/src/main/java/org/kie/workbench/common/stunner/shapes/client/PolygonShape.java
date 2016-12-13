@@ -25,23 +25,21 @@ import org.kie.workbench.common.stunner.shapes.def.PolygonShapeDef;
 
 public class PolygonShape<W> extends AbstractBasicShapeWithTitle<W, PolygonView, PolygonShapeDef<W>> {
 
-    public PolygonShape( final PolygonView view,
-                         final PolygonShapeDef<W> proxy ) {
-        super( view, proxy );
+    public PolygonShape(final PolygonView view,
+                        final PolygonShapeDef<W> proxy) {
+        super(view, proxy);
     }
 
     @Override
-    public void applyProperties( final Node<View<W>, Edge> element, final MutationContext mutationContext ) {
-        super.applyProperties( element, mutationContext );
+    public void applyProperties(final Node<View<W>, Edge> element, final MutationContext mutationContext) {
+        super.applyProperties(element, mutationContext);
         // Radius.
-        final Double radius = proxy.getRadius( getDefinition( element ) );
-        _applyRadius( element, radius, mutationContext );
-
+        final Double radius = proxy.getRadius(getDefinition(element));
+        _applyRadius(element, radius, mutationContext);
     }
 
     @Override
     public String toString() {
         return "PolygonShape{}";
     }
-
 }

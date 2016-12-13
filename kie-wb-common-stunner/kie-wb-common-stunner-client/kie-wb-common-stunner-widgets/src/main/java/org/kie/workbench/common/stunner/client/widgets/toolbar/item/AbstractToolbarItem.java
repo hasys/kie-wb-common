@@ -16,6 +16,10 @@
 
 package org.kie.workbench.common.stunner.client.widgets.toolbar.item;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.inject.Inject;
+
 import com.google.gwt.logging.client.LogConfiguration;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
@@ -28,32 +32,27 @@ import org.kie.workbench.common.stunner.core.client.session.ClientSession;
 import org.uberfire.client.mvp.UberView;
 import org.uberfire.mvp.Command;
 
-import javax.inject.Inject;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public abstract class AbstractToolbarItem<S extends ClientSession> implements IsWidget {
 
-    private static Logger LOGGER = Logger.getLogger( AbstractToolbarItem.class.getName() );
+    private static Logger LOGGER = Logger.getLogger(AbstractToolbarItem.class.getName());
 
     public interface View extends UberView<AbstractToolbarItem> {
 
-        View setIcon( IconType icon );
+        View setIcon(IconType icon);
 
-        View setIconRotate( IconRotate rotate );
+        View setIconRotate(IconRotate rotate);
 
-        View setIconSize( IconSize size );
+        View setIconSize(IconSize size);
 
-        View setCaption( String caption );
+        View setCaption(String caption);
 
-        View setTooltip( String tooltip );
+        View setTooltip(String tooltip);
 
-        View setClickHandler( Command command );
+        View setClickHandler(Command command);
 
-        View setEnabled( boolean enabled );
+        View setEnabled(boolean enabled);
 
         void destroy();
-
     }
 
     View view;
@@ -61,12 +60,12 @@ public abstract class AbstractToolbarItem<S extends ClientSession> implements Is
     private String uuid;
 
     @Inject
-    public AbstractToolbarItem( final View view ) {
+    public AbstractToolbarItem(final View view) {
         this.view = view;
     }
 
     public void doInit() {
-        view.init( this );
+        view.init(this);
     }
 
     @Override
@@ -74,7 +73,7 @@ public abstract class AbstractToolbarItem<S extends ClientSession> implements Is
         return view.asWidget();
     }
 
-    public void setUUID( final String uuid ) {
+    public void setUUID(final String uuid) {
         this.uuid = uuid;
     }
 
@@ -82,46 +81,43 @@ public abstract class AbstractToolbarItem<S extends ClientSession> implements Is
         return uuid;
     }
 
-    public void show( final Toolbar<S> toolbar,
-                      final S session,
-                      final ToolbarCommand<S> command,
-                      final Command clickHandler ) {
+    public void show(final Toolbar<S> toolbar,
+                     final S session,
+                     final ToolbarCommand<S> command,
+                     final Command clickHandler) {
         // Initialize the command with the current session.
-        command.initialize( toolbar, session );
+        command.initialize(toolbar, session);
         final IconType icon = command.getIcon();
         final String caption = command.getCaption();
-        if ( icon != null ) {
-            view.setIcon( command.getIcon() );
-            view.setIconRotate( command.getIconRotate() );
+        if (icon != null) {
+            view.setIcon(command.getIcon());
+            view.setIconRotate(command.getIconRotate());
         } else {
-            view.setCaption( caption );
+            view.setCaption(caption);
         }
-        view.setTooltip( command.getTooltip() );
-        view.setClickHandler( clickHandler );
-
+        view.setTooltip(command.getTooltip());
+        view.setClickHandler(clickHandler);
     }
 
-    public void setIconSize( final IconSize size ) {
-        view.setIconSize( size );
+    public void setIconSize(final IconSize size) {
+        view.setIconSize(size);
     }
 
     public void enable() {
-        view.setEnabled( true );
+        view.setEnabled(true);
     }
 
     public void disable() {
-        view.setEnabled( false );
-
+        view.setEnabled(false);
     }
 
     public void destroy() {
         view.destroy();
     }
 
-    private void log( final Level level, final String message ) {
-        if ( LogConfiguration.loggingIsEnabled() ) {
-            LOGGER.log( level, message );
+    private void log(final Level level, final String message) {
+        if (LogConfiguration.loggingIsEnabled()) {
+            LOGGER.log(level, message);
         }
     }
-
 }

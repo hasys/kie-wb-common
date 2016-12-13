@@ -16,6 +16,8 @@
 
 package org.kie.workbench.common.stunner.client.widgets.navigation.home;
 
+import javax.enterprise.context.Dependent;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -27,8 +29,6 @@ import org.gwtbootstrap3.client.ui.PanelGroup;
 import org.gwtbootstrap3.client.ui.constants.IconType;
 import org.kie.workbench.common.stunner.client.widgets.navigation.home.item.HomeNavigationItem;
 
-import javax.enterprise.context.Dependent;
-
 @Dependent
 public class HomeNavigationWidgetView extends Composite implements HomeNavigationWidget.View {
 
@@ -36,7 +36,7 @@ public class HomeNavigationWidgetView extends Composite implements HomeNavigatio
 
     }
 
-    private static ViewBinder uiBinder = GWT.create( ViewBinder.class );
+    private static ViewBinder uiBinder = GWT.create(ViewBinder.class);
 
     private HomeNavigationWidget presenter;
 
@@ -50,27 +50,27 @@ public class HomeNavigationWidgetView extends Composite implements HomeNavigatio
     PanelGroup mainPanel;
 
     @Override
-    public void init( final HomeNavigationWidget presenter ) {
+    public void init(final HomeNavigationWidget presenter) {
         this.presenter = presenter;
-        initWidget( uiBinder.createAndBindUi( this ) );
-        addIcon.addClickHandler( event -> presenter.onButtonClick() );
+        initWidget(uiBinder.createAndBindUi(this));
+        addIcon.addClickHandler(event -> presenter.onButtonClick());
     }
 
     @Override
-    public HomeNavigationWidget.View setIcon( final IconType iconType ) {
-        addIcon.setType( iconType );
+    public HomeNavigationWidget.View setIcon(final IconType iconType) {
+        addIcon.setType(iconType);
         return this;
     }
 
     @Override
-    public HomeNavigationWidget.View setIconTitle( final String text ) {
-        addIcon.setTitle( text );
+    public HomeNavigationWidget.View setIconTitle(final String text) {
+        addIcon.setTitle(text);
         return this;
     }
 
     @Override
-    public HomeNavigationWidget.View add( final HomeNavigationItem.View view ) {
-        mainPanel.add( view );
+    public HomeNavigationWidget.View add(final HomeNavigationItem.View view) {
+        mainPanel.add(view);
         return this;
     }
 
@@ -79,5 +79,4 @@ public class HomeNavigationWidgetView extends Composite implements HomeNavigatio
         mainPanel.clear();
         return this;
     }
-
 }

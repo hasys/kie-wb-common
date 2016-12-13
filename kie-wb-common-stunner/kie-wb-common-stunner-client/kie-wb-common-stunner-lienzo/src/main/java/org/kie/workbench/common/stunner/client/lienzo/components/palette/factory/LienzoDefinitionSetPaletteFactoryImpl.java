@@ -16,6 +16,11 @@
 
 package org.kie.workbench.common.stunner.client.lienzo.components.palette.factory;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
 import org.jboss.errai.ioc.client.container.SyncBeanManager;
 import org.kie.workbench.common.stunner.client.lienzo.components.palette.LienzoDefinitionSetPalette;
 import org.kie.workbench.common.stunner.core.client.ShapeManager;
@@ -24,41 +29,35 @@ import org.kie.workbench.common.stunner.core.client.components.palette.factory.D
 import org.kie.workbench.common.stunner.core.client.components.palette.model.definition.DefinitionSetPalette;
 import org.kie.workbench.common.stunner.core.client.components.palette.view.PaletteGrid;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-
 @Dependent
 public class LienzoDefinitionSetPaletteFactoryImpl
         extends AbstractPaletteFactory<DefinitionSetPalette, LienzoDefinitionSetPalette>
         implements LienzoDefinitionSetPaletteFactory {
 
     @Inject
-    public LienzoDefinitionSetPaletteFactoryImpl( final ShapeManager shapeManager,
-                                                  final SyncBeanManager beanManager,
-                                                  final Instance<DefaultDefSetPaletteDefinitionFactory> defaultPaletteDefinitionFactoryInstance,
-                                                  final LienzoDefinitionSetPalette palette ) {
-        super( shapeManager, beanManager, defaultPaletteDefinitionFactoryInstance, palette );
+    public LienzoDefinitionSetPaletteFactoryImpl(final ShapeManager shapeManager,
+                                                 final SyncBeanManager beanManager,
+                                                 final Instance<DefaultDefSetPaletteDefinitionFactory> defaultPaletteDefinitionFactoryInstance,
+                                                 final LienzoDefinitionSetPalette palette) {
+        super(shapeManager, beanManager, defaultPaletteDefinitionFactoryInstance, palette);
     }
 
     @PostConstruct
-    @SuppressWarnings( "unchecked" )
+    @SuppressWarnings("unchecked")
     public void init() {
         super.init();
     }
 
     @Override
-    protected void beforeBindPalette( final DefinitionSetPalette paletteDefinition,
-                                      final String shapeSetId ) {
-        super.beforeBindPalette( paletteDefinition, shapeSetId );
-        palette.setShapeSetId( shapeSetId );
+    protected void beforeBindPalette(final DefinitionSetPalette paletteDefinition,
+                                     final String shapeSetId) {
+        super.beforeBindPalette(paletteDefinition, shapeSetId);
+        palette.setShapeSetId(shapeSetId);
     }
 
     @Override
-    protected void applyGrid( final PaletteGrid grid ) {
-        palette.setIconSize( grid.getIconSize() );
-        palette.setPadding( grid.getPadding() );
+    protected void applyGrid(final PaletteGrid grid) {
+        palette.setIconSize(grid.getIconSize());
+        palette.setPadding(grid.getPadding());
     }
-
 }

@@ -16,6 +16,15 @@
 
 package org.kie.workbench.common.stunner.client.widgets.navigation.navigator.shapesets;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Logger;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
 import com.google.gwt.user.client.ui.Widget;
 import org.kie.workbench.common.stunner.client.widgets.event.CreateEmptyDiagramEvent;
 import org.kie.workbench.common.stunner.client.widgets.navigation.navigator.NavigatorItem;
@@ -24,19 +33,10 @@ import org.kie.workbench.common.stunner.core.client.ShapeManager;
 import org.kie.workbench.common.stunner.core.client.ShapeSet;
 import org.kie.workbench.common.stunner.core.definition.util.DefinitionUtils;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.event.Event;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Logger;
-
 @Dependent
 public class ShapeSetsNavigatorImpl implements ShapeSetsNavigator {
 
-    private static Logger LOGGER = Logger.getLogger( ShapeSetsNavigatorImpl.class.getName() );
+    private static Logger LOGGER = Logger.getLogger(ShapeSetsNavigatorImpl.class.getName());
 
     ShapeManager shapeManager;
     DefinitionUtils definitionUtils;
@@ -50,11 +50,11 @@ public class ShapeSetsNavigatorImpl implements ShapeSetsNavigator {
     private List<NavigatorItem<ShapeSet>> items = new LinkedList<>();
 
     @Inject
-    public ShapeSetsNavigatorImpl( final ShapeManager shapeManager,
-                                   final DefinitionUtils definitionUtils,
-                                   final Event<CreateEmptyDiagramEvent> createEmptyDiagramEventEvent,
-                                   final Instance<ShapeSetNavigatorItem> shapeSetNavigatorItemInstances,
-                                   final NavigatorView<?> view ) {
+    public ShapeSetsNavigatorImpl(final ShapeManager shapeManager,
+                                  final DefinitionUtils definitionUtils,
+                                  final Event<CreateEmptyDiagramEvent> createEmptyDiagramEventEvent,
+                                  final Instance<ShapeSetNavigatorItem> shapeSetNavigatorItemInstances,
+                                  final NavigatorView<?> view) {
         this.shapeManager = shapeManager;
         this.definitionUtils = definitionUtils;
         this.createEmptyDiagramEventEvent = createEmptyDiagramEventEvent;
@@ -69,29 +69,27 @@ public class ShapeSetsNavigatorImpl implements ShapeSetsNavigator {
         return view.asWidget();
     }
 
-    public ShapeSetsNavigatorImpl setItemPxSize( final int width,
-                                                 final int height ) {
+    public ShapeSetsNavigatorImpl setItemPxSize(final int width,
+                                                final int height) {
         this.width = width;
         this.height = height;
         return this;
     }
 
-    @SuppressWarnings( "unchecked" )
+    @SuppressWarnings("unchecked")
     public ShapeSetsNavigatorImpl show() {
         final Collection<ShapeSet<?>> shapeSets = shapeManager.getShapeSets();
-        if ( shapeSets != null && !shapeSets.isEmpty() ) {
-            for ( final ShapeSet shapeSet : shapeSets ) {
+        if (shapeSets != null && !shapeSets.isEmpty()) {
+            for (final ShapeSet shapeSet : shapeSets) {
                 final String id = shapeSet.getId();
                 final ShapeSetNavigatorItem item = newNavigatorItem();
-                items.add( item );
-                view.add( item.getView() );
-                item.show( shapeSet,
+                items.add(item);
+                view.add(item.getView());
+                item.show(shapeSet,
                         width,
                         height,
-                        () -> createEmptyDiagramEventEvent.fire( new CreateEmptyDiagramEvent( id ) ) );
-
+                        () -> createEmptyDiagramEventEvent.fire(new CreateEmptyDiagramEvent(id)));
             }
-
         }
         return this;
     }

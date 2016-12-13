@@ -16,6 +16,9 @@
 
 package org.kie.workbench.common.stunner.client.lienzo.components.drag;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+
 import com.ait.lienzo.client.core.shape.MultiPath;
 import com.ait.lienzo.client.core.shape.wires.WiresConnector;
 import com.ait.lienzo.client.core.shape.wires.WiresManager;
@@ -38,9 +41,6 @@ import org.kie.workbench.common.stunner.core.graph.Node;
 import org.kie.workbench.common.stunner.core.graph.content.view.View;
 import org.kie.workbench.common.stunner.core.graph.processing.index.bounds.GraphBoundsIndexer;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-
 @Dependent
 public class ConnectorDragProxyImpl implements ConnectorDragProxy<AbstractCanvasHandler> {
 
@@ -51,61 +51,58 @@ public class ConnectorDragProxyImpl implements ConnectorDragProxy<AbstractCanvas
     private WiresConnector wiresConnector;
 
     @Inject
-    public ConnectorDragProxyImpl( final ShapeViewDragProxy<AbstractCanvas> shapeViewDragProxyFactory,
-                                   final GraphBoundsIndexer graphBoundsIndexer ) {
+    public ConnectorDragProxyImpl(final ShapeViewDragProxy<AbstractCanvas> shapeViewDragProxyFactory,
+                                  final GraphBoundsIndexer graphBoundsIndexer) {
         this.shapeViewDragProxyFactory = shapeViewDragProxyFactory;
         this.graphBoundsIndexer = graphBoundsIndexer;
     }
 
     @Override
-    public DragProxy<AbstractCanvasHandler, Item, DragProxyCallback> proxyFor( final AbstractCanvasHandler context ) {
+    public DragProxy<AbstractCanvasHandler, Item, DragProxyCallback> proxyFor(final AbstractCanvasHandler context) {
         this.canvasHandler = context;
-        this.shapeViewDragProxyFactory.proxyFor( context.getCanvas() );
-        this.graphBoundsIndexer.setRootUUID( context.getDiagram().getMetadata().getCanvasRootUUID() );
+        this.shapeViewDragProxyFactory.proxyFor(context.getCanvas());
+        this.graphBoundsIndexer.setRootUUID(context.getDiagram().getMetadata().getCanvasRootUUID());
         return this;
     }
 
     @Override
-    @SuppressWarnings( "unchecked" )
-    public DragProxy<AbstractCanvasHandler, Item, DragProxyCallback> show( Item item, int x, int y, DragProxyCallback callback ) {
+    @SuppressWarnings("unchecked")
+    public DragProxy<AbstractCanvasHandler, Item, DragProxyCallback> show(Item item, int x, int y, DragProxyCallback callback) {
         final Edge<View<?>, Node> edge = item.getEdge();
         final Node<View<?>, Edge> sourceNode = item.getSourceNode();
         final ShapeFactory<Object, AbstractCanvasHandler, ?> factory =
-                ( ShapeFactory<Object, AbstractCanvasHandler, ?> ) item.getShapeFactory();
+                (ShapeFactory<Object, AbstractCanvasHandler, ?>) item.getShapeFactory();
         final WiresManager wiresManager = getWiresManager();
-        final Shape<?> sourceNodeShape = getCanvas().getShape( sourceNode.getUUID() );
-        final Shape<?> shape = factory.build( edge.getContent().getDefinition(), canvasHandler );
-        final EdgeShape connector = ( EdgeShape ) shape;
-        this.wiresConnector = ( WiresConnector ) shape.getShapeView();
-        wiresManager.register( wiresConnector );
-        final MultiPath dummyPath = new MultiPath().rect( 0, 0, 1, 1 ).setFillAlpha( 0 ).setStrokeAlpha( 0 );
-        final DummyShapeView dummyShapeView = new DummyShapeView( dummyPath );
-        graphBoundsIndexer.build( canvasHandler.getDiagram().getGraph() );
-        shapeViewDragProxyFactory.show( dummyShapeView, x, y, new DragProxyCallback() {
+        final Shape<?> sourceNodeShape = getCanvas().getShape(sourceNode.getUUID());
+        final Shape<?> shape = factory.build(edge.getContent().getDefinition(), canvasHandler);
+        final EdgeShape connector = (EdgeShape) shape;
+        this.wiresConnector = (WiresConnector) shape.getShapeView();
+        wiresManager.register(wiresConnector);
+        final MultiPath dummyPath = new MultiPath().rect(0, 0, 1, 1).setFillAlpha(0).setStrokeAlpha(0);
+        final DummyShapeView dummyShapeView = new DummyShapeView(dummyPath);
+        graphBoundsIndexer.build(canvasHandler.getDiagram().getGraph());
+        shapeViewDragProxyFactory.show(dummyShapeView, x, y, new DragProxyCallback() {
 
             @Override
-            public void onStart( final int x,
-                                 final int y ) {
-                callback.onStart( x, y );
+            public void onStart(final int x,
+                                final int y) {
+                callback.onStart(x, y);
                 drawConnector();
-
             }
 
             @Override
-            public void onMove( final int x,
-                                final int y ) {
-                callback.onMove( x, y );
+            public void onMove(final int x,
+                               final int y) {
+                callback.onMove(x, y);
                 drawConnector();
-
             }
 
             @Override
-            public void onComplete( final int x,
-                                    final int y ) {
-                callback.onComplete( x, y );
+            public void onComplete(final int x,
+                                   final int y) {
+                callback.onComplete(x, y);
                 deregisterTransientConnector();
                 getCanvas().draw();
-
             }
 
             private void drawConnector() {
@@ -113,27 +110,25 @@ public class ConnectorDragProxyImpl implements ConnectorDragProxy<AbstractCanvas
                 // TODO: Apply target connection to mouse pointer, in adittion check if allowed connection to node at current pos is ok -> automatically connect to it
                 // final Node targetNode = graphBoundsIndexer.getAt( x, y );
                 final Node targetNode = null;
-                if ( null != targetNode ) {
-                    final Shape<?> targetNodeShape = getCanvas().getShape( targetNode.getUUID() );
-                    if ( null != targetNodeShape ) {
+                if (null != targetNode) {
+                    final Shape<?> targetNodeShape = getCanvas().getShape(targetNode.getUUID());
+                    if (null != targetNodeShape) {
                         targetShapeView = targetNodeShape.getShapeView();
                     }
-
                 } else {
                     targetShapeView = dummyShapeView;
                 }
-                connector.applyConnections( edge, sourceNodeShape.getShapeView(), targetShapeView, MutationContext.STATIC );
-                connector.applyProperties( edge, MutationContext.STATIC );
+                connector.applyConnections(edge, sourceNodeShape.getShapeView(), targetShapeView, MutationContext.STATIC);
+                connector.applyProperties(edge, MutationContext.STATIC);
                 getCanvas().draw();
             }
-
-        } );
+        });
         return this;
     }
 
     @Override
     public void clear() {
-        if ( null != this.shapeViewDragProxyFactory ) {
+        if (null != this.shapeViewDragProxyFactory) {
             this.shapeViewDragProxyFactory.clear();
         }
         deregisterTransientConnector();
@@ -146,18 +141,17 @@ public class ConnectorDragProxyImpl implements ConnectorDragProxy<AbstractCanvas
         this.canvasHandler = null;
         this.shapeViewDragProxyFactory.destroy();
         this.shapeViewDragProxyFactory = null;
-
     }
 
     private WiresManager getWiresManager() {
         final AbstractCanvas<?> canvas = canvasHandler.getCanvas();
-        final LienzoLayer layer = ( LienzoLayer ) canvas.getLayer();
-        return WiresManager.get( layer.getLienzoLayer() );
+        final LienzoLayer layer = (LienzoLayer) canvas.getLayer();
+        return WiresManager.get(layer.getLienzoLayer());
     }
 
     private void deregisterTransientConnector() {
-        if ( null != this.wiresConnector ) {
-            getWiresManager().deregister( wiresConnector );
+        if (null != this.wiresConnector) {
+            getWiresManager().deregister(wiresConnector);
             getCanvas().draw();
             this.wiresConnector = null;
         }
@@ -169,12 +163,12 @@ public class ConnectorDragProxyImpl implements ConnectorDragProxy<AbstractCanvas
 
     private class DummyShapeView extends WiresShape implements ShapeView<DummyShapeView> {
 
-        public DummyShapeView( MultiPath path ) {
-            super( path );
+        public DummyShapeView(MultiPath path) {
+            super(path);
         }
 
         @Override
-        public DummyShapeView setUUID( String uuid ) {
+        public DummyShapeView setUUID(String uuid) {
             return null;
         }
 
@@ -194,18 +188,18 @@ public class ConnectorDragProxyImpl implements ConnectorDragProxy<AbstractCanvas
         }
 
         @Override
-        public DummyShapeView setShapeX( double x ) {
+        public DummyShapeView setShapeX(double x) {
             return null;
         }
 
         @Override
-        public DummyShapeView setShapeY( double y ) {
+        public DummyShapeView setShapeY(double y) {
             return null;
         }
 
         @Override
         public Point2D getShapeAbsoluteLocation() {
-            return new Point2D( 0, 0 );
+            return new Point2D(0, 0);
         }
 
         @Override
@@ -214,7 +208,7 @@ public class ConnectorDragProxyImpl implements ConnectorDragProxy<AbstractCanvas
         }
 
         @Override
-        public DummyShapeView setFillColor( String color ) {
+        public DummyShapeView setFillColor(String color) {
             return null;
         }
 
@@ -224,7 +218,7 @@ public class ConnectorDragProxyImpl implements ConnectorDragProxy<AbstractCanvas
         }
 
         @Override
-        public DummyShapeView setFillAlpha( double alpha ) {
+        public DummyShapeView setFillAlpha(double alpha) {
             return null;
         }
 
@@ -234,7 +228,7 @@ public class ConnectorDragProxyImpl implements ConnectorDragProxy<AbstractCanvas
         }
 
         @Override
-        public DummyShapeView setStrokeColor( String color ) {
+        public DummyShapeView setStrokeColor(String color) {
             return null;
         }
 
@@ -244,7 +238,7 @@ public class ConnectorDragProxyImpl implements ConnectorDragProxy<AbstractCanvas
         }
 
         @Override
-        public DummyShapeView setStrokeAlpha( double alpha ) {
+        public DummyShapeView setStrokeAlpha(double alpha) {
             return null;
         }
 
@@ -254,12 +248,12 @@ public class ConnectorDragProxyImpl implements ConnectorDragProxy<AbstractCanvas
         }
 
         @Override
-        public DummyShapeView setStrokeWidth( double width ) {
+        public DummyShapeView setStrokeWidth(double width) {
             return null;
         }
 
         @Override
-        public DummyShapeView setDragBounds( double x1, double y1, double x2, double y2 ) {
+        public DummyShapeView setDragBounds(double x1, double y1, double x2, double y2) {
             return null;
         }
 
@@ -284,7 +278,7 @@ public class ConnectorDragProxyImpl implements ConnectorDragProxy<AbstractCanvas
         }
 
         @Override
-        public DummyShapeView setZIndex( int zindez ) {
+        public DummyShapeView setZIndex(int zindez) {
             return null;
         }
 

@@ -24,16 +24,16 @@ import org.kie.workbench.common.stunner.core.client.shape.HasChildren;
 
 public class BasicShapesUtils {
 
-    public static void scalePicture( final Picture picture,
-                                     final double width,
-                                     final double height ) {
+    public static void scalePicture(final Picture picture,
+                                    final double width,
+                                    final double height) {
         final BoundingBox bb = picture.getBoundingBox();
-        final double[] scale = LienzoUtils.getScaleFactor( bb.getWidth(), bb.getHeight(), width, height );
-        picture.setScale( scale[ 0 ], scale[ 1 ] );
+        final double[] scale = LienzoUtils.getScaleFactor(bb.getWidth(), bb.getHeight(), width, height);
+        picture.setScale(scale[0], scale[1]);
     }
 
-    public static WiresLayoutContainer.Layout getWiresLayout( final HasChildren.Layout layout ) {
-        switch ( layout ) {
+    public static WiresLayoutContainer.Layout getWiresLayout(final HasChildren.Layout layout) {
+        switch (layout) {
             case CENTER:
                 return WiresLayoutContainer.Layout.CENTER;
             case LEFT:
@@ -44,9 +44,7 @@ public class BasicShapesUtils {
                 return WiresLayoutContainer.Layout.TOP;
             case BOTTOM:
                 return WiresLayoutContainer.Layout.BOTTOM;
-
         }
-        throw new UnsupportedOperationException( "Unsupported layout [" + layout.name() + "]" );
+        throw new UnsupportedOperationException("Unsupported layout [" + layout.name() + "]");
     }
-
 }

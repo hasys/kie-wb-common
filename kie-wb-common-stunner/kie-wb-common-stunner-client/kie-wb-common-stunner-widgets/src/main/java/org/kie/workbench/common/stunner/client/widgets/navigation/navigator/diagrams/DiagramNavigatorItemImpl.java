@@ -16,6 +16,12 @@
 
 package org.kie.workbench.common.stunner.client.widgets.navigation.navigator.diagrams;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+
 import com.google.gwt.logging.client.LogConfiguration;
 import com.google.gwt.safehtml.shared.SafeUri;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -26,16 +32,10 @@ import org.kie.workbench.common.stunner.core.client.ShapeManager;
 import org.kie.workbench.common.stunner.core.lookup.diagram.DiagramRepresentation;
 import org.uberfire.mvp.Command;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 @Dependent
 public class DiagramNavigatorItemImpl implements IsWidget, DiagramNavigatorItem {
 
-    private static Logger LOGGER = Logger.getLogger( DiagramNavigatorItemImpl.class.getName() );
+    private static Logger LOGGER = Logger.getLogger(DiagramNavigatorItemImpl.class.getName());
 
     ShapeManager shapeManager;
     NavigatorItemView<NavigatorItem> view;
@@ -44,15 +44,15 @@ public class DiagramNavigatorItemImpl implements IsWidget, DiagramNavigatorItem 
     private Command callback;
 
     @Inject
-    public DiagramNavigatorItemImpl( final ShapeManager shapeManager,
-                                     final NavigatorItemView<NavigatorItem> view ) {
+    public DiagramNavigatorItemImpl(final ShapeManager shapeManager,
+                                    final NavigatorItemView<NavigatorItem> view) {
         this.shapeManager = shapeManager;
         this.view = view;
     }
 
     @PostConstruct
     public void init() {
-        view.init( this );
+        view.init(this);
     }
 
     @Override
@@ -60,26 +60,24 @@ public class DiagramNavigatorItemImpl implements IsWidget, DiagramNavigatorItem 
         return view.asWidget();
     }
 
-    public void show( final DiagramRepresentation diagramRepresentation,
-                      final int widthInPx,
-                      final int heightInPx,
-                      final Command callback ) {
+    public void show(final DiagramRepresentation diagramRepresentation,
+                     final int widthInPx,
+                     final int heightInPx,
+                     final Command callback) {
         this.callback = callback;
         this.name = diagramRepresentation.getName();
         view
-                .setUUID( name )
-                .setItemTitle( diagramRepresentation.getTitle() );
+                .setUUID(name)
+                .setItemTitle(diagramRepresentation.getTitle());
         final String thumbData = diagramRepresentation.getThumbImageData();
-        if ( isEmpty( thumbData ) ) {
+        if (isEmpty(thumbData)) {
             final String defSetId = diagramRepresentation.getDefinitionSetId();
-            final SafeUri thumbUri = shapeManager.getThumbnail( defSetId );
-            view.setThumbUri( thumbUri );
-
+            final SafeUri thumbUri = shapeManager.getThumbnail(defSetId);
+            view.setThumbUri(thumbUri);
         } else {
-            view.setThumbData( thumbData );
+            view.setThumbData(thumbData);
         }
-        view.setItemPxSize( widthInPx, heightInPx );
-
+        view.setItemPxSize(widthInPx, heightInPx);
     }
 
     @Override
@@ -94,19 +92,18 @@ public class DiagramNavigatorItemImpl implements IsWidget, DiagramNavigatorItem 
 
     @Override
     public void onItemSelected() {
-        if ( null != callback ) {
+        if (null != callback) {
             callback.execute();
         }
     }
 
-    private boolean isEmpty( final String s ) {
+    private boolean isEmpty(final String s) {
         return s == null || s.trim().length() == 0;
     }
 
-    private void log( final Level level, final String message ) {
-        if ( LogConfiguration.loggingIsEnabled() ) {
-            LOGGER.log( level, message );
+    private void log(final Level level, final String message) {
+        if (LogConfiguration.loggingIsEnabled()) {
+            LOGGER.log(level, message);
         }
     }
-
 }

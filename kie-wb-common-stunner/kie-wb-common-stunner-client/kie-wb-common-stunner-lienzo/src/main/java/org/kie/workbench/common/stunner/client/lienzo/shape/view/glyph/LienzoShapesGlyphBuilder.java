@@ -16,6 +16,9 @@
 
 package org.kie.workbench.common.stunner.client.lienzo.shape.view.glyph;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import com.ait.lienzo.client.core.shape.Group;
 import com.ait.lienzo.client.core.shape.wires.WiresConnector;
 import com.ait.lienzo.client.core.shape.wires.WiresShape;
@@ -29,20 +32,17 @@ import org.kie.workbench.common.stunner.core.client.shape.view.glyph.AbstractGly
 import org.kie.workbench.common.stunner.core.client.shape.view.glyph.Glyph;
 import org.kie.workbench.common.stunner.core.definition.shape.GlyphShapeDef;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 @ApplicationScoped
 public class LienzoShapesGlyphBuilder extends AbstractGlyphShapeBuilder<Group> {
 
     private final FactoryManager factoryManager;
 
     protected LienzoShapesGlyphBuilder() {
-        this( null );
+        this(null);
     }
 
     @Inject
-    public LienzoShapesGlyphBuilder( final FactoryManager factoryManager ) {
+    public LienzoShapesGlyphBuilder(final FactoryManager factoryManager) {
         this.factoryManager = factoryManager;
     }
 
@@ -52,42 +52,36 @@ public class LienzoShapesGlyphBuilder extends AbstractGlyphShapeBuilder<Group> {
     }
 
     @Override
-    protected Glyph<Group> doBuild( final Shape<?> shape ) {
+    protected Glyph<Group> doBuild(final Shape<?> shape) {
         final ShapeView<?> view = shape.getShapeView();
         Group group = null;
         BoundingBox bb = null;
-        if ( view instanceof WiresShape ) {
-            group = ( ( WiresShape ) view ).getGroup();
-            bb = ( ( WiresShape ) view ).getPath().getBoundingBox();
-
-        } else if ( view instanceof WiresConnector ) {
-            final WiresConnector wiresConnector = ( WiresConnector ) view;
+        if (view instanceof WiresShape) {
+            group = ((WiresShape) view).getGroup();
+            bb = ((WiresShape) view).getPath().getBoundingBox();
+        } else if (view instanceof WiresConnector) {
+            final WiresConnector wiresConnector = (WiresConnector) view;
             group = wiresConnector.getGroup();
             bb = wiresConnector.getGroup().getBoundingBox();
-
         }
-        if ( null == group ) {
-            throw new RuntimeException( "Shape view [" + view.toString() + "] not supported for " +
-                    "this shape glyph builder [" + this.getClass().getName() );
-
+        if (null == group) {
+            throw new RuntimeException("Shape view [" + view.toString() + "] not supported for " +
+                    "this shape glyph builder [" + this.getClass().getName());
         }
-        if ( view instanceof HasTitle ) {
-            final HasTitle hasTitle = ( HasTitle ) view;
-            hasTitle.setTitle( null );
-
+        if (view instanceof HasTitle) {
+            final HasTitle hasTitle = (HasTitle) view;
+            hasTitle.setTitle(null);
         }
         // Create a copy of this view.
         group = group.copy();
         // Scale, if necessary, to the given glyph size.
-        final double[] scale = LienzoUtils.getScaleFactor( bb.getWidth(), bb.getHeight(), width, height );
-        group.setScale( scale[ 0 ], scale[ 1 ] );
-        return new LienzoShapeGlyph( group, width, height );
-
+        final double[] scale = LienzoUtils.getScaleFactor(bb.getWidth(), bb.getHeight(), width, height);
+        group.setScale(scale[0], scale[1]);
+        return new LienzoShapeGlyph(group, width, height);
     }
 
     @Override
     public Class<?> getType() {
         return GlyphShapeDef.class;
     }
-
 }

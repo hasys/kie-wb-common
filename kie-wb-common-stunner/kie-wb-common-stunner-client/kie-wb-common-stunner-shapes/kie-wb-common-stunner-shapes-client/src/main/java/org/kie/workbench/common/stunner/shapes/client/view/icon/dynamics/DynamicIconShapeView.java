@@ -32,16 +32,16 @@ public class DynamicIconShapeView<T extends DynamicIconShapeView>
     private double width;
     private double height;
 
-    public DynamicIconShapeView( final Icons icon,
-                                 final double width,
-                                 final double height ) {
-        super( buildIcon( new MultiPath(),
+    public DynamicIconShapeView(final Icons icon,
+                                final double width,
+                                final double height) {
+        super(buildIcon(new MultiPath(),
                 icon,
                 width,
                 height,
                 BLACK,
                 BLACK,
-                STROKE_WIDTH ) );
+                STROKE_WIDTH));
         this.icon = icon;
         this.width = width;
         this.height = height;
@@ -55,43 +55,41 @@ public class DynamicIconShapeView<T extends DynamicIconShapeView>
         height = 0;
     }
 
-    public T setIcon( final Icons icon ) {
+    public T setIcon(final Icons icon) {
         this.icon = icon;
         updateIcon();
-        return ( T ) this;
+        return (T) this;
     }
 
     @Override
-    public T setSize( final double width,
-                      final double height ) {
+    public T setSize(final double width,
+                     final double height) {
         this.width = width;
         this.height = height;
         updateIcon();
-        return ( T ) this;
+        return (T) this;
     }
 
     private void updateIcon() {
-        buildIcon( getPath(),
+        buildIcon(getPath(),
                 icon,
                 width,
                 height,
                 getFillColor(),
                 getStrokeColor(),
-                getStrokeWidth() );
-
+                getStrokeWidth());
     }
 
-    private static MultiPath buildIcon( final MultiPath path,
-                                        final Icons icon,
-                                        final double w,
-                                        final double h,
-                                        final String fillColor,
-                                        final String strokeColor,
-                                        final double strokeWidth ) {
-        return DynamicIconsBuilder.build( path, icon, w, h )
-                .setFillColor( fillColor )
-                .setStrokeColor( strokeColor )
-                .setStrokeWidth( strokeWidth );
+    private static MultiPath buildIcon(final MultiPath path,
+                                       final Icons icon,
+                                       final double w,
+                                       final double h,
+                                       final String fillColor,
+                                       final String strokeColor,
+                                       final double strokeWidth) {
+        return DynamicIconsBuilder.build(path, icon, w, h)
+                .setFillColor(fillColor)
+                .setStrokeColor(strokeColor)
+                .setStrokeWidth(strokeWidth);
     }
-
 }

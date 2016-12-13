@@ -16,6 +16,8 @@
 
 package org.kie.workbench.common.stunner.client.widgets.toolbar.impl;
 
+import javax.enterprise.context.Dependent;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -25,8 +27,6 @@ import com.google.gwt.user.client.ui.Widget;
 import org.gwtbootstrap3.client.ui.ButtonGroup;
 import org.kie.workbench.common.stunner.client.widgets.toolbar.ToolbarView;
 
-import javax.enterprise.context.Dependent;
-
 @Dependent
 public class ToolbarViewImpl extends Composite implements ToolbarView {
 
@@ -34,7 +34,7 @@ public class ToolbarViewImpl extends Composite implements ToolbarView {
 
     }
 
-    private static ViewBinder uiBinder = GWT.create( ViewBinder.class );
+    private static ViewBinder uiBinder = GWT.create(ViewBinder.class);
 
     @UiField
     ButtonGroup mainGroup;
@@ -42,28 +42,27 @@ public class ToolbarViewImpl extends Composite implements ToolbarView {
     AbstractToolbar presenter;
 
     @Override
-    public void init( final AbstractToolbar presenter ) {
+    public void init(final AbstractToolbar presenter) {
         this.presenter = presenter;
-        initWidget( uiBinder.createAndBindUi( this ) );
+        initWidget(uiBinder.createAndBindUi(this));
     }
 
     @Override
-    public ToolbarView addItem( final IsWidget w ) {
-        mainGroup.add( w );
+    public ToolbarView addItem(final IsWidget w) {
+        mainGroup.add(w);
         return this;
     }
 
     @Override
     public ToolbarView show() {
-        this.setVisible( true );
+        this.setVisible(true);
         return this;
     }
 
     @Override
     public ToolbarView hide() {
-        this.setVisible( false );
+        this.setVisible(false);
         return this;
-
     }
 
     @Override
@@ -76,5 +75,4 @@ public class ToolbarViewImpl extends Composite implements ToolbarView {
     public void destroy() {
         this.removeFromParent();
     }
-
 }
