@@ -54,20 +54,6 @@ public class IntermediateMessageEventThrowing extends BaseThrowingIntermediateEv
     @Valid
     protected MessageEventExecutionSet executionSet;
 
-    @NonPortable
-    public static class IntermediateMessageEventThrowingBuilder implements Builder<IntermediateMessageEventThrowing> {
-
-        @Override
-        public IntermediateMessageEventThrowing build() {
-            return new IntermediateMessageEventThrowing(new BPMNGeneralSet(""),
-                                                        new DataIOSet(),
-                                                        new BackgroundSet(),
-                                                        new FontSet(),
-                                                        new CircleDimensionSet(new Radius()),
-                                                        new MessageEventExecutionSet());
-        }
-    }
-
     public IntermediateMessageEventThrowing() {
     }
 
@@ -123,5 +109,19 @@ public class IntermediateMessageEventThrowing extends BaseThrowingIntermediateEv
                     executionSet.equals(other.executionSet);
         }
         return false;
+    }
+
+    @NonPortable
+    public static class IntermediateMessageEventThrowingBuilder implements Builder<IntermediateMessageEventThrowing> {
+
+        @Override
+        public IntermediateMessageEventThrowing build() {
+            return new IntermediateMessageEventThrowing(new BPMNGeneralSet(""),
+                                                        new DataIOSet(),
+                                                        new BackgroundSet(),
+                                                        new FontSet(),
+                                                        new CircleDimensionSet(new Radius()),
+                                                        new MessageEventExecutionSet());
+        }
     }
 }

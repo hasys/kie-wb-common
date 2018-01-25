@@ -23,7 +23,6 @@ import javax.validation.Valid;
 import org.jboss.errai.common.client.api.annotations.MapsTo;
 import org.kie.workbench.common.forms.adf.definitions.annotations.FormField;
 import org.kie.workbench.common.stunner.bpmn.definition.property.background.BackgroundSet;
-import org.kie.workbench.common.stunner.bpmn.definition.property.dataio.HasDataIOSet;
 import org.kie.workbench.common.stunner.bpmn.definition.property.dimensions.RectangleDimensionsSet;
 import org.kie.workbench.common.stunner.bpmn.definition.property.font.FontSet;
 import org.kie.workbench.common.stunner.bpmn.definition.property.general.BPMNGeneralSet;
@@ -39,27 +38,21 @@ public abstract class BaseSubprocess implements BPMNViewDefinition {
 
     @Category
     public static final transient String category = Categories.ACTIVITIES;
-
+    @Labels
+    protected final Set<String> labels = new HashSet<>();
     @PropertySet
     @FormField
     @Valid
     protected BPMNGeneralSet general;
-
     @PropertySet
     @Valid
     protected BackgroundSet backgroundSet;
-
     @PropertySet
     protected FontSet fontSet;
-
     @PropertySet
     protected SimulationSet simulationSet;
-
     @PropertySet
     protected RectangleDimensionsSet dimensionsSet;
-
-    @Labels
-    protected final Set<String> labels = new HashSet<>();
 
     protected BaseSubprocess() {
         this.labels.addAll(makeLabels());
