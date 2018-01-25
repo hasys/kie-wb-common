@@ -50,7 +50,7 @@ public abstract class BaseTask implements BPMNViewDefinition {
     @PropertySet
     @FormField
     @Valid
-    protected BPMNGeneralSet general;
+    protected TaskGeneralSet general;
 
     @Property
     @MorphProperty(binder = TaskTypeMorphPropertyBinding.class)
@@ -113,7 +113,7 @@ public abstract class BaseTask implements BPMNViewDefinition {
         this.taskType = new TaskType(type);
     }
 
-    public BaseTask(final @MapsTo("general") BPMNGeneralSet general,
+    public BaseTask(final @MapsTo("general") TaskGeneralSet general,
                     final @MapsTo("backgroundSet") BackgroundSet backgroundSet,
                     final @MapsTo("fontSet") FontSet fontSet,
                     final @MapsTo("dimensionsSet") RectangleDimensionsSet dimensionsSet,
@@ -135,7 +135,7 @@ public abstract class BaseTask implements BPMNViewDefinition {
         return labels;
     }
 
-    public BPMNGeneralSet getGeneral() {
+    public TaskGeneralSet getGeneral() {
         return general;
     }
 
@@ -147,7 +147,7 @@ public abstract class BaseTask implements BPMNViewDefinition {
         return fontSet;
     }
 
-    public void setGeneral(final BPMNGeneralSet general) {
+    public void setGeneral(final TaskGeneralSet general) {
         this.general = general;
     }
 
