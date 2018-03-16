@@ -52,8 +52,6 @@ public class BPMNDiagramEditorHelperTest {
     @Mock
     private PlaceManager placeManager;
 
-    private CallerMock<BPMNDiagramEditorService> editorServiceCaller;
-
     @Mock
     private BPMNDiagramEditorService editorService;
 
@@ -69,14 +67,11 @@ public class BPMNDiagramEditorHelperTest {
     @Mock
     private PlaceRequest sourcePlace;
 
-    @Mock
-    private MigrationResult migrationResult;
-
     private BPMNDiagramEditorHelper editorHelper;
 
     @Before
     public void setUp() {
-        editorServiceCaller = new CallerMock<>(editorService);
+        CallerMock<BPMNDiagramEditorService> editorServiceCaller = new CallerMock<>(editorService);
         editorHelper = spy(new BPMNDiagramEditorHelper(placeManager,
                                                        editorServiceCaller,
                                                        translationService,

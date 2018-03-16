@@ -61,7 +61,6 @@ import org.uberfire.client.workbench.type.ClientResourceType;
 import org.uberfire.client.workbench.widgets.common.ErrorPopupPresenter;
 import org.uberfire.ext.editor.commons.client.file.popups.SavePopUpPresenter;
 import org.uberfire.ext.editor.commons.client.history.VersionRecordManager;
-import org.uberfire.ext.editor.commons.client.menu.BasicFileMenuBuilder;
 import org.uberfire.mocks.EventSourceMock;
 import org.uberfire.mvp.Command;
 import org.uberfire.workbench.model.menu.MenuItem;
@@ -106,9 +105,6 @@ public class AbstractProjectDiagramEditorTest {
 
     @Mock
     protected EventSourceMock<OnDiagramLoseFocusEvent> onDiagramLostFocusEvent;
-
-    @Mock
-    protected BasicFileMenuBuilder menuBuilder;
 
     @Mock
     protected VersionRecordManager versionRecordManager;
