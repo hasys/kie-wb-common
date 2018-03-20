@@ -112,7 +112,7 @@ public class StartEventConverter {
 
         BPMNGeneralSet general = definition.getGeneral();
         p.setName(general.getName().getValue());
-        p.setDocumentation(general.getName().getValue());
+        p.setDocumentation(general.getDocumentation().getValue());
 
         InterruptingTimerEventExecutionSet executionSet = definition.getExecutionSet();
         p.addTimer(executionSet.getTimerSettings());
@@ -133,7 +133,7 @@ public class StartEventConverter {
 
         BPMNGeneralSet general = definition.getGeneral();
         p.setName(general.getName().getValue());
-        p.setDocumentation(general.getName().getValue());
+        p.setDocumentation(general.getDocumentation().getValue());
 
         p.setAssignmentsInfo(
                 definition.getDataIOSet().getAssignmentsinfo());
