@@ -201,6 +201,10 @@ public class StartEventConverter {
                 new Documentation(p.getDocumentation())
         ));
 
+        definition.setDataIOSet(new DataIOSet(
+                p.getAssignmentsInfo()
+        ));
+
         definition.setExecutionSet(new InterruptingSignalEventExecutionSet(
                 new IsInterrupting(event.isIsInterrupting()),
                 new SignalRef(p.getSignalRef())
