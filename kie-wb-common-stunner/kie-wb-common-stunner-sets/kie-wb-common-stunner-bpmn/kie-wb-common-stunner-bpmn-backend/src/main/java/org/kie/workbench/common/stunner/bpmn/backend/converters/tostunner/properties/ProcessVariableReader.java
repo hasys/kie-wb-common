@@ -33,10 +33,9 @@ class ProcessVariableReader {
     }
 
     private static String toProcessVariableString(Property p) {
-        String type = Optional.ofNullable(p.getItemSubjectRef())
+        return Optional.ofNullable(p.getItemSubjectRef())
                 .map(ItemDefinition::getStructureRef)
-                .orElse("java.lang.Object");
-
-        return p.getId() + ":" + type;
+                .map(type -> p.getId() + ":" + type)
+                .orElse(p.getId());
     }
 }
