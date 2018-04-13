@@ -1165,7 +1165,7 @@
         <artifactId>gwt-maven-plugin</artifactId>
         <configuration>
           <deploy>${project.build.directory}/gwt-symbols-deploy</deploy>
-          <extraJvmArgs>-Xmx4G -Xms1024m -Xss1M -XX:CompileThreshold=7000 -test-jarDerrai.jboss.home=${errai.jboss.home} -Derrai.marshalling.server.classOutput=${project.build.outputDirectory} -Derrai.dynamic_validation.enabled=true</extraJvmArgs>
+          <extraJvmArgs>-Xmx4G -Xms1024m -Xss1M -XX:CompileThreshold=7000 -Derrai.jboss.home=${errai.jboss.home} -Derrai.marshalling.server.classOutput=${project.build.outputDirectory} -Derrai.dynamic_validation.enabled=true</extraJvmArgs>
           <module>org.kie.workbench.common.stunner.project.StunnerProjectShowcase</module>
           <logLevel>INFO</logLevel>
           <noServer>false</noServer>
@@ -1551,7 +1551,6 @@
                      In the future, if we need to run the tests with a prod compile we might be able to fix these
                      problems by moving the async tests out of a test suite.
                  -->
-                <gwt.args>-devMode -testBeginTimeout 5</gwt.args>
               </systemPropertyVariables>
               <includes>
                 <include>**/*Test.java</include>
