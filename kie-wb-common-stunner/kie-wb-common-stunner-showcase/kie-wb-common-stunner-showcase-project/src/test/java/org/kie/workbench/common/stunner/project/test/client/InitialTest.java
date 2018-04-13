@@ -16,6 +16,8 @@
 
 package org.kie.workbench.common.stunner.project.test.client;
 
+import java.util.Collection;
+
 import org.jboss.errai.enterprise.client.cdi.AbstractErraiCDITest;
 import org.junit.Test;
 import org.kie.workbench.common.screens.home.model.HomeModel;
@@ -33,7 +35,9 @@ public class InitialTest extends AbstractErraiCDITest {
     @Test
     public void testIt() {
         System.out.println("Hello world");
-
+        Collection collection = getBeanManager().lookupBeans(Object.class);
+        collection.forEach(System.out::println);
+        System.out.println("Amount of beans: " + collection.size());
         HomeProducer homeScreen = getBeanManager().lookupBean(HomeProducer.class).getInstance();
 
         HomeModel model = homeScreen.get();
