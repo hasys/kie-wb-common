@@ -46,11 +46,6 @@
       <artifactId>jboss-servlet-api_3.1_spec</artifactId>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>compile</scope>
-    </dependency>
 
     <dependency>
       <groupId>org.kie.workbench.screens</groupId>
@@ -878,7 +873,6 @@
     <dependency>
       <groupId>org.jboss.errai</groupId>
       <artifactId>errai-validation</artifactId>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -1154,12 +1148,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.jboss.errai</groupId>
-      <artifactId>errai-cdi-client</artifactId>
-      <type>test-jar</type>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.eclipse.jdt.core.compiler</groupId>
       <artifactId>ecj</artifactId>
       <version>4.5.1</version>
@@ -1177,7 +1165,7 @@
         <artifactId>gwt-maven-plugin</artifactId>
         <configuration>
           <deploy>${project.build.directory}/gwt-symbols-deploy</deploy>
-          <extraJvmArgs>-Xmx4G -Xms1024m -Xss1M -XX:CompileThreshold=7000 -Derrai.jboss.home=${errai.jboss.home} -Derrai.marshalling.server.classOutput=${project.build.outputDirectory} -Derrai.dynamic_validation.enabled=true</extraJvmArgs>
+          <extraJvmArgs>-Xmx4G -Xms1024m -Xss1M -XX:CompileThreshold=7000 -test-jarDerrai.jboss.home=${errai.jboss.home} -Derrai.marshalling.server.classOutput=${project.build.outputDirectory} -Derrai.dynamic_validation.enabled=true</extraJvmArgs>
           <module>org.kie.workbench.common.stunner.project.StunnerProjectShowcase</module>
           <logLevel>INFO</logLevel>
           <noServer>false</noServer>
@@ -1556,7 +1544,7 @@
                 <errai.hosted_mode_testing>true</errai.hosted_mode_testing>
                 <errai.devel.nocache>true</errai.devel.nocache>
                 <org.jboss.errai.bus.do_long_poll>false</org.jboss.errai.bus.do_long_poll>
-                <errai.graph_builder.short_factory_names>false</errai.graph_builder.short_factory_names>
+                <errai.graph_builder.short_factory_names>true</errai.graph_builder.short_factory_names>
                 <!-- These tests must be run in devMode. When run in prod one of two problems happens:
                       1. An exception occurs from MarshallerGenerator caching between tests in the AyncCDITests suite.
                       2. If (1) is fixed, a GWT compilation error occurs where an interned value is referenced before being declared.
@@ -1611,13 +1599,6 @@
 
         <dependency>
           <groupId>org.jboss.errai</groupId>
-          <artifactId>errai-bus</artifactId>
-          <type>test-jar</type>
-          <scope>test</scope>
-        </dependency>
-
-        <dependency>
-          <groupId>org.jboss.errai</groupId>
           <artifactId>errai-ioc</artifactId>
           <exclusions>
             <exclusion>
@@ -1629,22 +1610,8 @@
 
         <dependency>
           <groupId>org.jboss.errai</groupId>
-          <artifactId>errai-ioc</artifactId>
-          <type>test-jar</type>
-          <scope>test</scope>
-        </dependency>
-
-        <dependency>
-          <groupId>org.jboss.errai</groupId>
           <artifactId>errai-cdi-client</artifactId>
           <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-          <groupId>org.jboss.errai</groupId>
-          <artifactId>errai-cdi-client</artifactId>
-          <type>test-jar</type>
-          <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -1759,13 +1726,6 @@
           <groupId>org.kie.workbench.stunner</groupId>
           <artifactId>kie-wb-common-stunner-core-api</artifactId>
           <classifier>sources</classifier>
-        </dependency>
-
-        <dependency>
-          <groupId>org.jboss.errai</groupId>
-          <artifactId>errai-cdi-client</artifactId>
-          <type>test-jar</type>
-          <scope>test</scope>
         </dependency>
 
         <dependency><groupId>org.kie.soup</groupId><artifactId>kie-soup-project-datamodel-api</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
@@ -1910,7 +1870,6 @@
         <dependency><groupId>org.dashbuilder</groupId><artifactId>dashbuilder-navigation-client</artifactId><classifier>sources</classifier><version>2.5.0-SNAPSHOT</version></dependency>
         <dependency><groupId>org.dashbuilder</groupId><artifactId>dashbuilder-renderer-default</artifactId><classifier>sources</classifier><version>2.5.0-SNAPSHOT</version></dependency>
         <dependency><groupId>org.dashbuilder</groupId><artifactId>dashbuilder-renderer-google</artifactId><classifier>sources</classifier><version>2.5.0-SNAPSHOT</version></dependency>
-
       </dependencies>
     </profile>
   </profiles>

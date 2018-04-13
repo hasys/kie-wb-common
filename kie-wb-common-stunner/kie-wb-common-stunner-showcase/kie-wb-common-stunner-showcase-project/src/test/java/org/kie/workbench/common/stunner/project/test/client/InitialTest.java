@@ -18,7 +18,6 @@ package org.kie.workbench.common.stunner.project.test.client;
 
 import java.util.Collection;
 
-import org.jboss.errai.enterprise.client.cdi.AbstractErraiCDITest;
 import org.junit.Test;
 import org.kie.workbench.common.screens.home.model.HomeModel;
 import org.kie.workbench.common.stunner.project.client.home.HomeProducer;
