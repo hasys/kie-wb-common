@@ -18,6 +18,7 @@ package org.kie.workbench.common.stunner.project.test.client;
 
 import java.util.Collection;
 
+import com.google.gwt.core.client.ScriptInjector;
 import org.junit.Test;
 import org.kie.workbench.common.screens.home.model.HomeModel;
 import org.kie.workbench.common.stunner.project.client.home.HomeProducer;
@@ -29,6 +30,12 @@ public class InitialTest extends AbstractErraiCDITest {
     @Override
     public String getModuleName() {
         return "org.kie.workbench.common.stunner.project.test.InitialTest";
+    }
+
+    @Override
+    protected void gwtSetUp() throws Exception {
+        ScriptInjector.fromUrl("js/jquery-1.12.0.min.cache.js").setWindow(ScriptInjector.TOP_WINDOW).inject();
+        super.gwtSetUp();
     }
 
     @Test

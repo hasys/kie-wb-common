@@ -97,7 +97,9 @@ public abstract class AbstractErraiCDITest extends GWTTestCase {
   protected boolean assertContains(final Collection<Annotation> annotationCollection,
                                    final Annotation toCompare) {
     for (final Annotation a : annotationCollection) {
-      if (QualifierUtil.isEqual(a, toCompare)) return true;
+        if (QualifierUtil.isEqual(a, toCompare)) {
+            return true;
+        }
     }
     return false;
   }
