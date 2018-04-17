@@ -1400,6 +1400,8 @@
                 <include>src/main/webapp/WEB-INF/lib/</include>
                 <include>.errai/</include>
                 <include>.niogit/**</include>
+                <include>.index/</include>
+                <include>.security/</include>
               </includes>
             </fileset>
           </filesets>
@@ -1501,8 +1503,7 @@
       <id>integration-test</id>
       <properties>
         <profile.testOutputDirectory>war/WEB-INF/classes</profile.testOutputDirectory>
-        <gwtArgs>-prod -userAgents gecko1_8 -runStyle Selenium:127.0.0.1:4444/*firefox</gwtArgs>
-        <argLine>-Dgwt.args="${gwtArgs}"</argLine>
+        <gwtArgs>-userAgents gecko1_8 -runStyle Selenium:127.0.0.1:4444/*firefox</gwtArgs>
       </properties>
 
       <build>
@@ -1565,7 +1566,7 @@
               <forkMode>pertest</forkMode>
               <!-- DO NOT REMOVE THE errai.ioc.experimental.infer_dependent_by_reachability
                 flag or the testsuite WILL fail. -->
-              <argLine>-Xmx6G -d64</argLine>
+              <argLine>-Dgwt.args="${gwtArgs}" -Xmx8G -d64</argLine>
               <systemPropertyVariables>
                 <errai.hosted_mode_testing>true</errai.hosted_mode_testing>
                 <errai.devel.nocache>true</errai.devel.nocache>
