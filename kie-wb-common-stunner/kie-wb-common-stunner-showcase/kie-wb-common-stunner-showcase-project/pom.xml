@@ -1841,6 +1841,7 @@
         <dependency><groupId>org.kie.workbench.stunner</groupId><artifactId>kie-wb-common-stunner-case-mgmt-client</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
         <dependency><groupId>org.kie.workbench.stunner</groupId><artifactId>kie-wb-common-stunner-case-mgmt-project-api</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
         <dependency><groupId>org.kie.workbench.stunner</groupId><artifactId>kie-wb-common-stunner-case-mgmt-project-client</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
+        <dependency><groupId>org.kie.workbench.stunner</groupId><artifactId>kie-wb-common-stunner-showcase-project</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
         <dependency><groupId>com.google.gwt</groupId><artifactId>gwt-user</artifactId><classifier>sources</classifier><version>2.8.2</version></dependency>
         <dependency><groupId>org.uberfire</groupId><artifactId>uberfire-structure-api</artifactId><classifier>sources</classifier><version>2.5.0-SNAPSHOT</version></dependency>
         <dependency><groupId>org.uberfire</groupId><artifactId>uberfire-structure-client</artifactId><classifier>sources</classifier><version>2.5.0-SNAPSHOT</version></dependency>
