@@ -1818,6 +1818,9 @@
         <dependency><groupId>org.kie.workbench.forms</groupId><artifactId>kie-wb-common-forms-crud-component</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
         <dependency><groupId>org.kie.workbench.forms</groupId><artifactId>kie-wb-common-dynamic-forms-api</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
         <dependency><groupId>org.kie.workbench.forms</groupId><artifactId>kie-wb-common-dynamic-forms-client</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
+        <dependency><groupId>org.kie.workbench.forms</groupId><artifactId>kie-wb-common-forms-data-modeller-integration-api</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
+        <dependency><groupId>org.kie.workbench.forms</groupId><artifactId>kie-wb-common-forms-jbpm-integration-api</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
+        <dependency><groupId>org.kie.workbench.forms</groupId><artifactId>kie-wb-common-forms-editor-api</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
         <dependency><groupId>org.kie.workbench.stunner</groupId><artifactId>kie-wb-common-stunner-core-api</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
         <dependency><groupId>org.kie.workbench.stunner</groupId><artifactId>kie-wb-common-stunner-backend-api</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
         <dependency><groupId>org.kie.workbench.stunner</groupId><artifactId>kie-wb-common-stunner-client-api</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
@@ -1842,6 +1845,21 @@
         <dependency><groupId>org.kie.workbench.stunner</groupId><artifactId>kie-wb-common-stunner-case-mgmt-project-api</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
         <dependency><groupId>org.kie.workbench.stunner</groupId><artifactId>kie-wb-common-stunner-case-mgmt-project-client</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
         <dependency><groupId>org.kie.workbench.stunner</groupId><artifactId>kie-wb-common-stunner-showcase-project</artifactId><classifier>sources</classifier><version>7.8.0-SNAPSHOT</version></dependency>
+        <dependency>
+          <groupId>org.kie.workbench.screens</groupId>
+          <artifactId>kie-wb-common-social-home-page-api</artifactId>
+          <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+          <groupId>org.uberfire</groupId>
+          <artifactId>uberfire-backend-cdi</artifactId>
+          <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+          <groupId>org.uberfire</groupId>
+          <artifactId>uberfire-layout-editor-client</artifactId>
+          <classifier>sources</classifier>
+        </dependency>
         <dependency><groupId>com.google.gwt</groupId><artifactId>gwt-user</artifactId><classifier>sources</classifier><version>2.8.2</version></dependency>
         <dependency><groupId>org.uberfire</groupId><artifactId>uberfire-structure-api</artifactId><classifier>sources</classifier><version>2.5.0-SNAPSHOT</version></dependency>
         <dependency><groupId>org.uberfire</groupId><artifactId>uberfire-structure-client</artifactId><classifier>sources</classifier><version>2.5.0-SNAPSHOT</version></dependency>
