@@ -878,17 +878,7 @@
     <dependency>
       <groupId>javax.validation</groupId>
       <artifactId>validation-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
       <classifier>sources</classifier>
-    </dependency>
-
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-validator</artifactId>
     </dependency>
 
     <dependency>
@@ -1402,6 +1392,7 @@
                 <include>.niogit/**</include>
                 <include>.index/</include>
                 <include>.security/</include>
+                <include>gwt-unitCache</include>
               </includes>
             </fileset>
           </filesets>
@@ -1556,29 +1547,17 @@
             <artifactId>maven-failsafe-plugin</artifactId>
             <configuration>
               <additionalClasspathElements>
-                <additionalClasspathElement>${basedir}/${profile.testOutputDirectory}/</additionalClasspathElement>
                 <additionalClasspathElement>${basedir}/src/test/java/</additionalClasspathElement>
-                <additionalClasspathElement>${basedir}/target/.generated/</additionalClasspathElement>
+                <additionalClasspathElement>${basedir}/target/generated-sources/annotations</additionalClasspathElement>
                 <additionalClasspathElement>${basedir}/.errai/</additionalClasspathElement>
-                <additionalClasspathElement>${basedir}/extra/org.kie.workbench.common.stunner.project.StunnerProjectShowcase/src/</additionalClasspathElement>
-                <additionalClasspathElement>${basedir}/extra/org.kie.workbench.common.stunner.project.StunnerProjectShowcase/src/gen/</additionalClasspathElement>
               </additionalClasspathElements>
               <forkMode>pertest</forkMode>
-              <!-- DO NOT REMOVE THE errai.ioc.experimental.infer_dependent_by_reachability
-                flag or the testsuite WILL fail. -->
               <argLine>-Dgwt.args="${gwtArgs}" -Xmx8G -d64</argLine>
               <systemPropertyVariables>
                 <errai.hosted_mode_testing>true</errai.hosted_mode_testing>
                 <errai.devel.nocache>true</errai.devel.nocache>
                 <org.jboss.errai.bus.do_long_poll>false</org.jboss.errai.bus.do_long_poll>
                 <errai.graph_builder.short_factory_names>true</errai.graph_builder.short_factory_names>
-                <!--<errai.server.classOutput>${basedir}/.errai</errai.server.classOutput>-->
-                <!-- These tests must be run in devMode. When run in prod one of two problems happens:
-                      1. An exception occurs from MarshallerGenerator caching between tests in the AyncCDITests suite.
-                      2. If (1) is fixed, a GWT compilation error occurs where an interned value is referenced before being declared.
-                     In the future, if we need to run the tests with a prod compile we might be able to fix these
-                     problems by moving the async tests out of a test suite.
-                 -->
               </systemPropertyVariables>
               <includes>
                 <include>**/*Test.java</include>
