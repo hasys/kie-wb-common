@@ -1572,6 +1572,7 @@
                 <errai.devel.nocache>true</errai.devel.nocache>
                 <org.jboss.errai.bus.do_long_poll>false</org.jboss.errai.bus.do_long_poll>
                 <errai.graph_builder.short_factory_names>true</errai.graph_builder.short_factory_names>
+                <!--<errai.server.classOutput>${basedir}/.errai</errai.server.classOutput>-->
                 <!-- These tests must be run in devMode. When run in prod one of two problems happens:
                       1. An exception occurs from MarshallerGenerator caching between tests in the AyncCDITests suite.
                       2. If (1) is fixed, a GWT compilation error occurs where an interned value is referenced before being declared.
