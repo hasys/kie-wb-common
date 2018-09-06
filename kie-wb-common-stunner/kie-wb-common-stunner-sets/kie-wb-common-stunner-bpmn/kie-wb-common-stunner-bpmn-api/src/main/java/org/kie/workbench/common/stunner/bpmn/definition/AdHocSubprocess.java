@@ -123,10 +123,8 @@ public class AdHocSubprocess
         if (o instanceof AdHocSubprocess) {
             AdHocSubprocess other = (AdHocSubprocess) o;
             return super.equals(other) &&
-                    Objects.equals(executionSet,
-                                   other.executionSet) &&
-                    Objects.equals(processData,
-                                   other.processData);
+                    Objects.equals(executionSet, other.executionSet) &&
+                    Objects.equals(processData, other.processData);
         }
         return false;
     }
