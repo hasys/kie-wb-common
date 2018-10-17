@@ -63,6 +63,18 @@ public class CaseFileVariables implements BPMNProperty {
         this.value = value;
     }
 
+    public String getRawValue() {
+        String rawValue = "";
+        String[] variables = value.split(",");
+        for (String variable : variables) {
+            if (!rawValue.isEmpty()) {
+                rawValue += ",";
+            }
+            rawValue += CASE_FILE_PREFIX + variable;
+        }
+        return rawValue;
+    }
+
     @Override
     public int hashCode() {
         return (null != value) ? value.hashCode() : 0;
