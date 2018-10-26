@@ -80,15 +80,6 @@ public class CaseFileVariableReaderTest {
     }
 
     @Test
-    public void getCaseFileVariableName() {
-        String caseFileVariableName1 = CaseFileVariableReader.getCaseFileVariableName(_property1);
-        assertEquals(caseFileVariableName1, "caseFile_CFV1");
-
-        String caseFileVariableName2 = CaseFileVariableReader.getCaseFileVariableName(_property2);
-        assertEquals(caseFileVariableName2, "caseFile_CFV2");
-    }
-
-    @Test
     public void isCaseFileVariable() {
         boolean isCaseFile1 = CaseFileVariableReader.isCaseFileVariable(_property1);
         assertEquals(isCaseFile1, true);

@@ -44,7 +44,7 @@ class CaseFileVariableReader {
                 .orElse(caseFileVariableName);
     }
 
-    public static String getCaseFileVariableName(Property p) {
+    private static String getCaseFileVariableName(Property p) {
         String name = p.getName();
         // legacy uses ID instead of name
         return name == null ? p.getId() : name;

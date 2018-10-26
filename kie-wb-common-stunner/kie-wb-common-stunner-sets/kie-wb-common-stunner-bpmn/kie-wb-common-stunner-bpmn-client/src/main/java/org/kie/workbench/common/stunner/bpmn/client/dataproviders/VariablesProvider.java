@@ -80,7 +80,7 @@ public class VariablesProvider
         return result;
     }
 
-    private static void addPropertyVariableToResult(Collection<Pair<Object, String>> result, String element) {
+    private void addPropertyVariableToResult(Collection<Pair<Object, String>> result, String element) {
         if (element.length() > 0) {
             List<String> list = Arrays.asList(element.split(","));
             list.forEach(s1 -> {
@@ -90,7 +90,7 @@ public class VariablesProvider
         }
     }
 
-    private static void addCaseFileVariableToResult(Collection<Pair<Object, String>> result, String element) {
+    private void addCaseFileVariableToResult(Collection<Pair<Object, String>> result, String element) {
         if (element.length() > 0) {
             List<String> list = Arrays.asList(element.split(","));
             list.forEach(s1 -> {
