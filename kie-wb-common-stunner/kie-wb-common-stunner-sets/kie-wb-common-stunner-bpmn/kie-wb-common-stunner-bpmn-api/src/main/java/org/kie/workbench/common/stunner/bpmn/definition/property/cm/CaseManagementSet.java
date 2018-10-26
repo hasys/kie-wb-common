@@ -16,6 +16,8 @@
 
 package org.kie.workbench.common.stunner.bpmn.definition.property.cm;
 
+import java.util.Objects;
+
 import javax.validation.Valid;
 
 import org.jboss.errai.common.client.api.annotations.MapsTo;
@@ -90,8 +92,9 @@ public class CaseManagementSet implements BPMNPropertySet {
     public boolean equals(Object o) {
         if (o instanceof CaseManagementSet) {
             CaseManagementSet other = (CaseManagementSet) o;
-            return caseRoles.equals(other.caseRoles) &&
-                    caseFileVariables.equals(other.caseFileVariables);
+            return Objects.equals(caseRoles, other.caseRoles) &&
+                    Objects.equals(caseFileVariables, other.caseFileVariables);
+
         }
         return false;
     }
