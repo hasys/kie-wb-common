@@ -62,8 +62,8 @@ public class CaseManagementSet implements BPMNPropertySet {
 
     public CaseManagementSet(final @MapsTo("caseRoles") CaseRoles caseRoles,
                              final @MapsTo("caseFileVariables") CaseFileVariables caseFileVariables) {
-        this.caseRoles = caseRoles;
-        this.caseFileVariables = caseFileVariables;
+        setCaseRoles(caseRoles);
+        setCaseFileVariables(caseFileVariables);
     }
 
     public CaseRoles getCaseRoles() {

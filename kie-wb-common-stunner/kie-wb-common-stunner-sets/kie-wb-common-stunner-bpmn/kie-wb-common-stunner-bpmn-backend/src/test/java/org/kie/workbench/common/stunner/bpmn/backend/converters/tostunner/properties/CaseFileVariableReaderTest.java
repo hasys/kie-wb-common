@@ -29,68 +29,70 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CaseFileVariableReaderTest {
 
-    private List<Property> _properties;
+    private List<Property> properties;
 
     @Mock
-    protected Property _property1;
+    protected Property property1;
     @Mock
-    protected Property _property2;
+    protected Property property2;
     @Mock
-    protected Property _property3;
+    protected Property property3;
     @Mock
-    protected Property _property4;
+    protected Property property4;
 
     @Mock
-    protected ItemDefinition _definition;
+    protected ItemDefinition definition;
 
     @Before
     public void setup() {
-        _properties = new ArrayList<>();
-        _properties.add(_property1);
-        _properties.add(_property2);
-        _properties.add(_property3);
-        _properties.add(_property4);
+        properties = new ArrayList<>();
+        properties.add(property1);
+        properties.add(property2);
+        properties.add(property3);
+        properties.add(property4);
 
-        when(_property1.getName()).thenReturn(CaseFileVariables.CASE_FILE_PREFIX + "CFV1");
-        when(_property1.getId()).thenReturn(CaseFileVariables.CASE_FILE_PREFIX + "CFV1");
-        when(_property1.getItemSubjectRef()).thenReturn(_definition);
+        when(property1.getName()).thenReturn(CaseFileVariables.CASE_FILE_PREFIX + "CFV1");
+        when(property1.getId()).thenReturn(CaseFileVariables.CASE_FILE_PREFIX + "CFV1");
+        when(property1.getItemSubjectRef()).thenReturn(definition);
 
-        when(_property2.getName()).thenReturn(null);
-        when(_property2.getId()).thenReturn(CaseFileVariables.CASE_FILE_PREFIX + "CFV2");
-        when(_property2.getItemSubjectRef()).thenReturn(_definition);
+        when(property2.getName()).thenReturn(null);
+        when(property2.getId()).thenReturn(CaseFileVariables.CASE_FILE_PREFIX + "CFV2");
+        when(property2.getItemSubjectRef()).thenReturn(definition);
 
-        when(_definition.getStructureRef()).thenReturn("Boolean");
+        when(definition.getStructureRef()).thenReturn("Boolean");
 
-        when(_property3.getName()).thenReturn("PV1");
-        when(_property3.getId()).thenReturn("PV1");
+        when(property3.getName()).thenReturn("PV1");
+        when(property3.getId()).thenReturn("PV1");
 
-        when(_property4.getName()).thenReturn(null);
-        when(_property4.getId()).thenReturn("PV2");
+        when(property4.getName()).thenReturn(null);
+        when(property4.getId()).thenReturn("PV2");
     }
 
     @Test
     public void getCaseFileVariables() {
-        String caseFileVariables = CaseFileVariableReader.getCaseFileVariables(_properties);
+        String caseFileVariables = CaseFileVariableReader.getCaseFileVariables(properties);
         assertEquals(caseFileVariables, "CFV1:Boolean,CFV2:Boolean");
     }
 
     @Test
     public void isCaseFileVariable() {
-        boolean isCaseFile1 = CaseFileVariableReader.isCaseFileVariable(_property1);
-        assertEquals(isCaseFile1, true);
+        boolean isCaseFile1 = CaseFileVariableReader.isCaseFileVariable(property1);
+        assertTrue(isCaseFile1);
 
-        boolean isCaseFile2 = CaseFileVariableReader.isCaseFileVariable(_property2);
-        assertEquals(isCaseFile2, true);
+        boolean isCaseFile2 = CaseFileVariableReader.isCaseFileVariable(property2);
+        assertTrue(isCaseFile2);
 
-        boolean isCaseFile3 = CaseFileVariableReader.isCaseFileVariable(_property3);
-        assertEquals(isCaseFile3, false);
+        boolean isCaseFile3 = CaseFileVariableReader.isCaseFileVariable(property3);
+        assertFalse(isCaseFile3);
 
-        boolean isCaseFile4 = CaseFileVariableReader.isCaseFileVariable(_property4);
-        assertEquals(isCaseFile4, false);
+        boolean isCaseFile4 = CaseFileVariableReader.isCaseFileVariable(property4);
+        assertFalse(isCaseFile4);
     }
 }

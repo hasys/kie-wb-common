@@ -18,8 +18,11 @@ package org.kie.workbench.common.stunner.bpmn.definition.property.cm;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.kie.workbench.common.stunner.bpmn.definition.property.type.VariablesType;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 
 public class CaseFileVariablesTest {
 
@@ -38,21 +41,37 @@ public class CaseFileVariablesTest {
     }
 
     @Test
-    public void getRawValueTest() {
+    public void testGetType() {
+        assertEquals(new VariablesType(), _tested.getType());
+    }
+
+    @Test
+    public void testGetValue() {
+        assertEquals(_value, _tested.getValue());
+    }
+
+    @Test
+    public void testGetRawValue() {
         assertEquals(_tested.getRawValue(), _rawValue);
     }
 
     @Test
-    public void hashCodeTest() {
+    public void testHashCode() {
         assertEquals(_tested.hashCode(), -1359743347);
     }
 
     @Test
-    public void equalsTest() {
+    public void testEquals() {
         CaseFileVariables otherEqual = new CaseFileVariables(_value);
-        assertEquals(_tested.equals(otherEqual), true);
+        assertFalse(_tested.equals(null));
+        assertEquals(_tested, _tested);
+        assertEquals(otherEqual, _tested);
+        assertEquals(_tested, otherEqual);
 
         CaseFileVariables otherNotEqual = new CaseFileVariables();
-        assertEquals(_tested.equals(otherNotEqual), false);
+        assertNotEquals(new Object(), _tested);
+        assertNotEquals(_tested, new Object());
+        assertNotEquals(otherNotEqual, _tested);
+        assertNotEquals(_tested, otherNotEqual);
     }
 }

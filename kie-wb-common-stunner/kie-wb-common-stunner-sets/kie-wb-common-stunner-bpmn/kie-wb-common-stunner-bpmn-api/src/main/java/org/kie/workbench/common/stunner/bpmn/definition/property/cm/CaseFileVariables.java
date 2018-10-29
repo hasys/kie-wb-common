@@ -51,7 +51,7 @@ public class CaseFileVariables implements BPMNProperty {
     }
 
     public CaseFileVariables(final String value) {
-        this.value = value;
+        setValue(value);
     }
 
     public PropertyType getType() {
