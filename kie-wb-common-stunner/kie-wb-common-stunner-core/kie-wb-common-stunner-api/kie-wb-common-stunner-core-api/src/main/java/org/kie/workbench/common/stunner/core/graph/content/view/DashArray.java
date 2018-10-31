@@ -30,8 +30,8 @@ public class DashArray {
 
     public DashArray(final @MapsTo("dash") double dash,
                      final @MapsTo("dashes") double dashes[]) {
-        this.dash = dash;
-        this.dashes = dashes;
+        setDash(dash);
+        setDashes(dashes);
     }
 
     public static DashArray create(final double dash,
@@ -65,9 +65,8 @@ public class DashArray {
             return false;
         }
         DashArray other = (DashArray) o;
-        return Double.compare(dash,
-                              other.dash) == 0 && Arrays.equals(dashes,
-                                                                other.dashes);
+        return Double.compare(dash, other.dash) == 0 &&
+                Arrays.equals(dashes, other.dashes);
     }
 
     @Override

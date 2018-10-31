@@ -95,9 +95,6 @@ public class ProcessCompensationRefProviderTest {
     private SelectionControl selectionControl;
 
     @Mock
-    private Node node;
-
-    @Mock
     private FormRenderingContext renderingContext;
 
     private TestingGraphMockHandler graphTestHandler;
@@ -106,7 +103,7 @@ public class ProcessCompensationRefProviderTest {
 
     @Before
     @SuppressWarnings("unchecked")
-    public void setUp() throws Exception {
+    public void setUp() {
         when(sessionManager.getCurrentSession()).thenReturn(session);
         when(session.getCanvasHandler()).thenReturn(canvasHandler);
         when(canvasHandler.getDiagram()).thenReturn(diagram);

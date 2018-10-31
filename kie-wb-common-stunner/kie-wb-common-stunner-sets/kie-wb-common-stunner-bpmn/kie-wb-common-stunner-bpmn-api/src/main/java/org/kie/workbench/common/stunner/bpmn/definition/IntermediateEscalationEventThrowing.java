@@ -83,8 +83,8 @@ public class IntermediateEscalationEventThrowing extends BaseThrowingIntermediat
               backgroundSet,
               fontSet,
               dimensionsSet);
-        this.dataIOSet = dataIOSet;
-        this.executionSet = executionSet;
+        setDataIOSet(dataIOSet);
+        setExecutionSet(executionSet);
     }
 
     public EscalationEventExecutionSet getExecutionSet() {

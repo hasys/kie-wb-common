@@ -75,7 +75,7 @@ public class IntermediateCompensationEventThrowing extends BaseThrowingIntermedi
               backgroundSet,
               fontSet,
               dimensionsSet);
-        this.executionSet = executionSet;
+        setExecutionSet(executionSet);
     }
 
     public CompensationEventExecutionSet getExecutionSet() {

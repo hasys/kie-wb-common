@@ -74,7 +74,7 @@ public class StartCompensationEvent extends BaseStartEvent {
               fontSet,
               dimensionsSet,
               simulationSet);
-        this.isInterrupting = isInterrupting;
+        setIsInterrupting(isInterrupting);
     }
 
     public IsInterrupting getIsInterrupting() {

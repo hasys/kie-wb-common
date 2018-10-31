@@ -36,8 +36,8 @@ import static org.kie.workbench.common.stunner.bpmn.backend.converters.fromstunn
 @RunWith(MockitoJUnitRunner.class)
 public class ProcessPropertyWriterTest {
 
-    ProcessPropertyWriter p ;
-    FlatVariableScope variableScope;
+    private ProcessPropertyWriter p ;
+    private FlatVariableScope variableScope;
 
     @Before
     public void before() {
@@ -66,7 +66,7 @@ public class ProcessPropertyWriterTest {
         p.addChildElement(boundaryEventPropertyWriter);
         p.addChildElement(userTaskPropertyWriter);
 
-        // boundary event should always occur after other nodes (compat with old marshallers)
+        // boundary event should always occur after other nodes (compatible with old marshallers)
         assertThat(process.getFlowElements().get(0)).isEqualTo(userTaskPropertyWriter.getFlowElement());
         assertThat(process.getFlowElements().get(1)).isEqualTo(boundaryEventPropertyWriter.getFlowElement());
     }

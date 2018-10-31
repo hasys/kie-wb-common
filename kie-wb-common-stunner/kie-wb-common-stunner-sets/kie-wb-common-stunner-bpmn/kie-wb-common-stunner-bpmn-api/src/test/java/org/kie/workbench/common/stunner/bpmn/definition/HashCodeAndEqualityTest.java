@@ -102,7 +102,7 @@ public class HashCodeAndEqualityTest {
     @Test
     public void testAdHocSubprocessEquals() {
         AdHocSubprocess a = new AdHocSubprocess();
-        AdHocSubprocess b = new AdHocSubprocess();;
+        AdHocSubprocess b = new AdHocSubprocess();
         assertEquals(a,
                      b);
         assertEquals(new AdHocSubprocess(),
@@ -114,7 +114,7 @@ public class HashCodeAndEqualityTest {
     @Test
     public void testAdHocSubprocessHashCode() {
         AdHocSubprocess a = new AdHocSubprocess();
-        AdHocSubprocess b = new AdHocSubprocess();;
+        AdHocSubprocess b = new AdHocSubprocess();
         assertTrue(a.hashCode() == b.hashCode());
         assertTrue(new AdHocSubprocess().hashCode() == new AdHocSubprocess().hashCode());
     }
@@ -378,6 +378,83 @@ public class HashCodeAndEqualityTest {
     }
 
     @Test
+    public void IntermediateSignalEventThrowingHashCode() {
+        ScopedSignalEventExecutionSet executionSet = new ScopedSignalEventExecutionSet(new SignalRef("someRef"), new SignalScope("some_scope"));
+        IntermediateSignalEventThrowing a = new IntermediateSignalEventThrowing();
+        IntermediateSignalEventThrowing b = new IntermediateSignalEventThrowing();
+
+        assertEquals(a.hashCode(), b.hashCode());
+        assertEquals(a.hashCode(), a.hashCode());
+
+        a.setExecutionSet(executionSet);
+        assertNotEquals(a.hashCode(), b.hashCode());
+        b.setExecutionSet(new ScopedSignalEventExecutionSet(executionSet.getSignalRef(), executionSet.getSignalScope()));
+        assertEquals(a.hashCode(), b.hashCode());
+
+        DataIOSet ioSet = new DataIOSet(new AssignmentsInfo("someValue"));
+        b.setDataIOSet(ioSet);
+        assertNotEquals(a.hashCode(), b.hashCode());
+        a.setDataIOSet(ioSet);
+        assertEquals(a.hashCode(), b.hashCode());
+    }
+
+    @Test
+    public void testIntermediateSignalEventThrowingEquals() {
+        BPMNGeneralSet generalSet = new BPMNGeneralSet("Some name");
+        DataIOSet dataIOSet = new DataIOSet(new AssignmentsInfo("some assignment"));
+        BackgroundSet backgroundSet = new BackgroundSet("#ffffff", "#000000", 2.0);
+        FontSet fontSet = new FontSet("Verdana", "#ff0000", 2.1, 3.2, "#00ff00");
+        CircleDimensionSet circleDimensionSet = new CircleDimensionSet(new Radius(3.3));
+        ScopedSignalEventExecutionSet executionSet = new ScopedSignalEventExecutionSet(new SignalRef("signalR"), new SignalScope("scope"));
+        IntermediateSignalEventThrowing throwingEvent = new IntermediateSignalEventThrowing(generalSet, dataIOSet, backgroundSet, fontSet, circleDimensionSet, executionSet);
+        assertTrue(throwingEvent.isSingleInputVar());
+        assertTrue(throwingEvent.hasInputVars());
+        assertEquals(generalSet, throwingEvent.getGeneral());
+        assertEquals(dataIOSet, throwingEvent.getDataIOSet());
+        assertEquals(backgroundSet, throwingEvent.getBackgroundSet());
+        assertEquals(fontSet, throwingEvent.getFontSet());
+        assertEquals(circleDimensionSet, throwingEvent.getDimensionsSet());
+        assertEquals(executionSet, throwingEvent.getExecutionSet());
+
+
+        String ESCALATION_REF = "ESCALATION_REF";
+        String ESCALATION_REF_1 = "ESCALATION_REF_1";
+        TestCaseBuilder.newTestCase()
+                .addTrueCase(throwingEvent, throwingEvent)
+                .addTrueCase(new IntermediateSignalEventThrowing(),
+                             new IntermediateSignalEventThrowing())
+
+                .addTrueCase(new IntermediateSignalEventThrowing(new BPMNGeneralSet(), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet()),
+                             new IntermediateSignalEventThrowing(new BPMNGeneralSet(), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet()))
+
+                .addFalseCase(new IntermediateSignalEventThrowing(),
+                              null)
+
+                .addTrueCase(new IntermediateSignalEventThrowing(new BPMNGeneralSet("name", "doc"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet()),
+                             new IntermediateSignalEventThrowing(new BPMNGeneralSet("name", "doc"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet()))
+
+                .addTrueCase(new IntermediateSignalEventThrowing(new BPMNGeneralSet("name", "doc"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet(new SignalRef(ESCALATION_REF), new SignalScope())),
+                             new IntermediateSignalEventThrowing(new BPMNGeneralSet("name", "doc"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet(new SignalRef(ESCALATION_REF), new SignalScope())))
+
+                .addFalseCase(new IntermediateSignalEventThrowing(new BPMNGeneralSet("name", "doc"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet(new SignalRef(ESCALATION_REF), new SignalScope())),
+                              new IntermediateSignalEventThrowing(new BPMNGeneralSet("name1", "doc1"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet(new SignalRef(ESCALATION_REF), new SignalScope())))
+
+                .addFalseCase(new IntermediateSignalEventThrowing(new BPMNGeneralSet("name", "doc"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet(new SignalRef(ESCALATION_REF), new SignalScope())),
+                              new IntermediateSignalEventThrowing(new BPMNGeneralSet("name", "doc"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet(new SignalRef(ESCALATION_REF_1), new SignalScope())))
+
+                .addFalseCase(new IntermediateSignalEventThrowing(new BPMNGeneralSet("name", "doc"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet(new SignalRef(ESCALATION_REF), new SignalScope())),
+                              new IntermediateSignalEventThrowing(new BPMNGeneralSet("name", "doc"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet(null, new SignalScope())))
+
+                .addFalseCase(new IntermediateSignalEventThrowing(new BPMNGeneralSet("name", "doc"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet(new SignalRef(ESCALATION_REF), new SignalScope("some_scope"))),
+                              new IntermediateSignalEventThrowing(new BPMNGeneralSet("name", "doc"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet(new SignalRef(ESCALATION_REF), null)))
+
+                .addFalseCase(new IntermediateSignalEventThrowing(new BPMNGeneralSet("name", "doc"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), new ScopedSignalEventExecutionSet(new SignalRef(ESCALATION_REF), new SignalScope())),
+                              new IntermediateSignalEventThrowing(new BPMNGeneralSet("name", "doc"), new DataIOSet(), new BackgroundSet(), new FontSet(), new CircleDimensionSet(), null))
+
+                .test();
+    }
+
+    @Test
     public void IntermediateMessageEventThrowingHashCode() {
         IntermediateMessageEventThrowing a = new IntermediateMessageEventThrowing();
         IntermediateMessageEventThrowing b = new IntermediateMessageEventThrowing();
@@ -400,6 +477,8 @@ public class HashCodeAndEqualityTest {
         final DataIOSet D_DATA_SET = new DataIOSet(new AssignmentsInfo("Other value"));
 
         IntermediateMessageEventThrowing a = new IntermediateMessageEventThrowing();
+        assertTrue(a.hasInputVars());
+        assertTrue(a.isSingleInputVar());
         a.setExecutionSet(A_EXECUTION_SET);
         a.setDataIOSet(A_DATA_SET);
 
@@ -1808,9 +1887,27 @@ public class HashCodeAndEqualityTest {
 
     @Test
     public void testIntermediateEscalationThrowingEventEqualsAndHashCode() {
+        BPMNGeneralSet generalSet = new BPMNGeneralSet("Some name");
+        DataIOSet dataIOSet = new DataIOSet(new AssignmentsInfo("some assignment"));
+        BackgroundSet backgroundSet = new BackgroundSet("#ffffff", "#000000", 2.0);
+        FontSet fontSet = new FontSet("Verdana", "#ff0000", 2.1, 3.2, "#00ff00");
+        CircleDimensionSet circleDimensionSet = new CircleDimensionSet(new Radius(3.3));
+        EscalationEventExecutionSet executionSet = new EscalationEventExecutionSet(new EscalationRef("someRef"));
+        IntermediateEscalationEventThrowing throwingEvent = new IntermediateEscalationEventThrowing(generalSet, dataIOSet, backgroundSet, fontSet, circleDimensionSet, executionSet);
+        assertTrue(throwingEvent.isSingleInputVar());
+        assertTrue(throwingEvent.hasInputVars());
+        assertEquals(generalSet, throwingEvent.getGeneral());
+        assertEquals(dataIOSet, throwingEvent.getDataIOSet());
+        assertEquals(backgroundSet, throwingEvent.getBackgroundSet());
+        assertEquals(fontSet, throwingEvent.getFontSet());
+        assertEquals(circleDimensionSet, throwingEvent.getDimensionsSet());
+        assertEquals(executionSet, throwingEvent.getExecutionSet());
+
+
         String ESCALATION_REF = "ESCALATION_REF";
         String ESCALATION_REF_1 = "ESCALATION_REF_1";
         TestCaseBuilder.newTestCase()
+                .addTrueCase(throwingEvent, throwingEvent)
                 .addTrueCase(new IntermediateEscalationEventThrowing(),
                              new IntermediateEscalationEventThrowing())
 
@@ -1881,7 +1978,9 @@ public class HashCodeAndEqualityTest {
 
     @Test
     public void testStartCompensationEventAndHashCode() {
+        StartCompensationEvent compensationEvent = new StartCompensationEvent();
         TestCaseBuilder.newTestCase()
+                .addTrueCase(compensationEvent, compensationEvent)
                 .addTrueCase(new StartCompensationEvent(),
                              new StartCompensationEvent())
 
@@ -1901,7 +2000,9 @@ public class HashCodeAndEqualityTest {
 
     @Test
     public void testIntermediateCompensationEventAndHashCode() {
+        IntermediateCompensationEvent compensationEvent = new IntermediateCompensationEvent();
         TestCaseBuilder.newTestCase()
+                .addTrueCase(compensationEvent, compensationEvent)
                 .addTrueCase(new IntermediateCompensationEvent(),
                              new IntermediateCompensationEvent())
 
@@ -1921,9 +2022,18 @@ public class HashCodeAndEqualityTest {
 
     @Test
     public void testIntermediateCompensationThrowingEventEqualsAndHashCode() {
+        CompensationEventExecutionSet executionSet = new CompensationEventExecutionSet();
+        IntermediateCompensationEventThrowing throwingEvent = new IntermediateCompensationEventThrowing(null, null, null, null, executionSet);
+        assertEquals(executionSet, throwingEvent.getExecutionSet());
+        assertFalse(throwingEvent.isSingleInputVar());
+        assertFalse(throwingEvent.isSingleOutputVar());
+        assertFalse(throwingEvent.hasInputVars());
+        assertFalse(throwingEvent.hasOutputVars());
+
         String ACTIVITY_REF = "ACTIVITY_REF";
         String ACTIVITY_REF_1 = "ACTIVITY_REF_1";
         TestCaseBuilder.newTestCase()
+                .addTrueCase(throwingEvent, throwingEvent)
                 .addTrueCase(new IntermediateCompensationEventThrowing(),
                              new IntermediateCompensationEventThrowing())
 
@@ -1956,9 +2066,13 @@ public class HashCodeAndEqualityTest {
 
     @Test
     public void testEndCompensationEventEqualsAndHashCode() {
+        CompensationEventExecutionSet executionSet = new CompensationEventExecutionSet();
+        EndCompensationEvent endEvent = new EndCompensationEvent(null, null, null, null, executionSet);
+        assertEquals(executionSet, endEvent.getExecutionSet());
         String ACTIVITY_REF = "ACTIVITY_REF";
         String ACTIVITY_REF_1 = "ACTIVITY_REF_1";
         TestCaseBuilder.newTestCase()
+                .addTrueCase(endEvent, endEvent)
                 .addTrueCase(new EndCompensationEvent(),
                              new EndCompensationEvent())
 
@@ -1996,7 +2110,13 @@ public class HashCodeAndEqualityTest {
 
     @Test
     public void testActivityRefEqualsAndHashCode() {
+        String activityRefValue = "some_value";
+        ActivityRef ref = new ActivityRef(activityRefValue);
+
+        assertEquals(activityRefValue, ref.getValue());
+
         TestCaseBuilder.newTestCase()
+                .addTrueCase(ref, ref)
                 .addTrueCase(new ActivityRef(), new ActivityRef())
                 .addTrueCase(new ActivityRef(null), new ActivityRef(null))
                 .addTrueCase(new ActivityRef("a"), new ActivityRef("a"))
@@ -2007,7 +2127,13 @@ public class HashCodeAndEqualityTest {
 
     @Test
     public void testCompensationEventExecutionSetEqualsAndHashCode() {
+        String activityRefValue = "some_value";
+        ActivityRef ref = new ActivityRef(activityRefValue);
+        CompensationEventExecutionSet executionSet = new CompensationEventExecutionSet(ref);
+        assertEquals(ref, executionSet.getActivityRef());
+
         TestCaseBuilder.newTestCase()
+                .addTrueCase(executionSet, executionSet)
                 .addTrueCase(new CompensationEventExecutionSet(), new CompensationEventExecutionSet())
                 .addTrueCase(new CompensationEventExecutionSet(null), new CompensationEventExecutionSet(null))
                 .addTrueCase(new CompensationEventExecutionSet(new ActivityRef()), new CompensationEventExecutionSet(new ActivityRef()))
@@ -2041,7 +2167,10 @@ public class HashCodeAndEqualityTest {
 
     @Test
     public void testAssociationEqualsAndHashCode() {
+        Association association = new Association();
+
         TestCaseBuilder.newTestCase()
+                .addTrueCase(association, association)
                 .addTrueCase(new Association(), new Association())
                 .addTrueCase(new Association(new BPMNGeneralSet(), new BackgroundSet(), new FontSet()),
                              new Association(new BPMNGeneralSet(), new BackgroundSet(), new FontSet()))
@@ -2049,6 +2178,8 @@ public class HashCodeAndEqualityTest {
                               new Association(new BPMNGeneralSet(), new BackgroundSet(), new FontSet()))
                 .addFalseCase(new Association(),
                               new Association(null, null, null))
+                .addFalseCase(new Association(), new Object())
+                .addFalseCase(new Object(), new Association())
                 .test();
     }
 
@@ -2056,7 +2187,7 @@ public class HashCodeAndEqualityTest {
 
         private Object a;
         private Object b;
-        private boolean expectedResult = true;
+        private boolean expectedResult;
 
         public HashCodeAndEqualityTestCase(Object a,
                                            Object b,

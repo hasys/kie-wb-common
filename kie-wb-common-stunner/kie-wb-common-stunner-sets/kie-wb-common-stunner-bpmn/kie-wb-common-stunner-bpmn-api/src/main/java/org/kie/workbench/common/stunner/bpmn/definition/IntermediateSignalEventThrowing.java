@@ -83,8 +83,8 @@ public class IntermediateSignalEventThrowing extends BaseThrowingIntermediateEve
               backgroundSet,
               fontSet,
               dimensionsSet);
-        this.dataIOSet = dataIOSet;
-        this.executionSet = executionSet;
+        setDataIOSet(dataIOSet);
+        setExecutionSet(executionSet);
     }
 
     public ScopedSignalEventExecutionSet getExecutionSet() {

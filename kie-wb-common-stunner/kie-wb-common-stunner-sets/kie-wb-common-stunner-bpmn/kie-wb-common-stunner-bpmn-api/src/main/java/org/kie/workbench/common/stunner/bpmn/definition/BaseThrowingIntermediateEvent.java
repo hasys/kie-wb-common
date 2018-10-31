@@ -83,10 +83,10 @@ public abstract class BaseThrowingIntermediateEvent
                                          final FontSet fontSet,
                                          final CircleDimensionSet dimensionsSet) {
         this();
-        this.general = general;
-        this.backgroundSet = backgroundSet;
-        this.fontSet = fontSet;
-        this.dimensionsSet = dimensionsSet;
+        setGeneral(general);
+        setBackgroundSet(backgroundSet);
+        setFontSet(fontSet);
+        setDimensionsSet(dimensionsSet);
     }
 
     @Override
