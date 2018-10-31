@@ -19,6 +19,7 @@ package org.kie.workbench.common.stunner.bpmn.client.dataproviders;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -76,7 +77,7 @@ public abstract class AbstractProcessFilteredNodeProvider
                                     false)
                 .filter(filter)
                 .map(mapper)
-                .filter(pair -> pair != null)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
     }
 }

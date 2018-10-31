@@ -81,12 +81,12 @@ public class IntermediateCatchEventConverter {
             case 1:
                 return Match.of(EventDefinition.class, BpmnNode.class)
                         .when(TimerEventDefinition.class, e -> timerEvent(event, e))
-                        .when(SignalEventDefinition.class, e -> signalEvent(event, e))
+                        .when(SignalEventDefinition.class, e -> signalEvent(event))
                         .when(MessageEventDefinition.class, e -> messageEvent(event, e))
                         .when(ErrorEventDefinition.class, e -> errorEvent(event, e))
                         .when(ConditionalEventDefinition.class, e -> conditionalEvent(event, e))
                         .when(EscalationEventDefinition.class, e -> escalationEvent(event, e))
-                        .when(CompensateEventDefinition.class, e -> compensationEvent(event, e))
+                        .when(CompensateEventDefinition.class, e -> compensationEvent(event))
                         .apply(eventDefinitions.get(0)).value();
             default:
                 throw new UnsupportedOperationException("Multiple definitions not supported for intermediate catch event");
@@ -101,13 +101,13 @@ public class IntermediateCatchEventConverter {
                 throw new UnsupportedOperationException("A boundary event should contain exactly one definition");
             case 1:
                 return Match.of(EventDefinition.class, BpmnNode.class)
-                        .when(SignalEventDefinition.class, e -> signalEvent(event, e))
+                        .when(SignalEventDefinition.class, e -> signalEvent(event))
                         .when(TimerEventDefinition.class, e -> timerEvent(event, e))
                         .when(MessageEventDefinition.class, e -> messageEvent(event, e))
                         .when(ErrorEventDefinition.class, e -> errorEvent(event, e))
                         .when(ConditionalEventDefinition.class, e -> conditionalEvent(event, e))
                         .when(EscalationEventDefinition.class, e -> escalationEvent(event, e))
-                        .when(CompensateEventDefinition.class, e -> compensationEvent(event, e))
+                        .when(CompensateEventDefinition.class, e -> compensationEvent(event))
                         .apply(eventDefinitions.get(0)).value()
                         .docked();
             default:
@@ -145,7 +145,7 @@ public class IntermediateCatchEventConverter {
         return BpmnNode.of(node);
     }
 
-    private BpmnNode signalEvent(CatchEvent event, SignalEventDefinition e) {
+    private BpmnNode signalEvent(CatchEvent event) {
         String nodeId = event.getId();
         Node<View<IntermediateSignalEventCatching>, Edge> node = factoryManager.newNode(nodeId, IntermediateSignalEventCatching.class);
 
@@ -288,8 +288,7 @@ public class IntermediateCatchEventConverter {
         return BpmnNode.of(node);
     }
 
-    private BpmnNode compensationEvent(CatchEvent event,
-                                       CompensateEventDefinition e) {
+    private BpmnNode compensationEvent(CatchEvent event) {
         String nodeId = event.getId();
         Node<View<IntermediateCompensationEvent>, Edge> node = factoryManager.newNode(nodeId,
                                                                                       IntermediateCompensationEvent.class);

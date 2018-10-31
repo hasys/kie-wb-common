@@ -80,13 +80,13 @@ public class StartEventConverter {
                 return noneEvent(event);
             case 1:
                 return Match.of(EventDefinition.class, BpmnNode.class)
-                        .when(SignalEventDefinition.class, e -> signalEvent(event, e))
+                        .when(SignalEventDefinition.class, e -> signalEvent(event))
                         .when(MessageEventDefinition.class, e -> messageEvent(event, e))
                         .when(TimerEventDefinition.class, e -> timerEvent(event, e))
                         .when(ErrorEventDefinition.class, e -> errorEvent(event, e))
                         .when(ConditionalEventDefinition.class, e -> conditionalEvent(event, e))
                         .when(EscalationEventDefinition.class, e -> escalationEvent(event, e))
-                        .when(CompensateEventDefinition.class, e -> compensationEvent(event, e))
+                        .when(CompensateEventDefinition.class, e -> compensationEvent(event))
                         .apply(eventDefinitions.get(0)).value();
             default:
                 throw new UnsupportedOperationException("Multiple event definitions not supported for start event");
@@ -191,9 +191,7 @@ public class StartEventConverter {
         return BpmnNode.of(node);
     }
 
-    private BpmnNode signalEvent(
-            StartEvent event,
-            SignalEventDefinition e) {
+    private BpmnNode signalEvent(StartEvent event) {
         Node<View<StartSignalEvent>, Edge> node =
                 factoryManager.newNode(event.getId(), StartSignalEvent.class);
 
@@ -312,9 +310,7 @@ public class StartEventConverter {
         return BpmnNode.of(node);
     }
 
-    private BpmnNode compensationEvent(
-            StartEvent event,
-            CompensateEventDefinition e) {
+    private BpmnNode compensationEvent(StartEvent event) {
         Node<View<StartCompensationEvent>, Edge> node =
                 factoryManager.newNode(event.getId(), StartCompensationEvent.class);
 

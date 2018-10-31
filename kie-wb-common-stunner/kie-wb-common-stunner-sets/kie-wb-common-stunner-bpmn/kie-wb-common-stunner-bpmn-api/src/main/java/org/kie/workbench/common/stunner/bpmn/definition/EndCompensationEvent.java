@@ -75,7 +75,7 @@ public class EndCompensationEvent extends BaseEndEvent {
               backgroundSet,
               fontSet,
               dimensionsSet);
-        this.executionSet = executionSet;
+        setExecutionSet(executionSet);
     }
 
     public CompensationEventExecutionSet getExecutionSet() {

@@ -137,8 +137,7 @@ public class ProcessPropertyWriter extends BasePropertyWriter implements Element
     }
 
     public BasePropertyWriter getChildElement(String id) {
-        BasePropertyWriter propertyWriter = this.childElements.get(id);
-        return propertyWriter;
+        return this.childElements.get(id);
     }
 
     public void setName(String value) {

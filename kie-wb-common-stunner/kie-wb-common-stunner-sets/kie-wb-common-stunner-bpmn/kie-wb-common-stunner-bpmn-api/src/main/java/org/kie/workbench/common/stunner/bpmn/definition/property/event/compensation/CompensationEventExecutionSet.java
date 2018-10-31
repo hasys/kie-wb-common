@@ -51,7 +51,7 @@ public class CompensationEventExecutionSet {
     }
 
     public CompensationEventExecutionSet(final @MapsTo("activityRef") ActivityRef activityRef) {
-        this.activityRef = activityRef;
+        setActivityRef(activityRef);
     }
 
     public ActivityRef getActivityRef() {

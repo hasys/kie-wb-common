@@ -59,15 +59,17 @@ public class SequenceFlowPropertyWriter extends PropertyWriter {
     }
 
     public void setConnection(ViewConnector<? extends BPMNViewDefinition> connector) {
-        Connection sourceConnection = connector.getSourceConnection().get();
-        Connection targetConnection = connector.getTargetConnection().get();
+        if (connector.getSourceConnection().isPresent() && connector.getTargetConnection().isPresent()) {
+            Connection sourceConnection = connector.getSourceConnection().get();
+            Connection targetConnection = connector.getTargetConnection().get();
 
-        setAutoConnectionSource(sourceConnection);
-        setAutoConnectionTarget(targetConnection);
+            setAutoConnectionSource(sourceConnection);
+            setAutoConnectionTarget(targetConnection);
 
-        List<ControlPoint> controlPoints = connector.getControlPoints();
-        bpmnEdge = PropertyWriterUtils.createBPMNEdge(source, target, sourceConnection, controlPoints, targetConnection);
-        bpmnEdge.setBpmnElement(sequenceFlow);
+            List<ControlPoint> controlPoints = connector.getControlPoints();
+            bpmnEdge = PropertyWriterUtils.createBPMNEdge(source, target, sourceConnection, controlPoints, targetConnection);
+            bpmnEdge.setBpmnElement(sequenceFlow);
+        }
     }
 
     public void setSource(BasePropertyWriter pSrc) {

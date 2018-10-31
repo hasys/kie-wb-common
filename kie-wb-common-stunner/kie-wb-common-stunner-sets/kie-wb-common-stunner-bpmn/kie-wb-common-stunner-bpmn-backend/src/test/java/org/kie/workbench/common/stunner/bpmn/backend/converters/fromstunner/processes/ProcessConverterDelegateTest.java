@@ -178,14 +178,14 @@ public class ProcessConverterDelegateTest {
         nodes.put(LEVEL2_NODE2.uuid(), level2Node2);
         assertEquals(nodes.size(), nodeCaptor.getAllValues().size());
 
-        nodes.entrySet().forEach(entry -> {
+        nodes.forEach((key, value) -> {
             Optional<Node<View<? extends BPMNViewDefinition>, ?>> processed =
-            nodeCaptor.getAllValues()
-                    .stream()
-                    .filter(captured -> entry.getKey().equals(captured.getUUID()))
-                    .findFirst();
-            assertTrue("Node: " + entry.getKey() + " was not present in result", processed.isPresent());
-            assertEquals(entry.getValue(), processed.get().getContent().getDefinition());
+                    nodeCaptor.getAllValues()
+                            .stream()
+                            .filter(captured -> key.equals(captured.getUUID()))
+                            .findFirst();
+            assertTrue("Node: " + key + " was not present in result", processed.isPresent());
+            assertEquals(value, processed.get().getContent().getDefinition());
         });
     }
 

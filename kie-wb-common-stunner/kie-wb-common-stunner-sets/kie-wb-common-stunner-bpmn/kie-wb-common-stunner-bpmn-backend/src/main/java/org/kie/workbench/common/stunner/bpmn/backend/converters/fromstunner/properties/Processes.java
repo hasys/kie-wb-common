@@ -46,7 +46,6 @@ class Processes {
                 process.getFlowElements().add((FlowElement) p.getElement());
             } else {
                 process.getFlowElements().add(0, (FlowElement) p.getElement());
-                                              p.getElement();
             }
         } else if (p.getElement() instanceof Artifact)  {
             if (process instanceof Process) {

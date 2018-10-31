@@ -53,11 +53,9 @@ public class FlowElementPostConverter {
                             BasePropertyWriter nodeWriter,
                             Node<View<? extends BPMNViewDefinition>, ?> node) {
         Optional<PostConverterProcessor> postConverter = getPostConverter(node);
-        if (postConverter.isPresent()) {
-            postConverter.get().process(processWriter,
-                                        nodeWriter,
-                                        node);
-        }
+        postConverter.ifPresent(postConverterProcessor -> postConverterProcessor.process(processWriter,
+                                                                                         nodeWriter,
+                                                                                         node));
     }
 
     private Optional<PostConverterProcessor> getPostConverter(Node<View<? extends BPMNViewDefinition>, ?> node) {

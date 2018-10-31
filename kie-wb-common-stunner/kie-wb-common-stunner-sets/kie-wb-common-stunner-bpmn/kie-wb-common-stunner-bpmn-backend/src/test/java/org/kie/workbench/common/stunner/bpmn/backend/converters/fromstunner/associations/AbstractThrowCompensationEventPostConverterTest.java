@@ -28,7 +28,6 @@ import org.eclipse.bpmn2.ThrowEvent;
 import org.junit.Before;
 import org.junit.Test;
 import org.kie.workbench.common.stunner.bpmn.definition.BPMNViewDefinition;
-import org.kie.workbench.common.stunner.bpmn.definition.property.event.compensation.ActivityRef;
 import org.kie.workbench.common.stunner.bpmn.definition.property.event.compensation.CompensationEventExecutionSet;
 import org.kie.workbench.common.stunner.core.graph.Node;
 import org.mockito.Mock;
@@ -42,9 +41,6 @@ public abstract class AbstractThrowCompensationEventPostConverterTest<T extends 
         extends AbstractCompensationEventPostConverterTest<T, ThrowEvent> {
 
     protected static final String ACTIVITY_REF = "ACTIVITY_REF";
-
-    @Mock
-    protected ActivityRef activityRef;
 
     @Mock
     protected Activity activity;

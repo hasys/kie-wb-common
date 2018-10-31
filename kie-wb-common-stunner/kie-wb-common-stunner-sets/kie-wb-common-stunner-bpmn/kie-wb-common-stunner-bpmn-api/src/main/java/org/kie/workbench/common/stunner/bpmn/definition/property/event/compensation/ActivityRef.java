@@ -44,7 +44,7 @@ public class ActivityRef implements BPMNProperty {
     }
 
     public ActivityRef(final @MapsTo("value") String value) {
-        this.value = value;
+        setValue(value);
     }
 
     public String getValue() {

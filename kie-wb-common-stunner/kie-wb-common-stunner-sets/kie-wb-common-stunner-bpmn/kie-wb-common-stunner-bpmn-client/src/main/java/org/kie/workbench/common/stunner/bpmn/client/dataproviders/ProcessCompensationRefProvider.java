@@ -152,10 +152,8 @@ public class ProcessCompensationRefProvider implements SelectorDataProvider {
 
     private static boolean isCompensationTarget(final Node<?, ? extends Edge> node) {
         return node.getInEdges().stream()
-                .filter(edge -> edge.getSourceNode().getContent() instanceof View &&
-                        ((View) edge.getSourceNode().getContent()).getDefinition() instanceof IntermediateCompensationEvent)
-                .findFirst()
-                .isPresent();
+                .anyMatch(edge -> edge.getSourceNode().getContent() instanceof View &&
+                        ((View) edge.getSourceNode().getContent()).getDefinition() instanceof IntermediateCompensationEvent);
     }
 
     private static boolean isLane(final Node node) {

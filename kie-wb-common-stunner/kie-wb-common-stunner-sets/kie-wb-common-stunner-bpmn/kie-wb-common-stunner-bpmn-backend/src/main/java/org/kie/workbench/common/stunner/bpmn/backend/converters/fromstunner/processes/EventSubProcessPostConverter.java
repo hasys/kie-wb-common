@@ -33,9 +33,7 @@ public class EventSubProcessPostConverter implements PostConverterProcessor {
                         BasePropertyWriter nodeWriter,
                         Node<View<? extends BPMNViewDefinition>, ?> node) {
         boolean isForCompensation = GraphUtils.getChildNodes(node).stream()
-                .filter(currentNode -> currentNode.getContent() instanceof View && ((View) currentNode.getContent()).getDefinition() instanceof StartCompensationEvent)
-                .findFirst()
-                .isPresent();
+                .anyMatch(currentNode -> currentNode.getContent() instanceof View && ((View) currentNode.getContent()).getDefinition() instanceof StartCompensationEvent);
         if (isForCompensation) {
             ((SubProcess) nodeWriter.getElement()).setIsForCompensation(true);
         }

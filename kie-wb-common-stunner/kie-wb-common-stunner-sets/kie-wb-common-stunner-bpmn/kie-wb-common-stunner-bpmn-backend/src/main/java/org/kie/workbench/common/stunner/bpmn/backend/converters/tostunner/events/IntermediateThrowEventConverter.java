@@ -72,7 +72,7 @@ public class IntermediateThrowEventConverter {
                 throw new UnsupportedOperationException("An intermediate throw event should contain exactly one definition");
             case 1:
                 return Match.of(EventDefinition.class, BpmnNode.class)
-                        .when(SignalEventDefinition.class, e -> signalEvent(event, e))
+                        .when(SignalEventDefinition.class, e -> signalEvent(event))
                         .when(MessageEventDefinition.class, e -> messageEvent(event, e))
                         .when(EscalationEventDefinition.class, e -> escalationEvent(event, e))
                         .when(CompensateEventDefinition.class, e -> compensationEvent(event, e))
@@ -114,9 +114,7 @@ public class IntermediateThrowEventConverter {
         return BpmnNode.of(node);
     }
 
-    private BpmnNode signalEvent(
-            IntermediateThrowEvent event,
-            SignalEventDefinition eventDefinition) {
+    private BpmnNode signalEvent(IntermediateThrowEvent event) {
 
         Node<View<IntermediateSignalEventThrowing>, Edge> node =
                 factoryManager.newNode(event.getId(), IntermediateSignalEventThrowing.class);

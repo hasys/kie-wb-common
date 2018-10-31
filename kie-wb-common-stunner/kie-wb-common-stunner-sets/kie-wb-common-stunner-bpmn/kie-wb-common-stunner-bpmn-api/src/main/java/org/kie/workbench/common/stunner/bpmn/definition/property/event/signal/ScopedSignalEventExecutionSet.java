@@ -15,6 +15,8 @@
  */
 package org.kie.workbench.common.stunner.bpmn.definition.property.event.signal;
 
+import java.util.Objects;
+
 import javax.validation.Valid;
 
 import org.jboss.errai.common.client.api.annotations.MapsTo;
@@ -62,8 +64,8 @@ public class ScopedSignalEventExecutionSet implements BPMNPropertySet {
 
     public ScopedSignalEventExecutionSet(final @MapsTo("signalRef") SignalRef signalRef,
                                          final @MapsTo("signalScope") SignalScope signalScope) {
-        this.signalRef = signalRef;
-        this.signalScope = signalScope;
+        setSignalRef(signalRef);
+        setSignalScope(signalScope);
     }
 
     public SignalRef getSignalRef() {
@@ -84,8 +86,8 @@ public class ScopedSignalEventExecutionSet implements BPMNPropertySet {
 
     @Override
     public int hashCode() {
-        return HashUtil.combineHashCodes(signalRef.hashCode(),
-                                         signalScope.hashCode());
+        return HashUtil.combineHashCodes(Objects.hashCode(signalRef),
+                                         Objects.hashCode(signalScope));
     }
 
     @Override
