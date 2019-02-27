@@ -24,6 +24,7 @@ import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.ItemDefinition;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
+import org.jbpm.designer.bpmn2.impl.Bpmn2JsonUnmarshaller;
 import org.junit.Before;
 import org.junit.Test;
 

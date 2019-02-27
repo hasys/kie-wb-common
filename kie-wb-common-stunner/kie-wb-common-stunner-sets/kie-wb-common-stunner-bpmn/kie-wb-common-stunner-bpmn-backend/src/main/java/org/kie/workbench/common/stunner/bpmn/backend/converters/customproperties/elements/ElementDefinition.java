@@ -22,8 +22,8 @@ import org.eclipse.bpmn2.BaseElement;
 import org.eclipse.bpmn2.Bpmn2Factory;
 import org.eclipse.bpmn2.ExtensionAttributeValue;
 import org.eclipse.emf.ecore.util.FeatureMap;
+import org.jbpm.designer.util.Utils;
 import org.kie.workbench.common.stunner.bpmn.backend.converters.customproperties.CustomElement;
-import org.kie.workbench.common.stunner.bpmn.backend.legacy.util.Utils;
 
 public abstract class ElementDefinition<T> {
 

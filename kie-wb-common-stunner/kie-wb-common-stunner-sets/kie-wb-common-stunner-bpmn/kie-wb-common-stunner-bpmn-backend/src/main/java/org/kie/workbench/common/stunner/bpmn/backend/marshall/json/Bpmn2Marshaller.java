@@ -21,10 +21,18 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import bpsim.impl.BpsimFactoryImpl;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.eclipse.bpmn2.Definitions;
+import org.eclipse.bpmn2.util.Bpmn2Resource;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.jboss.drools.impl.DroolsFactoryImpl;
-import org.kie.workbench.common.stunner.bpmn.backend.legacy.Bpmn2JsonUnmarshaller;
-import org.kie.workbench.common.stunner.bpmn.backend.legacy.resource.JBPMBpmn2ResourceImpl;
+import org.jbpm.designer.bpmn2.impl.Bpmn2JsonUnmarshaller;
+import org.jbpm.designer.bpmn2.resource.JBPMBpmn2ResourceFactoryImpl;
+import org.jbpm.designer.bpmn2.resource.JBPMBpmn2ResourceImpl;
 import org.kie.workbench.common.stunner.bpmn.backend.marshall.json.oryx.OryxManager;
 import org.kie.workbench.common.stunner.bpmn.backend.marshall.json.parser.BPMN2JsonParser;
 import org.kie.workbench.common.stunner.bpmn.backend.marshall.json.parser.ParsingContext;
@@ -32,9 +40,12 @@ import org.kie.workbench.common.stunner.core.api.DefinitionManager;
 import org.kie.workbench.common.stunner.core.diagram.Diagram;
 import org.kie.workbench.common.stunner.core.diagram.Metadata;
 import org.kie.workbench.common.stunner.core.graph.Graph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Bpmn2Marshaller extends Bpmn2JsonUnmarshaller {
 
+    private static final Logger _logger = LoggerFactory.getLogger(Bpmn2Marshaller.class);
     private final DefinitionManager definitionManager;
     private final OryxManager oryxManager;
 
@@ -58,7 +69,7 @@ public class Bpmn2Marshaller extends Bpmn2JsonUnmarshaller {
         DroolsFactoryImpl.init();
         BpsimFactoryImpl.init();
         BPMN2JsonParser parser = createParser(diagram);
-        return (JBPMBpmn2ResourceImpl) super.unmarshall(parser, preProcessingData);
+        return (JBPMBpmn2ResourceImpl) unmarshall(parser, preProcessingData);
     }
 
     private BPMN2JsonParser createParser(final Diagram<Graph, Metadata> diagram) {
@@ -66,4 +77,75 @@ public class Bpmn2Marshaller extends Bpmn2JsonUnmarshaller {
                                    new ParsingContext(definitionManager,
                                                       oryxManager));
     }
+
+    /**
+     * NOTE: This method has been set protected for Stunner support. Stunner bpmn implementation provides a custom JsonParser that
+     * is used instead of the one used in jbpm-designer-backend.
+     * <p>
+     * Start unmarshalling using the parser.
+     * @param parser
+     * @param preProcessingData
+     * @return the root element of a bpmn2 document.
+     * @throws JsonParseException
+     * @throws IOException
+     */
+    protected Bpmn2Resource unmarshall(JsonParser parser,
+                                       String preProcessingData) throws IOException {
+        Bpmn2Resource currentResource = null;
+        try {
+            parser.nextToken(); // open the object
+            ResourceSet rSet = new ResourceSetImpl();
+            rSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("bpmn2",
+                                                                             new JBPMBpmn2ResourceFactoryImpl());
+            Bpmn2Resource bpmn2 = (Bpmn2Resource) rSet.createResource(URI.createURI("virtual.bpmn2"));
+            rSet.getResources().add(bpmn2);
+            currentResource = bpmn2;
+            if (preProcessingData == null || preProcessingData.length() < 1) {
+                preProcessingData = "ReadOnlyService";
+            }
+            // do the unmarshalling now:
+            Definitions def = (Definitions) unmarshallItem(parser,
+                                                           preProcessingData);
+            def.setExporter(exporterName);
+            def.setExporterVersion(exporterVersion);
+            revisitUserTasks(def);
+            revisitServiceTasks(def);
+            revisitMessages(def);
+            revisitCatchEvents(def);
+            revisitThrowEvents(def);
+            revisitLanes(def);
+            revisitSubProcessItemDefs(def);
+            revisitArtifacts(def);
+            revisitGroups(def);
+            revisitTaskAssociations(def);
+            revisitSendReceiveTasks(def);
+            reconnectFlows();
+            revisitGateways(def);
+            revisitCatchEventsConvertToBoundary(def);
+            revisitBoundaryEventsPositions(def);
+            createDiagram(def);
+            updateIDs(def);
+            revisitDataObjects(def);
+            revisitAssociationsIoSpec(def);
+            revisitWsdlImports(def);
+            revisitMultiInstanceTasks(def);
+            addSimulation(def);
+            revisitItemDefinitions(def);
+            revisitProcessDoc(def);
+            revisitDI(def);
+            revisitSignalRef(def);
+            orderDiagramElements(def);
+            // return def;
+            currentResource.getContents().add(def);
+            return currentResource;
+        } catch (Exception e) {
+            _logger.error(e.getMessage());
+            return currentResource;
+        } finally {
+            parser.close();
+            clearResources();
+        }
+    }
+
+
 }

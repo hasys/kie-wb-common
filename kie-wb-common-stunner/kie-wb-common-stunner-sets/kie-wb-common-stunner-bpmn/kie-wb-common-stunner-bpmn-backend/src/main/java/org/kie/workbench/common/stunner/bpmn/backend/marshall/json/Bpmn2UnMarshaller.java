@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bpsim.impl.BpsimPackageImpl;
+import com.fasterxml.jackson.core.JsonGenerator;
 import org.eclipse.bpmn2.Bpmn2Package;
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.DocumentRoot;
@@ -35,7 +36,7 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.jboss.drools.DroolsPackage;
 import org.jboss.drools.impl.DroolsPackageImpl;
 import org.jboss.drools.util.DroolsResourceFactoryImpl;
-import org.kie.workbench.common.stunner.bpmn.backend.legacy.Bpmn2JsonMarshaller;
+import org.jbpm.designer.bpmn2.impl.Bpmn2JsonMarshaller;
 import org.kie.workbench.common.stunner.bpmn.backend.marshall.json.builder.BPMNGraphGenerator;
 import org.kie.workbench.common.stunner.bpmn.backend.marshall.json.builder.GraphObjectBuilderFactory;
 import org.kie.workbench.common.stunner.bpmn.backend.marshall.json.oryx.OryxManager;
@@ -116,10 +117,23 @@ public class Bpmn2UnMarshaller extends Bpmn2JsonMarshaller {
                             final String preProcessingData) throws IOException {
         DroolsPackageImpl.init();
         BpsimPackageImpl.init();
-        super.marshall(bpmnGraphGenerator,
+        marshall(bpmnGraphGenerator,
                        def,
                        preProcessingData);
         bpmnGraphGenerator.close();
         return bpmnGraphGenerator.createGraph();
+    }
+
+    /**
+     * NOTE:
+     * This method has been added for Stunner support. Stunner bpmn parser provides a custom JsonGenerator that
+     * is used instead of the one used in jbpm-designer-backend.
+     */
+    public void marshall(JsonGenerator generator,
+                         Definitions def,
+                         String preProcessingData) throws IOException {
+        marshallDefinitions(def,
+                            generator,
+                            preProcessingData);
     }
 }
