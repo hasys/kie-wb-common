@@ -91,12 +91,7 @@ public class ActivityDataIOEditorViewImpl extends BaseModal implements ActivityD
         btnSave.setIcon(IconType.SAVE);
         btnSave.setPull(Pull.RIGHT);
         btnSave.addClickHandler(
-                new ClickHandler() {
-                    @Override
-                    public void onClick(ClickEvent clickEvent) {
-                        presenter.handleSaveClick();
-                    }
-                }
+                clickEvent -> presenter.handleSaveClick()
         );
         btnColumn.add(btnSave);
         btnCancel = new Button(StunnerFormsClientFieldsConstants.INSTANCE.Cancel());

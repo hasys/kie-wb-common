@@ -16,6 +16,7 @@
 
 package org.kie.workbench.common.stunner.bpmn.backend.converters.customproperties;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -196,15 +197,16 @@ public class ParsedAssignmentsInfo {
     }
 
     public List<InitializedOutputVariable> createInitializedOutputVariables(String parentId, VariableScope variableScope) {
-        return getOutputs()
-                .getDeclarations()
-                .stream()
-                .map(varDecl -> InitializedVariable.outputOf(
-                        parentId,
-                        variableScope,
-                        varDecl,
-                        associations.lookupOutput(varDecl.getTypedIdentifier().getName())))
-                .collect(Collectors.toList());
+        List<InitializedOutputVariable> list = new ArrayList<>();
+        for (VariableDeclaration varDecl : getOutputs().getDeclarations()) {
+            InitializedOutputVariable initializedOutputVariable = InitializedVariable.outputOf(
+                    parentId,
+                    variableScope,
+                    varDecl,
+                    associations.lookupOutput(varDecl.getTypedIdentifier().getName()));
+            list.add(initializedOutputVariable);
+        }
+        return list;
     }
 
     public boolean isEmpty() {

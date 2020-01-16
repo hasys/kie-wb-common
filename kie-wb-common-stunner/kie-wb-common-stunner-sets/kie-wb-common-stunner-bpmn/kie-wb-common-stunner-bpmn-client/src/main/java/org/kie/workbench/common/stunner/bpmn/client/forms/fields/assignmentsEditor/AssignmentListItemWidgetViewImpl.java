@@ -82,7 +82,7 @@ public class AssignmentListItemWidgetViewImpl extends Composite implements Assig
     @StunnerSpecific
     protected VariableNameTextBox name;
 
-    private boolean allowDuplicateNames = true;
+    private boolean allowDuplicateNames = false;
     private String duplicateNameErrorMessage = EMPTY_VALUE;
 
     @DataField

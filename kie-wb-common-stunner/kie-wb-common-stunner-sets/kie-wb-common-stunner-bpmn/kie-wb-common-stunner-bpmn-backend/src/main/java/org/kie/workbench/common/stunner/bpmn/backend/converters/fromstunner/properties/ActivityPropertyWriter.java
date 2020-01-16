@@ -93,9 +93,9 @@ public class ActivityPropertyWriter extends PropertyWriter {
                 ioSpec.getDataOutputs().add(dataOutput);
 
                 this.addItemDefinition(output.getItemDefinition());
-                DataOutputAssociation dataOutputAssociation = output.getDataOutputAssociation();
+                List<DataOutputAssociation> dataOutputAssociation = output.getDataOutputAssociation();
                 if (dataOutputAssociation != null) {
-                    activity.getDataOutputAssociations().add(dataOutputAssociation);
+                    activity.getDataOutputAssociations().addAll(dataOutputAssociation);
                 }
             }
         }

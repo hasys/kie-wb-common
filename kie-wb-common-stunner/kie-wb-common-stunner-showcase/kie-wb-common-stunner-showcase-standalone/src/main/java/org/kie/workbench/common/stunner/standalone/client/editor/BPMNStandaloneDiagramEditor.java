@@ -265,7 +265,9 @@ public class BPMNStandaloneDiagramEditor extends AbstractDiagramEditor {
 
             @Override
             public void onError(final ClientRuntimeError error) {
-                onSaveError(error);
+                resetContentHash();
+                notificationEvent.fire(new NotificationEvent("Diagram wasn't saved, see server log for more details."));
+                hideLoadingViews();
             }
         });
     }

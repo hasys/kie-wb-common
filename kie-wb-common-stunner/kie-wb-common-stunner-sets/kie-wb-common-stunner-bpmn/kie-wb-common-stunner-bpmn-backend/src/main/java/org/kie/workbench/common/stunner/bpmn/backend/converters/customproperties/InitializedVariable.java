@@ -18,6 +18,9 @@ package org.kie.workbench.common.stunner.bpmn.backend.converters.custompropertie
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.bpmn2.Assignment;
 import org.eclipse.bpmn2.DataInput;
@@ -75,24 +78,31 @@ public abstract class InitializedVariable {
             String parentId,
             VariableScope variableScope,
             VariableDeclaration varDecl,
-            AssociationDeclaration associationDeclaration) {
+            List<AssociationDeclaration> associationDeclarations) {
 
-        if (associationDeclaration == null) {
+        if (associationDeclarations == null) {
             return new OutputEmpty(parentId, varDecl);
         }
-        AssociationDeclaration.Type type = associationDeclaration.getType();
-        switch (type) {
-            case FromTo:
-                if (associationDeclaration.getTarget() == null) {
-                    return new OutputEmpty(parentId, varDecl);
-                } else {
-                    throw new IllegalArgumentException("Cannot assign constant to output variable");
-                }
-            case SourceTarget:
-                return new OutputVariableReference(parentId, variableScope, varDecl, associationDeclaration.getTarget());
-            default:
-                throw new IllegalArgumentException("Unknown type " + type);
+        List<String> result = new ArrayList<>();
+        for (AssociationDeclaration declaration : associationDeclarations) {
+            AssociationDeclaration.Type type = declaration.getType();
+            switch (type) {
+                case FromTo:
+                    if (declaration.getTarget() == null) {
+                        result.add(null);
+                    } else {
+                        throw new IllegalArgumentException("Cannot assign constant to output variable");
+                    }
+                    break;
+                case SourceTarget:
+                    result.add(declaration.getTarget());
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown type " + type);
+            }
         }
+
+        return new OutputVariableReference(parentId, variableScope, varDecl, result);
     }
 
     public String getIdentifier() {
@@ -146,7 +156,7 @@ public abstract class InitializedVariable {
             return dataOutput;
         }
 
-        public abstract DataOutputAssociation getDataOutputAssociation();
+        public abstract List<DataOutputAssociation> getDataOutputAssociation();
     }
 
     public static class InputVariableReference extends InitializedInputVariable {
@@ -176,10 +186,10 @@ public abstract class InitializedVariable {
     public static class OutputVariableReference extends InitializedOutputVariable {
 
         private final DataOutput dataOutput;
-        private final String targetVariable;
+        private final List<String> targetVariable;
         private final VariableScope scope;
 
-        public OutputVariableReference(String parentId, VariableScope scope, VariableDeclaration varDecl, String targetVariable) {
+        public OutputVariableReference(String parentId, VariableScope scope, VariableDeclaration varDecl, List<String> targetVariable) {
             super(parentId, varDecl);
             this.scope = scope;
             this.targetVariable = targetVariable;
@@ -194,10 +204,10 @@ public abstract class InitializedVariable {
             return dataOutput;
         }
 
-        public DataOutputAssociation getDataOutputAssociation() {
-            return scope.lookup(targetVariable)
+        public List<DataOutputAssociation> getDataOutputAssociation() {
+            return targetVariable.stream().map(association -> scope.lookup(association)
                     .map(variable -> associationOf(variable.getTypedIdentifier(), dataOutput))
-                    .orElse(null);
+                    .orElse(null)).collect(Collectors.toList());
         }
     }
 
@@ -264,7 +274,7 @@ public abstract class InitializedVariable {
         }
 
         @Override
-        public DataOutputAssociation getDataOutputAssociation() {
+        public List<DataOutputAssociation> getDataOutputAssociation() {
             return null;
         }
     }

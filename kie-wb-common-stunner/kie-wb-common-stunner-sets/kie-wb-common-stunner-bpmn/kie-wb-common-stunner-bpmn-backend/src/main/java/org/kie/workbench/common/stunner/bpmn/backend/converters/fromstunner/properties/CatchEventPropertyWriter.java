@@ -62,9 +62,10 @@ public class CatchEventPropertyWriter extends EventPropertyWriter {
         getOutputSet().getDataOutputRefs().add(dataOutput);
 
         this.addItemDefinition(dataOutput.getItemSubjectRef());
-        DataOutputAssociation dataOutputAssociation = output.getDataOutputAssociation();
-        if (dataOutputAssociation != null) {
-            event.getDataOutputAssociation().add(dataOutputAssociation);
+        List<DataOutputAssociation> dataOutputAssociation = output.getDataOutputAssociation();
+        if (!dataOutputAssociation.isEmpty()) {
+            // Catch event should have at most 1 Output Associations
+            event.getDataOutputAssociation().add(dataOutputAssociation.get(0));
         }
     }
 
