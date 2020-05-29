@@ -26,12 +26,9 @@ import org.kie.workbench.common.stunner.core.definition.property.PropertyMetaTyp
 import org.kie.workbench.common.stunner.core.i18n.StunnerTranslationService;
 import org.kie.workbench.common.stunner.core.util.DefinitionUtils;
 import org.mockito.Mock;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 
 import static org.mockito.Mockito.when;
 
-@PrepareForTest(ClientBindingUtils.class)
 public class AbstractClientBindableAdapterTest {
 
     protected static final String DEFINITION_SET_DESCRIPTION = "DefinitionSet Description";
@@ -80,7 +77,5 @@ public class AbstractClientBindableAdapterTest {
 
         propertiesFieldNames.put(model.getClass(), Stream.of(PROPERTY_NAME).collect(Collectors.toSet()));
         propertyNameFields.put(model.getClass(), PROPERTY_NAME);
-        PowerMockito.mockStatic(ClientBindingUtils.class);
-        PowerMockito.when(ClientBindingUtils.getProxiedValue(model, PROPERTY_NAME)).thenReturn(value);
     }
 }

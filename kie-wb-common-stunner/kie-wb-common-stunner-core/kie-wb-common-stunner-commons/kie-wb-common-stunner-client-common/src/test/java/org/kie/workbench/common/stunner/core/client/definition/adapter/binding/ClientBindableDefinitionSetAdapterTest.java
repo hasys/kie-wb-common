@@ -19,12 +19,12 @@ package org.kie.workbench.common.stunner.core.client.definition.adapter.binding;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
-@RunWith(PowerMockRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ClientBindableDefinitionSetAdapterTest extends AbstractClientBindableAdapterTest {
 
     private ClientBindableDefinitionSetAdapter clientBindableDefinitionSetAdapter;

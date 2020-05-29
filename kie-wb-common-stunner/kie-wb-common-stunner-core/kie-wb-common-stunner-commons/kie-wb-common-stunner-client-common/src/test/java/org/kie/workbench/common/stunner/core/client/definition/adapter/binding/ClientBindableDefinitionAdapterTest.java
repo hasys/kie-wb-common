@@ -16,17 +16,15 @@
 
 package org.kie.workbench.common.stunner.core.client.definition.adapter.binding;
 
-import java.util.Optional;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
-@RunWith(PowerMockRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ClientBindableDefinitionAdapterTest extends AbstractClientBindableAdapterTest {
 
     private ClientBindableDefinitionAdapter clientBindableDefinitionAdapter;
@@ -67,19 +65,5 @@ public class ClientBindableDefinitionAdapterTest extends AbstractClientBindableA
 
         assertEquals(DEFINITION_TITLE,
                      title);
-    }
-
-    @Test
-    public void testGetProperty() {
-        Optional<?> name = clientBindableDefinitionAdapter.getProperty(model, PROPERTY_NAME);
-
-        assertEquals(name.get(), value);
-    }
-
-    @Test
-    public void testGetNameField() {
-        Optional<?> name = clientBindableDefinitionAdapter.getNameField(model);
-
-        assertEquals(name.get(), PROPERTY_NAME);
     }
 }
