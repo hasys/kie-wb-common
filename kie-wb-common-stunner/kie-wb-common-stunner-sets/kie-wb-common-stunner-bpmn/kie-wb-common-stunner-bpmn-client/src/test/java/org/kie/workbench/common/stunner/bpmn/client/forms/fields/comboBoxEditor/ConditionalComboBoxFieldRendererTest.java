@@ -29,28 +29,26 @@ import org.kie.workbench.common.stunner.bpmn.definition.property.task.OnExitActi
 import org.kie.workbench.common.stunner.bpmn.forms.model.ConditionalComboBoxFieldDefinition;
 import org.kie.workbench.common.stunner.bpmn.forms.model.ConditionalComboBoxFieldType;
 import org.kie.workbench.common.stunner.core.client.definition.adapter.binding.ClientBindingUtils;
+import org.kie.workbench.common.stunner.core.client.definition.adapter.binding.ClientBindingUtilsImpl;
 import org.kie.workbench.common.stunner.core.client.i18n.ClientTranslationService;
 import org.kie.workbench.common.stunner.core.definition.adapter.AdapterManager;
 import org.kie.workbench.common.stunner.core.definition.adapter.PropertyAdapter;
-import org.mockito.BDDMockito;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(ClientBindingUtils.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ConditionalComboBoxFieldRendererTest {
 
     @Mock
@@ -78,7 +76,7 @@ public class ConditionalComboBoxFieldRendererTest {
                                                                                                                      adapterManager);
 
     @Test
-    public void refreshFieldCondition() throws Exception {
+    public void refreshFieldCondition() {
         resetMocks();
 
         conditionalComboBoxFieldRenderer.refreshFieldCondition(null);
@@ -94,24 +92,24 @@ public class ConditionalComboBoxFieldRendererTest {
     }
 
     @Test
-    public void init() throws Exception {
+    public void init() {
         resetMocks();
 
         EmbeddedSubprocess embeddedSubprocess = new EmbeddedSubprocess();
         OnEntryAction onEntryAction = embeddedSubprocess.getExecutionSet().getOnEntryAction();
         OnExitAction onExitAction = embeddedSubprocess.getExecutionSet().getOnExitAction();
 
-        //static mock
-        PowerMockito.mockStatic(ClientBindingUtils.class);
-        BDDMockito.given(ClientBindingUtils.getProxiedValue(embeddedSubprocess,
-                                                            "onEntryAction")).willReturn(onEntryAction);
-        BDDMockito.given(ClientBindingUtils.getProxiedValue(embeddedSubprocess,
-                                                            "onExitAction")).willReturn(onExitAction);
+        ClientBindingUtilsImpl bindingUtils = mock(ClientBindingUtilsImpl.class);
+        when(bindingUtils.getProxiedValue(embeddedSubprocess,
+                                          "onExitAction")).thenReturn(onExitAction);
+        when(bindingUtils.getProxiedValue(embeddedSubprocess,
+                                          "onEntryAction")).thenReturn(onEntryAction);
+        ClientBindingUtils.setUtils(bindingUtils);
 
         //instances mock
         when(conditionalComboBoxFieldDefinition.getRelatedField()).thenReturn("onEntryAction;onExitAction");
         when(renderingContext.getModel()).thenReturn(embeddedSubprocess);
-        when(adapterManager.forProperty()).thenReturn(Mockito.mock(PropertyAdapter.class));
+        when(adapterManager.forProperty()).thenReturn(mock(PropertyAdapter.class));
         when(adapterManager.forProperty().getValue(onEntryAction)).thenReturn("value");
         when(adapterManager.forProperty().getValue(onExitAction)).thenReturn("");
 
@@ -139,26 +137,26 @@ public class ConditionalComboBoxFieldRendererTest {
     }
 
     @Test
-    public void initWithDefinitionSet() throws Exception {
+    public void initWithDefinitionSet() {
         resetMocks();
 
         SequenceFlow sequenceFlow = new SequenceFlow();
         SequenceFlowExecutionSet sequenceFlowExecutionSet = sequenceFlow.getExecutionSet();
         ConditionExpression conditionExpression = sequenceFlowExecutionSet.getConditionExpression();
 
-        //static mock
-        PowerMockito.mockStatic(ClientBindingUtils.class);
-        BDDMockito.given(ClientBindingUtils.getProxiedValue(sequenceFlow,
-                                                            "executionSet")).willReturn(sequenceFlowExecutionSet);
-        BDDMockito.given(ClientBindingUtils.getProxiedValue(sequenceFlowExecutionSet,
-                                                            "conditionExpression")).willReturn(conditionExpression);
+        ClientBindingUtilsImpl bindingUtils = mock(ClientBindingUtilsImpl.class);
+        when(bindingUtils.getProxiedValue(sequenceFlow,
+                                          "executionSet")).thenReturn(sequenceFlowExecutionSet);
+        when(bindingUtils.getProxiedValue(sequenceFlowExecutionSet,
+                                          "conditionExpression")).thenReturn(conditionExpression);
+        ClientBindingUtils.setUtils(bindingUtils);
 
         //instances mock
         when(conditionalComboBoxFieldDefinition.getRelatedField()).thenReturn("executionSet.conditionExpression");
         when(renderingContext.getModel()).thenReturn(null);
         when(renderingContext.getParentContext()).thenReturn(renderingContextParent);
         when(renderingContextParent.getModel()).thenReturn(sequenceFlow);
-        when(adapterManager.forProperty()).thenReturn(Mockito.mock(PropertyAdapter.class));
+        when(adapterManager.forProperty()).thenReturn(mock(PropertyAdapter.class));
 
         when(adapterManager.forProperty().getValue(conditionExpression)).thenReturn("value");
         conditionalComboBoxFieldRenderer.init(renderingContext,
@@ -182,8 +180,8 @@ public class ConditionalComboBoxFieldRendererTest {
     }
 
     @Test
-    public void getName() throws Exception {
-        Assert.assertEquals(conditionalComboBoxFieldRenderer.getName(),
-                            ConditionalComboBoxFieldType.NAME);
+    public void getName() {
+        Assert.assertEquals(ConditionalComboBoxFieldType.NAME,
+                            conditionalComboBoxFieldRenderer.getName());
     }
 }

@@ -31,17 +31,16 @@ import org.jboss.errai.databinding.client.api.DataBinder;
 
 public class ClientBindingUtils {
 
-    private static Logger LOGGER = Logger.getLogger(ClientBindingUtils.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ClientBindingUtils.class.getName());
+    private static ClientBindingUtilsImpl utils = new ClientBindingUtilsImpl();
+
+    private ClientBindingUtils() {
+    }
 
     @SuppressWarnings("unchecked")
     public static <T, R> R getProxiedValue(final T pojo,
                                            final String fieldName) {
-        R result = null;
-        if (null != pojo && null != fieldName) {
-            HasProperties hasProperties = (HasProperties) DataBinder.forModel(pojo).getModel();
-            result = (R) hasProperties.get(fieldName);
-        }
-        return result;
+        return utils.getProxiedValue(pojo, fieldName);
     }
 
     @SuppressWarnings("unchecked")
@@ -57,7 +56,6 @@ public class ClientBindingUtils {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     public static <T, V> void setProxiedValue(final T pojo,
                                               final String fieldName,
                                               final V value) {
@@ -85,7 +83,6 @@ public class ClientBindingUtils {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     public static <T, R> R merge(final T source,
                                  final R target) {
         if (null != source) {
@@ -105,10 +102,15 @@ public class ClientBindingUtils {
                                        "BindableAdapterUtils#merge - Skipping merge property [" + pId + "]");
                         }
                     }
-                    return (R) target;
+                    return target;
                 }
             }
         }
         return null;
+    }
+
+    // For tests purposes to mock static methods
+    public static void setUtils(ClientBindingUtilsImpl u) {
+        utils = u;
     }
 }
