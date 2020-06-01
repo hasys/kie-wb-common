@@ -557,7 +557,7 @@ public class NotificationEditorWidgetViewImpl extends Composite implements Notif
         return matcher.getGroup(1);
     }
 
-    void ok() {
+    protected void ok() {
         // TODO looks like errai data binder doesn't support liststore widgets.
         current.setUsers(multipleLiveSearchSelectionHandlerUsers.getSelectedValues());
         current.setGroups(multipleLiveSearchSelectionHandlerGroups.getSelectedValues());
@@ -582,7 +582,7 @@ public class NotificationEditorWidgetViewImpl extends Composite implements Notif
         errorDivPanel.innerHTML = violations.stream().map(v -> "* " + v.getMessage()).collect(Collectors.joining("\n"));
     }
 
-    void hide() {
+    protected void hide() {
         //clear widgets and set default values
         multipleSelectorInputUsers.setValue(Collections.EMPTY_LIST);
         multipleSelectorInputGroups.setValue(Collections.EMPTY_LIST);
