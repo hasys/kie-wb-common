@@ -16,12 +16,16 @@
 
 package org.kie.workbench.common.stunner.core.client.definition.adapter.binding;
 
+import java.util.Optional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,8 +38,8 @@ public class ClientBindableDefinitionAdapterTest extends AbstractClientBindableA
     public void init() {
         super.init();
 
-        clientBindableDefinitionAdapter = new ClientBindableDefinitionAdapter(definitionUtils,
-                                                                              translationService);
+        clientBindableDefinitionAdapter = spy(new ClientBindableDefinitionAdapter(definitionUtils,
+                                                                                  translationService));
 
         clientBindableDefinitionAdapter.setBindings(metaPropertyTypeClasses,
                                                     baseTypes,
@@ -48,6 +52,7 @@ public class ClientBindableDefinitionAdapterTest extends AbstractClientBindableA
                                                     propertyCategoryFieldNames,
                                                     propertyDescriptionFieldNames,
                                                     propertyNameFields);
+        doReturn(value).when(clientBindableDefinitionAdapter).getProxiedValue(model, PROPERTY_NAME);
     }
 
     @Test
@@ -65,5 +70,12 @@ public class ClientBindableDefinitionAdapterTest extends AbstractClientBindableA
 
         assertEquals(DEFINITION_TITLE,
                      title);
+    }
+
+    @Test
+    public void testGetNameField() {
+        Optional<?> name = clientBindableDefinitionAdapter.getNameField(model);
+
+        assertEquals(name.get(), PROPERTY_NAME);
     }
 }

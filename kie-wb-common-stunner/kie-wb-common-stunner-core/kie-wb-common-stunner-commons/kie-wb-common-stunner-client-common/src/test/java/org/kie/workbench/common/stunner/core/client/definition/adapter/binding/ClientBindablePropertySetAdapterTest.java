@@ -16,12 +16,16 @@
 
 package org.kie.workbench.common.stunner.core.client.definition.adapter.binding;
 
+import java.util.Optional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,8 +38,9 @@ public class ClientBindablePropertySetAdapterTest extends AbstractClientBindable
     public void init() {
         super.init();
 
-        clientBindablePropertySetAdapter = new ClientBindablePropertySetAdapter(translationService);
+        clientBindablePropertySetAdapter = spy(new ClientBindablePropertySetAdapter(translationService));
         clientBindablePropertySetAdapter.setBindings(propertyNameFields, propertiesFieldNames);
+        doReturn(value).when(clientBindablePropertySetAdapter).getProxiedValue(model, PROPERTY_NAME);
     }
 
     @Test
@@ -46,5 +51,12 @@ public class ClientBindablePropertySetAdapterTest extends AbstractClientBindable
 
         assertEquals(PROPERTY_SET_NAME,
                      description);
+    }
+
+    @Test
+    public void testGetProperty() {
+        Optional<?> name = clientBindablePropertySetAdapter.getProperty(model, PROPERTY_NAME);
+
+        assertEquals(name.get(), value);
     }
 }
