@@ -109,7 +109,7 @@ class ClientBindableDefinitionAdapter
                                fieldName);
     }
 
-    protected <T, R> R getProxiedValue(final T pojo,
+    <T, R> R getProxiedValue(final T pojo,
                                        final String fieldName) {
         return ClientBindingUtils.getProxiedValue(pojo,
                                                   fieldName);
